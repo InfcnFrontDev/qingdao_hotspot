@@ -1,0 +1,12 @@
+{
+  "name": "qingdao_hotspot",
+  "description": "",
+  "version": "1.0.0",
+  "homepage": "http://192.168.10.158/InfcnFrontDev/qingdao_hotspot",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "underscore": "^1.8.3"
+  }
+}

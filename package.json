@@ -1,0 +1,25 @@
+{
+  "name": "qingdao_hotspot",
+  "version": "1.0.0",
+  "description": "青岛热点（政民互动数据分析）",
+  "main": "",
+  "scripts": {
+    "clean": "gulp clean",
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^6.5.1",
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0",
+    "gulp-postcss": "^6.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.10",
+    "precss": "^1.4.0"
+  }
+}

@@ -1,0 +1,38 @@
+* {
+  font-family: "Microsoft Yahei";
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body {
+  font-family: "Microsoft Yahei";
+}
+
+body a {
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+:-webkit-full-screen a {
+  display: -webkit-box;
+  display: flex;
+}
+
+:-moz-full-screen a {
+  display: flex;
+}
+
+:-ms-fullscreen a {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:fullscreen a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/*# sourceMappingURL=maps/layout.css.map */
