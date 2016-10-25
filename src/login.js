@@ -3,4 +3,4 @@
  */
 import Tools from './common/tools'
 
-alert(Tools.byteToGB(10000));
+alert(Tools.byteToGB(10000000));

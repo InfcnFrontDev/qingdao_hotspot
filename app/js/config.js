@@ -1,11 +1,1 @@
-/**
- * Configuration
- */
-
-var Config = {
-    debug: false,
-    devtools: false,
-    silent: true
-
-
-};
+var Config={debug:!1,devtools:!1,silent:!0};

@@ -1,1 +1,0 @@
-{"version":3,"sources":["layout.scss"],"names":[],"mappings":"AAAA;EACE,+BAA+B;EAC/B,gBAAgB;EAChB,UAAU;EACV,WAAW;CACZ","file":"../layout.css","sourcesContent":["* {\r\n  font-family: \"Microsoft Yahei\";\r\n  font-size: 10px;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n"]}

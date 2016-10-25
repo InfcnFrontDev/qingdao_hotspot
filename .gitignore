@@ -2,4 +2,8 @@
 *.log
 *.DS_Store
 node_modules/
+dist/
 npm-debug.log*
+
+app/js/login.js
+app/js/main.js

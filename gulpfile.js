@@ -10,6 +10,9 @@ const bsReload = browserSync.reload;
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const sass = require('gulp-sass');
+const uglify = require('gulp-uglify');
+const minifycss = require('gulp-minify-css');
+const rename = require('gulp-rename');
 
 var webpackConfig = {
     resolve: {
@@ -55,19 +58,14 @@ var webpackConfig = {
     }
 };
 
-// clean
-gulp.task('clean', function () {
-    del(['dist/']);
-});
-
-// clean
+// dev
 gulp.task('dev', function () {
-    runSequence('sass', 'sass:watch', 'es6', 'es6:watch', 'server')
+    runSequence(['sass', 'es6'], ['sass:watch', 'es6:watch'], 'server')
 });
 
 // build
 gulp.task('build', function () {
-    runSequence('sass', 'es6')
+    runSequence(['sass', 'es6'], ['js:build', 'css:build'])
 });
 
 gulp.task('server', function () {
@@ -105,4 +103,16 @@ gulp.task('es6', function () {
 
 gulp.task('es6:watch', function () {
     gulp.watch('./src/**/*.{vue,js}', ['es6']);
+});
+
+gulp.task('js:build', function () {
+    gulp.src(['./app/js/**/*.js', '!./app/js/**/*-min.js'])
+        .pipe(uglify())
+        .pipe(gulp.dest('./app/js'));
+});
+
+gulp.task('css:build', function () {
+    gulp.src(['./app/css/**/*.css', '!./app/css/**/*-min.css'])
+        .pipe(minifycss())
+        .pipe(gulp.dest('./app/css'));
 });
