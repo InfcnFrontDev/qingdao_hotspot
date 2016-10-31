@@ -2,8 +2,6 @@
 *.log
 *.DS_Store
 node_modules/
-dist/
+app/
 npm-debug.log*
-
-app/js/login.js
-app/js/main.js
+/bower_components/

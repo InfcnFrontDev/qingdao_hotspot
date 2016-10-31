@@ -1,0 +1,27 @@
+html
+    head
+        meta(charset='UTF-8')
+        title 民情社情分析
+        link(rel='stylesheet', href='vendor/iconfont/iconfont.css')
+        script(src='vendor/jquery/dist/jquery.min.js')
+        link(rel='stylesheet', href='vendor/layui/css/layui.css')
+        script(src='vendor/layui/layui.js')
+        script(src='vendor/layui/lay/dest/layui.all.js')
+        link(rel='stylesheet', href='css/all.css')
+    body
+        // header start
+        include header
+        // header end
+
+        // content start
+        block content
+        // content end
+
+        // footer start
+        include footer
+        // footer end
+
+        // public script
+        script(src="js/common.js")
+        // private script
+        block script

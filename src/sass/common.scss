@@ -1,0 +1,203 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: 微软雅黑,'Microsoft YaHei';
+}
+
+code, kbd, pre, samp {
+  font-family: 'Microsoft YaHei', couriernew, courier, monospace;
+}
+
+small {
+  font-size: 12px;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  color: #184e99;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+sup {
+  vertical-align: text-top;
+}
+
+sub {
+  vertical-align: text-bottom;
+}
+
+legend {
+  color: #000;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  outline: none;
+}
+
+html, body {
+  height: 100%
+}
+
+.clear {
+  clear: both;
+}
+
+/*============蒙版===============*/
+
+.loradMb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+}
+
+.liu-lorad {
+  width: 368px;
+  height: 310px;
+  background: white;
+  border-top: 2px solid #104597;
+  border-right: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+}
+
+.liu-title {
+  overflow: hidden;
+  font-size: 16px;
+  color: #104597;
+  height: 28px;
+  line-height: 28px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 4px 8px;
+
+}
+
+.liu-title img {
+  float: right;
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.liuyanb {
+  width: 328px;
+  height: 170px;
+  border: 1px solid #e8e8e8;
+  margin: 20px 20px;
+  padding: 10px 10px;
+}
+
+/*搜索栏*/
+.search-box {
+  width: 510px;
+  height: 38px;
+  margin: 0px auto;
+  padding: 20px 0;
+  .search-text {
+    width: 375px;
+    height: 36px;
+    border: 1px solid #114598;
+    float: left;
+  }
+  .search-button {
+    padding: 0;
+    marign: 0;
+    width: 131px;
+    height: 36px;
+    font-size: 16px;
+    border: none;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+  }
+}
+
+/*地址栏*/
+.indicate-mark {
+  height: 36px;
+  line-height: 36px;
+  color: #4d4852;
+  padding-bottom: 2px;
+  a {
+    color: #999;
+    margin: 0 5px;
+    img {
+      margin-right: 2px;
+    }
+  }
+}
+
+/*公共按钮*/
+.btn {
+  display: inline-block;
+  background: #104597;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn-lg {
+  height: 35px;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-size: 18px;
+}
+
+.btn-md {
+  height: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 16px;
+}
+
+.btn-xs {
+  height: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+}
+
+.linkbtn {
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+  vertical-align: middle;
+  img {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+  span {
+    vertical-align: middle;
+  }
+  i {
+    margin-right: 3px;
+  }
+}

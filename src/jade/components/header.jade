@@ -1,0 +1,35 @@
+.header
+    .h-middle
+        .h-user
+            .h-user-bar
+                span 你好，
+                span.user-menu
+                    | 丁丁
+                    img(src='images/arrows.png', alt='')
+                    ul
+                        li
+                            a.linkbtn.linkbtn-modify-pass(href="javascript:;")
+                                i.iconfont &#xe63e;
+                                | 修改密码
+                        li
+                            a.linkbtn.linkbtn-leave-msg(href="javascript:;")
+                                i.iconfont &#xe62b;
+                                | 我要留言
+                        li
+                            a.linkbtn.linkbtn-exit(href="javascript:;")
+                                i.iconfont &#xe610;
+                                | 退出
+        .h-logo
+            a(href="/")
+                img(src='images/LOGO.png', alt='')
+            img(src='images/line.png', alt='')
+            img(src='images/LIBRARY.png', alt='')
+        .h-ad
+            h2 中天东方大学互联网+创就业与企业创意创新国外教育资源平台
+            p AIRITILIBRARY台湾学术文献数据库由科学数据库及人社数据库组成，是台湾收录量最大
+    .layer-leave-msg
+        form.layui-form
+            .layui-form-item
+                input.layui-input(type='text', name='title', lay-verify='title', autocomplete='off', placeholder='请输入标题')
+            .layui-form-item
+                textarea.layui-textarea(placeholder='请输入内容')
