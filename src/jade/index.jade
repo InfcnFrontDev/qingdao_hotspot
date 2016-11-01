@@ -15,6 +15,7 @@ html
 
         // content start
         .floatbox
+            img(src="../images/lan-jiantou.png")
             h1 打开数据库
             p 担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费
         .nav
@@ -24,28 +25,41 @@ html
                     li 新增（本月）：78条
                     li
                         | 时间选择：
-                        select
-                            option(value='1') 时间选择
-                            option(value='2') 时间选择
+                        form.layui-form
+                            .layui-input-block.title-time
+                                select(name='interest', lay-filter='shijianduan')
+                                    option(value='1') 1天内
+                                    option(value='2') 3天内
+                                    option(value='3') 7天内
+                                    option(value='4') 30天内
+
                     li
                         | 区间选择
-                        select
-                            option(value='1') 时间选择
-                            option(value='2') 时间选择
+                        form.layui-form
+                            .layui-input-block.title-time.title-qujian1
+                                select(name='interest', lay-filter='qujian1')
+                                    option(value='1') 20160301
+                                    option(value='2') 20160302
+                                    option(value='3') 20160303
+                                    option(value='4') 20160304
                         |                     至
-                        select
-                            option(value='1') 时间选择
-                            option(value='2') 时间选择
+                        form.layui-form
+                            .layui-input-block.title-time.title-qujian2
+                                select(name='interest', lay-filter='qujian2')
+                                    option(value='1') 20160304
+                                    option(value='2') 20160505
+                                    option(value='3') 20160306
+                                    option(value='4') 20160507
                     li
-                        button 确定
+                        button.layui-btn.layui-btn-primary.layui-btn-small  确定
         .content
             .content-box.container
                 .option-btn.row
                     .col-xs-6
-                        .btn-left.click-color
+                        .btn-left.click-color.btn-qiehuan
                             | 热点主题
                     .col-xs-6
-                        .btn-right
+                        .btn-right.btn-qiehuan
                             | 异常变动主题
                 .option-content.container.row
                     .theme-word.col-xs-3
@@ -53,7 +67,7 @@ html
                             | 热点主题词
                             span
                                 form.layui-form
-                                    .layui-input-block
+                                    .layui-input-block.lt-layui
                                         select(name='interest', lay-filter='aihao')
                                             option(value='0') 10
                                             option(value='1') 20
@@ -106,8 +120,46 @@ html
                                         span.left 1
                                         |                                     环保
                                         span.right 22
-
-
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
                     .theme-content
                         .gauge-outfit.row
                             .col-xs-8
@@ -174,8 +226,7 @@ html
                                         | 2016-01-01 12:20
                                     .col-c.col-xs-2
                                         | 市政信箱
-                        .page
-
+                        #page
 
 
         // content end
