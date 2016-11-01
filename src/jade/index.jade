@@ -10,18 +10,180 @@ html
         link(rel='stylesheet', href='css/all.css')
     body
         // header start
-        include header
+        include components/header
         // header end
 
         // content start
-        block content
+        .floatbox
+            h1 打开数据库
+            p 担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费
+        .nav
+            .nav-content.container
+                ul.nav-ul
+                    li 总数据：678条
+                    li 新增（本月）：78条
+                    li
+                        | 时间选择：
+                        select
+                            option(value='1') 时间选择
+                            option(value='2') 时间选择
+                    li
+                        | 区间选择
+                        select
+                            option(value='1') 时间选择
+                            option(value='2') 时间选择
+                        |                     至
+                        select
+                            option(value='1') 时间选择
+                            option(value='2') 时间选择
+                    li
+                        button 确定
+        .content
+            .content-box.container
+                .option-btn.row
+                    .col-xs-6
+                        .btn-left.click-color
+                            | 热点主题
+                    .col-xs-6
+                        .btn-right
+                            | 异常变动主题
+                .option-content.container.row
+                    .theme-word.col-xs-3
+                        .theme-title
+                            | 热点主题词
+                            span
+                                form.layui-form
+                                    .layui-input-block
+                                        select(name='interest', lay-filter='aihao')
+                                            option(value='0') 10
+                                            option(value='1') 20
+                                            option(value='2') 30
+                                            option(value='3') 40
+                                            option(value='4') 50
+                                            option(value='5') 全部
+                        .little-title
+                            ul.lt-ul
+                                li.lt-li
+                                    a(href='' style="margin-left:10px;")
+                                        span.left
+                                            img(src="images/qw.png")
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left
+                                            img(src="images/qw.png")
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left
+                                            img(src="images/qw.png")
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+                                li
+                                    a(href='')
+                                        span.left 1
+                                        |                                     环保
+                                        span.right 22
+
+
+                    .theme-content
+                        .gauge-outfit.row
+                            .col-xs-8
+                                | 问政内容
+                            .col-xs-2
+                                | 问政部门
+                            .col-xs-2
+                                | 问政时间
+                        .wenzhang-con
+                            ul.wenzhang-ul
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                                li.row
+                                    .col-a.col-xs-8
+                                        p 问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫
+                                    .col-b.col-xs-2
+                                        | 2016-01-01 12:20
+                                    .col-c.col-xs-2
+                                        | 市政信箱
+                        .page
+
+
+
         // content end
 
         // footer start
-        include footer
+        include components/footer
         // footer end
 
         // public script
-        script(src="js/common.js")
-        // private script
-        block script
+        script(src='vendor/vue/dist/vue.min.js')
+        script(src="js/index.js")
