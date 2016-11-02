@@ -74,3 +74,4 @@ $('.wenzhang-ul li').hover(function(){
 },function(){
     $(this).css('background','#fff');
 })
+$.parser.parse('lt-ul');

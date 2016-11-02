@@ -74,89 +74,13 @@ html
                                             option(value='5') 全部
                         .little-title
                             ul.lt-ul
+                            each item,j in ["监控","空间","发个","讨厌"]
                                 li.lt-li
                                     a(href='' style="margin-left:10px;")
                                         span.left
                                             img(src="images/qw.png")
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left
-                                            img(src="images/qw.png")
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left
-                                            img(src="images/qw.png")
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
-                                li
-                                    a(href='')
-                                        span.left 1
-                                        |                                     环保
-                                        span.right 22
+                                        | #{item}
+                                        span.right  #{j+1}
                     .theme-content
                         .gauge-outfit.row
                             .col-xs-8
