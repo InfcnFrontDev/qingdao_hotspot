@@ -24,7 +24,6 @@ var webpackConfig = {
     resolve: {
         root: path.join(__dirname, 'node_modules'),
         alias: {
-            common: path.join(__dirname, "src/common"),
             static: path.join(__dirname, "src/static")
         },
         extensions: ['', '.js', '.vue', '.scss', '.css']
