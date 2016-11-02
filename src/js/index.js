@@ -74,11 +74,7 @@ $('.wenzhang-ul li').hover(function(){
 },function(){
     $(this).css('background','#fff');
 })
-<<<<<<< HEAD
-$.parser.parse('lt-ul');
-=======
 
 $( ".datepicker" ).datepicker({
     dateFormat: 'yy-mm-dd'
 });
->>>>>>> 534dd11e3efc38c54d7022f70f4c666e79e17144
