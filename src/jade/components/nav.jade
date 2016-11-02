@@ -1,0 +1,25 @@
+.nav
+    .nav-content.layui-form.wid1200
+        .fleft
+            .nav-label 总数据 :
+            .nav-text 678条
+            .nav-label 新增(本月) :
+            .nav-text 78条
+        .fright
+            .nav-label 时间选择 :
+            .nav-select.last-select
+                select(name='interest', lay-filter='shijianduan')
+                    option(value='1') 1天内
+                    option(value='3') 3天内
+                    option(value='7') 7天内
+                    option(value='30') 30天内
+                    option(value='') 选择时间
+            .nav-label 区间选择 :
+            .nav-select.date-select
+                input#startDate.datepicker(type="text")
+            .nav-label 至
+            .nav-select.date-select
+                input#endDate.datepicker(type="text")
+            .nav-button
+                button.layui-btn.layui-btn-primary  确定
+        .clear

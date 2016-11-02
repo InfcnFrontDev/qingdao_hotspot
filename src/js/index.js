@@ -1,5 +1,5 @@
 new Vue({
-    el: '#app',
+    el: 'body',
     data: {
         message: 'Hello Vue.js!',
         words: [],
@@ -74,3 +74,7 @@ $('.wenzhang-ul li').hover(function(){
 },function(){
     $(this).css('background','#fff');
 })
+
+$( ".datepicker" ).datepicker({
+    dateFormat: 'yy-mm-dd'
+});
