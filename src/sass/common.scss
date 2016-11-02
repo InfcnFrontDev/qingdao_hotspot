@@ -317,6 +317,12 @@ html, body {
   float:left;
   position:relative;
 }
+.wenzhang-ul li .col-a p{
+  width:100%;
+  overflow: hidden; /*自动隐藏文字*/
+  text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+  white-space: nowrap;/*强制不换行*/
+}
 
 .wenzhang-ul li .col-xs-2{
   text-align: center;
@@ -329,10 +335,6 @@ html, body {
 .col-b,.col-c{
   float:right;
 }
-.wenzhang-ul li:hover{
-  background:#ecfbff;
-}
-
 #page{
   width:100%;
   height:55px;
@@ -351,10 +353,10 @@ html, body {
   border-right:1px solid #dde5f2;
   padding:16px 26px;
   position:absolute;
-  background:#f6f9fe;
+  background:#e4eef8;
   z-index: 1000;
   border-top:2px solid #0077dd;
-  left:200px;
+  left:110px;
   top:38px;
 }
 .floatbox img{
