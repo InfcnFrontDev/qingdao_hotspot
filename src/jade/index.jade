@@ -3,10 +3,8 @@ html
         meta(charset='UTF-8')
         title 民情社情分析
         link(rel='stylesheet', href='vendor/iconfont/iconfont.css')
-        script(src='vendor/jquery/dist/jquery.min.js')
         link(rel='stylesheet', href='vendor/layui/css/layui.css')
-        script(src='vendor/layui/layui.js')
-        script(src='vendor/layui/lay/dest/layui.all.js')
+        link(rel='stylesheet', href='vendor/perfect-scrollbar/css/perfect-scrollbar.min.css')
         link(rel='stylesheet', href='css/all.css')
     body
         // header start
@@ -72,7 +70,7 @@ html
                                             option(value='3') 40
                                             option(value='4') 50
                                             option(value='5') 全部
-                        .little-title
+                        .little-title.ps-words
                             ul.lt-ul
                                 li.lt-li
                                     a(href='' style="margin-left:10px;")
@@ -265,5 +263,9 @@ html
         // footer end
 
         // public script
+        script(src='vendor/jquery/dist/jquery.min.js')
         script(src='vendor/vue/dist/vue.min.js')
+        script(src='vendor/layui/layui.js')
+        script(src='vendor/layui/lay/dest/layui.all.js')
+        script(src='vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')
         script(src="js/index.js")
