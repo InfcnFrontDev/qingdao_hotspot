@@ -183,3 +183,16 @@ gulp.task('vendor:watch', function () {
             .pipe(gulp.dest(paths.distDir));
     });
 });
+
+// views
+gulp.task('views', function () {
+    return gulp.src('src/views/**/*.*')
+        .pipe(gulp.dest('app/'));
+});
+gulp.task('views:watch', function () {
+    watch('src/views/**/*.*', function (event) {
+        var paths = watchPath(event, 'src/views/', 'app/');
+        return gulp.src(paths.srcPath)
+            .pipe(gulp.dest(paths.distDir));
+    });
+});
