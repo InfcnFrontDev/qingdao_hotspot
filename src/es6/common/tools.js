@@ -157,21 +157,25 @@ export default {
 
     //
     getWords(data){
-        return [
-            {name:'教育', size: 234},
-            {name:'教育', size: 234},
-            {name:'教育', size: 234},
-            {name:'教育', size: 234}
-        ]
+        var arr=[];
+        for(var i=0; i<data.length; i++){
+            var obj={};
+            obj={name:data[i].name,size:data[i].size};
+            arr.push(obj);
+        }
+        return arr;
     },
 
     //
     listPage(list, pageSize, pageIndex){
-        return [
-            {name:'教育', size: 234},
-            {name:'教育', size: 234},
-            {name:'教育', size: 234}
-        ]
+        var arr=[];
+        var pagenum=pageIndex-1;
+        for(var i=0; i<pageSize; i++){
+            var dai=parseInt(pagenum*pageSize)+parseInt(i)
+            arr.push(list[dai])
+        }
+        console.log(arr);
+        return arr;
     }
 
 
