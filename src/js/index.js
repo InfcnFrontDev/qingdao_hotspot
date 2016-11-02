@@ -60,3 +60,17 @@ layui.use('flow', function() {
         }
     });
 })*/
+$('.lt-ul li').hover(function(){
+    $(this).css('background','#c9d5f7');
+    $(this).children().css('color','#fff');
+    $(this).find('span').css('color','#fff')
+},function(){
+    $(this).css('background','#fff');
+    $(this).children().css('color','#7b7d7c');
+    $(this).find('span').css('color','#7b7d7c')
+});
+$('.wenzhang-ul li').hover(function(){
+    $(this).css('background','#d7f4fc');
+},function(){
+    $(this).css('background','#fff');
+})
