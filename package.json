@@ -10,7 +10,10 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "vue": "^1.0.15",
+    "vue-resource": "^1.0.1"
+  },
   "devDependencies": {
     "autoprefixer": "^6.2.3",
     "autoprefixer-loader": "^3.2.0",
