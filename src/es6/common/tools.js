@@ -153,7 +153,29 @@ export default {
             }
         }
         return obj;
+    },
+
+    //
+    getWords(data){
+        return [
+            {name:'教育', size: 234},
+            {name:'教育', size: 234},
+            {name:'教育', size: 234},
+            {name:'教育', size: 234}
+        ]
+    },
+
+    //
+    listPage(list, pageSize, pageIndex){
+        return [
+            {name:'教育', size: 234},
+            {name:'教育', size: 234},
+            {name:'教育', size: 234}
+        ]
     }
+
+
+
 
 
 }

@@ -13,6 +13,5 @@ new Vue({
         }
     },
     ready(){
-      alert('')
     }
 });
