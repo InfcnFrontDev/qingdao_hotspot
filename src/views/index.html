@@ -75,9 +75,9 @@
                         </div>
                         <div class="wenzhang-list">
                             <div id="{{item._id}}" class="w-item" v-for="item in pageDocs" @mouseover="showSummary(item._id)" @click="openUrl(item.pageurl)">
-                                <div class="col-xs-7">
+                                <div class="col-xs-7 col-title">
                                     <div class="w-title">{{item.title}}
-                                        <span title="有{{item.sames&&item.sames.length}}个一样的内容。" v-show="item.sames">{{item.sames&&item.sames.length}}</span>
+                                        <span title="有{{item.sames&&item.sames.length}}个同样内容。" v-show="item.sames">{{item.sames&&item.sames.length}}</span>
                                     </div>
                                 </div>
                                 <div class="col-xs-2">

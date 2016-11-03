@@ -161,7 +161,7 @@ new Vue({
                             //'<h1>简介:</h1>' +
                             '<p>' + result.obj.answer.substring(0, 150) + '</p>' +
                             '</div>';
-                        $('#' + id).append(div);
+                        $('#' + id).find('.col-title').append(div);
                     }
                 }, this.showError)
             }
