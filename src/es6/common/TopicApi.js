@@ -35,9 +35,18 @@ export default {
         let url = apiPath() + '/QingDaoTopicApi/count';
         return newPromise(url)
     },
-    topic(startDate, endDate,size,sortByFreq) {
-        let url = apiPath() + '/QingDaoTopicApi/topic';
-        url += '?startDate=' + startDate+'&endDate='+ endDate+'&size='+ size+'&sortByFreq='+sortByFreq;
+    /**
+     * 获取问政数据
+     */
+    topic(startDate, endDate, size, sortByFreq) {
+        let url = apiPath() + '/QingDaoTopicApi/topic?startDate=' + startDate + '&endDate=' + endDate + '&size=' + size + '&sortByFreq=' + sortByFreq;
+        return newPromise(url)
+    },
+    /**
+     * 获取详细
+     */
+    findById(id){
+        let url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
         return newPromise(url)
     }
 }

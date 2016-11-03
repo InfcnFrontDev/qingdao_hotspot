@@ -1,13 +1,15 @@
 /*头部*/
-.wid1200{
+.wid1200 {
   width: 1000px;
   margin: 0 auto;
 }
+
 .header {
   width: 100%;
   height: 90px;
   background: url(../images/backbar.jpg) repeat-x;
 }
+
 .header-content {
   height: 90px;
   /*margin:0 auto;*/
@@ -21,6 +23,7 @@
   font-weight: 900;
   vertical-align: middle;
 }
+
 /*底部*/
 .footer {
   width: 100%;
@@ -50,7 +53,10 @@
   padding: 10px 0;
 
   .fleft {
-    padding: 7px;
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
   }
 
   .nav-label {
@@ -80,7 +86,8 @@
     width: 140px;
     input {
       width: 100%;
-      height: 38px;
+      height: 30px;
+      line-height: 30px;
       border: 0;
       border-radius: 2px;
       padding-left: 5px;
@@ -131,7 +138,6 @@
 }
 
 .option-content {
-  overflow: hidden;
   min-height:568px;
   position: relative;
   .loding-img{
@@ -144,7 +150,6 @@
       margin:auto;
     }
   }
-
 }
 .datacolor{
   background: #f0f5fb;
@@ -208,10 +213,10 @@
         color: #fff;
         font-weight: bold;
       }
-      .s-center{
+      .s-center {
         margin-left: 4px;
       }
-      .s-right{
+      .s-right {
         display: inline-block;
         width: 100%;
         text-align: center;
@@ -223,7 +228,12 @@
       color: #184E99;
       border-bottom: 1px solid #dde5f2;
     }
-
+    .selected {
+      background: #ECFBFF;
+      color: #184E99;
+      font-weight: bold;
+      border-bottom: 1px solid #dde5f2;
+    }
   }
 }
 
@@ -258,11 +268,20 @@
     position: relative;
 
     .w-title {
-      width: 90%;
+      width: 85%;
       padding-left: 10px;
       overflow: hidden; /*自动隐藏文字*/
       text-overflow: ellipsis; /*文字隐藏后添加省略号*/
       white-space: nowrap; /*强制不换行*/
+      span {
+        background: red;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 10px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0 5px;
+      }
     }
     .w-unit {
       padding-left: 10px;
@@ -325,6 +344,11 @@
   ul li:hover {
     background-color: #ECFBFF;
   }
+}
+
+.layui-input, .layui-btn {
+  height: 30px;
+  line-height: 30px;
 }
 
 // 覆盖 ui-datepicker
