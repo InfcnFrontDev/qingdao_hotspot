@@ -89,6 +89,9 @@
 }
 
 /*内容*/
+.wrap-outer {
+  margin-left: calc(100vw - 100%);
+}
 .content {
   width: 100%;
   background: #f0f5fb;
@@ -129,8 +132,26 @@
 
 .option-content {
   overflow: hidden;
-}
+  min-height:568px;
+  position: relative;
+  .loding-img{
+    img{
+     position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      margin:auto;
+    }
+  }
 
+}
+.datacolor{
+  background: #f0f5fb;
+}
+.intwhite{
+  background: #fff;
+}
 .theme-word {
   box-sizing: border-box;
 }

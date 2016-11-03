@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="vendor/jquery-ui/themes/redmond/jquery-ui.min.css" />
     <link rel="stylesheet" href="css/all.css" />
 </head>
-<body>
+<body class="wrap-outer">
     <!-- header start-->
     <div class="header">
         <div class="header-content wid1200"><img src="images/logo.png" /><span>民政互动数据分析</span></div>
@@ -37,7 +37,7 @@
     <!-- header end-->
     <!-- content start-->
     <div class="content">
-        <div class="content-box wid1200">
+        <div class="content-box wid1200 ">
             <div class="row option-btn">
                 <div class="col-xs-6">
                     <div class="btn-qiehuan" :class="{'selected': sortByFreq}" @click="sortByFreq=true">热点主题</div>
@@ -46,8 +46,8 @@
                     <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
-            <div class="row option-content">
-                <div class="col-xs-3">
+            <div class="row option-content" :class="{ 'intwhite': isw, 'datacolor': isc }" >
+                <div class="col-xs-3" v-show="contentshow">
                     <div class="theme-word">
                         <div class="theme-title">
                             <div class="col-xs-6 text-left">热点主题词</div>
@@ -65,8 +65,8 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-9">
+                </div >
+                <div class="col-xs-9" v-show="contentshow">
                     <div class="wenzhang-content">
                         <div class="wenzhang-title">
                             <div class="col-xs-7"><span>问政内容</span></div>
@@ -93,6 +93,9 @@
                         </div>
                         <div id="page"></div>
                     </div>
+                </div>
+                <div class="loding-img" v-show="lodingshow">
+                    <img src="../images/loding.gif" alt="">
                 </div>
             </div>
         </div>

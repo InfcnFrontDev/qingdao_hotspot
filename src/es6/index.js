@@ -22,7 +22,12 @@ new Vue({
             sortByFreq: true,
 
             words: undefined,
-            page: 1
+            page: 1,
+            lodingshow:false,
+            contentshow:true,
+            isc:true,
+            isw:false
+
 
         }
     },
@@ -79,16 +84,26 @@ new Vue({
     },
     methods: {
         update(){
+            this.lodingshow=true;
+            this.contentshow=false;
+            this.isw=true;
+            this.isc=false;
             let $this = this;
             TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
                 if (result.ok) {
                     $this.topicData = result.obj;
+                    $this.lodingshow=false;
+                    $this.contentshow=true;
+                    $this.isw=false;
+                    $this.isc=true;
                 }
+
             }, function (error) {
                 console.log(error)
             })
         },
         listPage(list, pageSize, pageIndex){
+
             var arr = [];
             var pagenum = pageIndex - 1;
             for (var i = 0; i < pageSize; i++) {
