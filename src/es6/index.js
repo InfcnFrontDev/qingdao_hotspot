@@ -24,6 +24,7 @@ new Vue({
             words: undefined,
             page: 1
 
+
         }
     },
     watch: {
@@ -84,18 +85,33 @@ new Vue({
                 if (result.ok) {
                     $this.topicData = result.obj;
                 }
+                $this.topicData[0].docs=$this.listPage($this.topicData[0].docs,$this.size,$this.page);
+                console.log(abc);
             }, function (error) {
                 console.log(error)
             })
         },
         listPage(list, pageSize, pageIndex){
-            var arr = [];
-            var pagenum = pageIndex - 1;
-            for (var i = 0; i < pageSize; i++) {
-                var dai = parseInt(pagenum * pageSize) + parseInt(i)
-                arr.push(list[dai])
+            console.log(list.length);
+            var arr=[];
+            var pagenum=pageIndex-1;
+            var zuihou=pageIndex-Math.floor(list.length/pageSize)
+            if(pageIndex>Math.ceil(list.length/pageSize)){
+                return undefined;
             }
-            console.log(arr);
+            if(pageSize*pageIndex>list.length&zuihou==1){
+                var listindex=Math.floor(list.length/pageSize)*pageSize
+                list=list.slice(listindex,list.length);
+                return list;
+            }
+            if(pageSize<list.length&pageIndex<=Math.ceil(list.length/pageSize)){
+                for(var i=0; i<pageSize; i++){
+                    var dai=parseInt(pagenum*pageSize)+parseInt(i)
+                    arr.push(list[dai])
+                }
+            }else{
+                return list;
+            }
             return arr;
         }
     }
