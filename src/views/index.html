@@ -46,8 +46,8 @@
                     <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
-            <div class="row option-content" :class="{ 'intwhite': isw, 'datacolor': isc }" >
-                <div class="col-xs-3" v-show="contentshow">
+            <div class="row option-content"  v-show="!loading && !nodata">
+                <div class="col-xs-3">
                     <div class="theme-word">
                         <div class="theme-title">
                             <div class="col-xs-6 text-left">热点主题词</div>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div >
-                <div class="col-xs-9" v-show="contentshow">
+                <div class="col-xs-9">
                     <div class="wenzhang-content">
                         <div class="wenzhang-title">
                             <div class="col-xs-7"><span>问政内容</span></div>
@@ -92,11 +92,12 @@
                         <div id="page"></div>
                     </div>
                 </div>
-                <div class="loding-img" v-show="lodingshow">
-                    <img src="../images/loding.gif" alt="">
-                </div>
                 <div class="clear"></div>
             </div>
+            <div class="row loding-img other" v-show="loading">
+                <img src="../images/loding.gif" alt="">
+            </div>
+            <div class="row no-data other" v-show="nodata">no data！{{!loading && !nodata}}</div>
         </div>
     </div>
     <!-- content end-->

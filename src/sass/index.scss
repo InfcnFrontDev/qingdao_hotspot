@@ -139,16 +139,18 @@
 
 .option-content {
   min-height:568px;
+}
+.other{
+  min-height:568px;
+  background: #fff;
   position: relative;
-  .loding-img{
-    img{
-     position: absolute;
-      top:0;
-      left:0;
-      right:0;
-      bottom:0;
-      margin:auto;
-    }
+  img{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
   }
 }
 .datacolor{

@@ -27,10 +27,8 @@ new Vue({
             page: 1,
             pageDocs: [], // 分页后内容列表
 
-            lodingshow:false,
-            contentshow:true,
-            isc:true,
-            isw:false
+            loading:false,
+            nodata:false
 
 
         }
@@ -79,7 +77,7 @@ new Vue({
         updateDate(val){
             if (val != '') {
                 // 初始化时间区间，默认30天内
-                let date1, date2 = new Date(2015, 9, 1);
+                let date1, date2 = new Date();
                 date1 = Tools.dateAdd(date2, -(val * 24 * 60 * 60));
                 this.startDate = Tools.dateFormat(date1, Tools.yyyyMMdd_);
                 this.endDate = Tools.dateFormat(date2, Tools.yyyyMMdd_);
@@ -89,27 +87,25 @@ new Vue({
         },
         // 更新数据
         update(){
-            this.lodingshow=true;
-            this.contentshow=false;
             this.isw=true;
             this.isc=false;
             let $this = this;
-            //#loding show
+
+            this.loading=true;
+            this.nodata = false;
             TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
-                //#loding hide
-                if (result.ok) {
+                $this.loading=false;
+
+                if (result.obj) {
                     $this.topicData = result.obj;
-
-                    $this.lodingshow=false;
-                    $this.contentshow=true;
-                    $this.isw=false;
-                    $this.isc=true;
-
                     $this.searchWord();
+                }else{
+                    $this.nodata = true;
                 }
                 //layer.msg("success", {icon: 6});
             }, function (error) {
-                //#loding hide
+                $this.loading=false;
+
                 console.log(error);
                 layer.msg("error", {icon: 5});
             })
