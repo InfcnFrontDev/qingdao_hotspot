@@ -67,10 +67,10 @@ var webpackConfig = {
 gulp.task('clean', function () {
 });
 gulp.task('dev', function () {
-    runSequence(['sass', 'es6', 'js', 'jade', 'images', 'vendor'], ['sass:watch', 'es6:watch', 'js:watch', 'jade:watch', 'images:watch', 'vendor:watch'], 'server')
+    runSequence(['sass', 'es6', 'jade'], ['images', 'vendor', 'js', 'views'], ['sass:watch', 'es6:watch', 'js:watch', 'jade:watch', 'images:watch', 'vendor:watch', 'views:watch'], 'server')
 });
 gulp.task('build', function () {
-    runSequence(['sass', 'es6', 'js', 'jade', 'images', 'vendor'])
+    runSequence([['sass', 'es6', 'jade'], ['images', 'vendor', 'js', 'views']])
 });
 
 // server

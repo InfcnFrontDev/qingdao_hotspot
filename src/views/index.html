@@ -18,18 +18,18 @@
         <div class="nav-content layui-form wid1200">
             <div class="fleft">
                 <div class="nav-label">总数据 :</div>
-                <div class="nav-text">678条</div>
+                <div class="nav-text">{{countData.total||0}}条</div>
                 <div class="nav-label">新增(本月) :</div>
-                <div class="nav-text">78条</div>
+                <div class="nav-text">{{countData.newTotal||0}}条</div>
             </div>
             <div class="fright">
                 <div class="nav-label">时间选择 :</div>
-                <div class="nav-select last-select"><select name="interest" lay-filter="shijianduan"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30">30天内</option><option value="">选择时间</option></select></div>
+                <div class="nav-select last-select"><select v-model="lastDay" lay-filter="shijianduan"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30">30天内</option><option value="">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
-                <div class="nav-select date-select"><input id="startDate" type="text" class="datepicker" /></div>
+                <div class="nav-select date-select"><input v-model="startDate" type="text" class="datepicker" /></div>
                 <div class="nav-label">至</div>
-                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker" /></div>
-                <div class="nav-button"><button class="layui-btn layui-btn-primary"> 确定</button></div>
+                <div class="nav-select date-select"><input v-model="endDate" type="text" class="datepicker" /></div>
+                <div class="nav-button"><button class="layui-btn layui-btn-primary" @click="update()"> 确定</button></div>
             </div>
             <div class="clear"></div>
         </div>
@@ -40,10 +40,10 @@
         <div class="content-box wid1200">
             <div class="row option-btn">
                 <div class="col-xs-6">
-                    <div class="btn-qiehuan">热点主题</div>
+                    <div class="btn-qiehuan" :class="{'selected': sortByFreq}" @click="sortByFreq=true">热点主题</div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="btn-qiehuan selected">异常变动主题</div>
+                    <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
             <div class="row option-content">
@@ -57,125 +57,10 @@
                         </div>
                         <div class="theme-words">
                             <ul class="words-list">
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left s-hot">1</span></div>
-                                    <div class="col-xs-8"><span class="s-center">习近平</span></div>
-                                    <div class="col-xs-2"><span class="s-right">1</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left s-hot">2</span></div>
-                                    <div class="col-xs-8"><span class="s-center">会见</span></div>
-                                    <div class="col-xs-2"><span class="s-right">2</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left s-hot">3</span></div>
-                                    <div class="col-xs-8"><span class="s-center">洪秀柱</span></div>
-                                    <div class="col-xs-2"><span class="s-right">3</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">4</span></div>
-                                    <div class="col-xs-8"><span class="s-center">谈了这几点</span></div>
-                                    <div class="col-xs-2"><span class="s-right">4</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">5</span></div>
-                                    <div class="col-xs-8"><span class="s-center">非常重要</span></div>
-                                    <div class="col-xs-2"><span class="s-right">5</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">6</span></div>
-                                    <div class="col-xs-8"><span class="s-center">两岸同胞</span></div>
-                                    <div class="col-xs-2"><span class="s-right">6</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">7</span></div>
-                                    <div class="col-xs-8"><span class="s-center">带来了</span></div>
-                                    <div class="col-xs-2"><span class="s-right">7</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">8</span></div>
-                                    <div class="col-xs-8"><span class="s-center">许多实实在在</span></div>
-                                    <div class="col-xs-2"><span class="s-right">8</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">9</span></div>
-                                    <div class="col-xs-8"><span class="s-center">利益</span></div>
-                                    <div class="col-xs-2"><span class="s-right">9</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">10</span></div>
-                                    <div class="col-xs-8"><span class="s-center">公道自在人心</span></div>
-                                    <div class="col-xs-2"><span class="s-right">10</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">11</span></div>
-                                    <div class="col-xs-8"><span class="s-center">国共两党</span></div>
-                                    <div class="col-xs-2"><span class="s-right">11</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">12</span></div>
-                                    <div class="col-xs-8"><span class="s-center">两岸关系</span></div>
-                                    <div class="col-xs-2"><span class="s-right">12</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">13</span></div>
-                                    <div class="col-xs-8"><span class="s-center">和平发展</span></div>
-                                    <div class="col-xs-2"><span class="s-right">13</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">14</span></div>
-                                    <div class="col-xs-8"><span class="s-center">作出的贡献</span></div>
-                                    <div class="col-xs-2"><span class="s-right">14</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">15</span></div>
-                                    <div class="col-xs-8"><span class="s-center">已经写在历史上</span></div>
-                                    <div class="col-xs-2"><span class="s-right">15</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">16</span></div>
-                                    <div class="col-xs-8"><span class="s-center">习近平强调</span></div>
-                                    <div class="col-xs-2"><span class="s-right">16</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">17</span></div>
-                                    <div class="col-xs-8"><span class="s-center">命运共同体</span></div>
-                                    <div class="col-xs-2"><span class="s-right">17</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">18</span></div>
-                                    <div class="col-xs-8"><span class="s-center">确保国家完整</span></div>
-                                    <div class="col-xs-2"><span class="s-right">18</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">19</span></div>
-                                    <div class="col-xs-8"><span class="s-center">不被分裂</span></div>
-                                    <div class="col-xs-2"><span class="s-right">19</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">20</span></div>
-                                    <div class="col-xs-8"><span class="s-center">维护中华民族</span></div>
-                                    <div class="col-xs-2"><span class="s-right">20</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">21</span></div>
-                                    <div class="col-xs-8"><span class="s-center">根本利益</span></div>
-                                    <div class="col-xs-2"><span class="s-right">21</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">22</span></div>
-                                    <div class="col-xs-8"><span class="s-center">全体中华儿女</span></div>
-                                    <div class="col-xs-2"><span class="s-right">22</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">23</span></div>
-                                    <div class="col-xs-8"><span class="s-center">共同意志</span></div>
-                                    <div class="col-xs-2"><span class="s-right">23</span></div>
-                                </li>
-                                <li>
-                                    <div class="col-xs-2"><span class="s-left">24</span></div>
-                                    <div class="col-xs-8"><span class="s-center">民族复兴</span></div>
-                                    <div class="col-xs-2"><span class="s-right">24</span></div>
+                                <li v-for="item in topicData">
+                                    <div class="col-xs-2"><span class="s-left" :class="{' s-hot': $index<3}">{{$index+1}}</span></div>
+                                    <div class="col-xs-8"><span class="s-center">{{item.name}}</span></div>
+                                    <div class="col-xs-2"><span class="s-right">{{item.size}}</span></div>
                                 </li>
                             </ul>
                         </div>
@@ -189,121 +74,9 @@
                             <div class="col-xs-3"><span>问政时间</span></div>
                         </div>
                         <div class="wenzhang-list">
-                            <div class="w-item">
+                            <div class="w-item" v-for="item in docs">
                                 <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
-                            </div>
-                            <div class="w-item">
-                                <div class="col-xs-7">
-                                    <div class="w-title">问政就付款的时间看快点击发的水电费水电费水电费水电费水电费违法士大夫法士大夫规定和风格的话</div>
+                                    <div class="w-title">{{item.title}}</div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="w-unit">市政信箱</div>
@@ -336,6 +109,6 @@
     <script src="vendor/layui/lay/dest/layui.all.js"></script>
     <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/es6.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

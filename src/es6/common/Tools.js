@@ -112,33 +112,6 @@ export default {
     byteToKB: b=>b / 1024,
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
-    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
-
-    //
-    getWords(data){
-        var arr=[];
-        for(var i=0; i<data.length; i++){
-            var obj={};
-            obj={name:data[i].name,size:data[i].size};
-            arr.push(obj);
-        }
-        return arr;
-    },
-
-    //
-    listPage(list, pageSize, pageIndex){
-        var arr=[];
-        var pagenum=pageIndex-1;
-        for(var i=0; i<pageSize; i++){
-            var dai=parseInt(pagenum*pageSize)+parseInt(i)
-            arr.push(list[dai])
-        }
-        console.log(arr);
-        return arr;
-    }
-
-
-
-
+    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024
 
 }
