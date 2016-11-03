@@ -110,6 +110,8 @@ new Vue({
                     this.wordDocs = this.topicData[0].docs;
                     this.word = this.topicData[0].name;
                 }
+                // 去空
+                this.wordDocs  = this.wordDocs.filter(d => d._id);
             }
 
             let $this = this;
@@ -131,7 +133,9 @@ new Vue({
             let pagenum = pageIndex - 1;
             for (let i = 0; i < this.pageSize; i++) {
                 let dai = parseInt(pagenum * this.pageSize) + parseInt(i)
-                docs.push(list[dai])
+                if (dai < list.length) {
+                    docs.push(list[dai]);
+                }
             }
             this.pageDocs = docs;
         },
@@ -142,7 +146,7 @@ new Vue({
                     if (result.ok) {
                         let div = '<div class="w-jianjie"><img src="../images/lan-jiantou.png" />' +
                             //'<h1>简介:</h1>' +
-                            '<p>' + result.obj.answer.substring(0,150) + '</p>' +
+                            '<p>' + result.obj.answer.substring(0, 150) + '</p>' +
                             '</div>';
                         $('#' + id).append(div);
                     }
