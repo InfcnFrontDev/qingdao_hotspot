@@ -140,7 +140,7 @@
 .option-content {
   min-height:568px;
 }
-.other{
+.loading{
   min-height:568px;
   background: #fff;
   position: relative;
@@ -152,6 +152,11 @@
     bottom:0;
     margin:auto;
   }
+}
+.nodata{
+  min-height:568px;
+ font-size: 16px;
+
 }
 .datacolor{
   background: #f0f5fb;
