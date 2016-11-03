@@ -24,7 +24,7 @@
             </div>
             <div class="fright">
                 <div class="nav-label">时间选择 :</div>
-                <div class="nav-select last-select"><select v-model="lastDay" lay-filter="shijianduan"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30">30天内</option><option value="">选择时间</option></select></div>
+                <div class="nav-select last-select"><select id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
                 <div class="nav-select date-select"><input v-model="startDate" type="text" class="datepicker" /></div>
                 <div class="nav-label">至</div>
@@ -52,13 +52,13 @@
                         <div class="theme-title">
                             <div class="col-xs-6 text-left">热点主题词</div>
                             <div class="col-xs-6 layui-form">
-                                <div class="topn"><select name="interest" lay-filter="aihao"><option value="0">10</option><option value="1">20</option><option value="2">30</option><option value="3">40</option><option value="4">50</option></select></div>
+                                <div class="topn"><select lay-filter="size"><option value="10" selected="selected">10</option><option value="20">20</option><option value="20">30</option><option value="40">40</option><option value="50">50</option></select></div>
                             </div>
                         </div>
                         <div class="theme-words">
                             <ul class="words-list">
-                                <li v-for="item in topicData">
-                                    <div class="col-xs-2"><span class="s-left" :class="{' s-hot': $index<3}">{{$index+1}}</span></div>
+                                <li v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                    <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">{{$index+1}}</span></div>
                                     <div class="col-xs-8"><span class="s-center">{{item.name}}</span></div>
                                     <div class="col-xs-2"><span class="s-right">{{item.size}}</span></div>
                                 </li>
@@ -74,9 +74,11 @@
                             <div class="col-xs-3"><span>问政时间</span></div>
                         </div>
                         <div class="wenzhang-list">
-                            <div class="w-item" v-for="item in docs">
+                            <div id="{{item._id}}" class="w-item" v-for="item in pageDocs" @mouseover="showSummary(item._id)" @click="openUrl(item.pageurl)">
                                 <div class="col-xs-7">
-                                    <div class="w-title">{{item.title}}</div>
+                                    <div class="w-title">{{item.title}}
+                                        <span title="有{{item.sames&&item.sames.length}}个一样的内容。" v-show="item.sames">{{item.sames&&item.sames.length}}</span>
+                                    </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="w-unit">市政信箱</div>
@@ -85,15 +87,12 @@
                                     <div class="w-datetime">2016-01-01 12:20</div>
                                 </div>
                                 <div class="clear"></div>
-                                <div class="w-jianjie"><img src="../images/lan-jiantou.png" />
-                                    <h1>简介:</h1>
-                                    <p>担惊受恐夸奖对方开始考多少积分加快速度附近安宽带缴费</p>
-                                </div>
                             </div>
                         </div>
                         <div id="page"></div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
