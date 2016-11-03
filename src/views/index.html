@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="vendor/jquery-ui/themes/redmond/jquery-ui.min.css" />
     <link rel="stylesheet" href="css/all.css" />
 </head>
-<body class="wrap-outer">
+<body>
     <!-- header start-->
     <div class="header">
         <div class="header-content wid1200"><img src="images/logo.png" /><span>民政互动数据分析</span></div>
@@ -46,7 +46,7 @@
                     <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
-            <div class="row option-content"  v-show="!loading && !nodata">
+            <div class="row option-content hidden"  v-show="!loading && !nodata">
                 <div class="col-xs-3">
                     <div class="theme-word">
                         <div class="theme-title">
