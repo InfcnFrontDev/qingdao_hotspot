@@ -13,10 +13,6 @@ export default {
     HHmm: 'HHmm',
     HHmm_: 'HH:mm',
 
-    /**
-     * yyyyMMddHHmm 转 HH:mm
-     */
-    dateToHHmm: date=>date.substring(8, 10) + ':' + date.substring(10, 12),
     dateFormat: function (date, formatStr) {
         var str = formatStr || this.yyyyMMddHHmm;
         var Week = ['日', '一', '二', '三', '四', '五', '六'];
@@ -117,43 +113,6 @@ export default {
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
     byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
-    byteMbToGB: b=>b / 1024 / 1024,
-
-    //
-    formatter: function (params, unit) {
-        if (!(params instanceof Array)) {
-            return undefined;
-        }
-
-        let name = params[0].name,
-            value0 = params[0].value;
-
-        if (value0 == undefined)
-            return undefined;
-
-        let str = name + '<br />';
-
-        for (let i in params) {
-            str += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:'
-                + params[i].color
-                + '"></span>'
-                + params[i].seriesName + ': '
-                + params[i].value + ' ' + unit + '<br />';
-        }
-
-        return str;
-    },
-
-    // json对象合并
-    extends: function (...objs) {
-        let obj = {};
-        for (let i in objs) {
-            for (let [key, value] of objs[i]) {
-                obj[key] = value;
-            }
-        }
-        return obj;
-    },
 
     //
     getWords(data){
