@@ -157,7 +157,7 @@ new Vue({
             if ($('#' + id).find('.w-jianjie').length == 0) {
                 TopicApi.findById(id).then(function (result) {
                     if (result.ok) {
-                        let div = '<div class="w-jianjie"><img src="../images/lan-jiantou.png" />' +
+                        let div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
                             //'<h1>简介:</h1>' +
                             '<p>' + result.obj.answer.substring(0, 150) + '</p>' +
                             '</div>';
