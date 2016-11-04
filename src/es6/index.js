@@ -178,9 +178,14 @@ new Vue({
             if ($('#' + id).find('.w-jianjie').length == 0) {
                 TopicApi.findById(id).then(function (result) {
                     if (result.ok) {
+
+                        let question = result.obj.question;
+                        if (question.length > 120) {
+                            question = question.substring(0, 120) + '...';
+                        }
+
                         let div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
-                            //'<h1>简介:</h1>' +
-                            '<p>' + result.obj.question.substring(0, 124) + '</p>' +
+                            '<p>' + question + '</p>' +
                             '</div>';
                         $('#' + id).find('.col-title').append(div);
                     }

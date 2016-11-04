@@ -346,15 +346,6 @@
       border-top: 2px solid #0077dd;
       left: 70px;
       top: 42px;
-      p{
-        position: relative; line-height: 25px; max-height: 120px;overflow: hidden;
-      }
-      p::after{content: "...";
-        background: -webkit-linear-gradient(left, transparent, #e4eef8 55%);
-        background: -o-linear-gradient(right, transparent, #e4eef8 55%);
-        background: -moz-linear-gradient(right, transparent, #e4eef8 55%);
-        background: linear-gradient(to right, transparent, #e4eef8 55%);
-      }
 
       img {
         position: absolute;
