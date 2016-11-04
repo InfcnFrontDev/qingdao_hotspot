@@ -75,7 +75,7 @@ new Vue({
     methods: {
         // 选择最n天内，更新时间段
         updateDate(val){
-            if (val != '') {
+            if (val != '-') {
                 // 初始化时间区间，默认30天内
                 let date1, date2 = new Date();
                 date1 = Tools.dateAdd(date2, -(val * 24 * 60 * 60));
@@ -95,6 +95,7 @@ new Vue({
             this.nodata = false;
             TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
                 $this.loading=false;
+                $('.option-content').removeClass('hidden');
 
                 if (result.obj) {
                     $this.topicData = result.obj;
@@ -156,11 +157,11 @@ new Vue({
             if ($('#' + id).find('.w-jianjie').length == 0) {
                 TopicApi.findById(id).then(function (result) {
                     if (result.ok) {
-                        let div = '<div class="w-jianjie"><img src="../images/lan-jiantou.png" />' +
+                        let div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
                             //'<h1>简介:</h1>' +
                             '<p>' + result.obj.answer.substring(0, 150) + '</p>' +
                             '</div>';
-                        $('#' + id).append(div);
+                        $('#' + id).find('.col-title').append(div);
                     }
                 }, this.showError)
             }

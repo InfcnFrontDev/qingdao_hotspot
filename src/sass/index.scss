@@ -96,9 +96,7 @@
 }
 
 /*内容*/
-.wrap-outer {
-  margin-left: calc(100vw - 100%);
-}
+
 .content {
   width: 100%;
   background: #f0f5fb;
@@ -138,24 +136,26 @@
 }
 
 .option-content {
-  min-height:568px;
+  min-height: 568px;
 }
-.loading{
-  min-height:568px;
+
+.loading {
+  min-height: 568px;
   background: #fff;
   position: relative;
-  img{
+  img {
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    margin:auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
   }
 }
-.nodata{
-  min-height:568px;
- font-size: 16px;
+
+.nodata {
+  min-height: 568px;
+  font-size: 16px;
 
 }
 .theme-word {
@@ -265,8 +265,19 @@
     cursor: pointer;
     border-bottom: 1px solid #dde5f2;
     color: #7c7c7c;
-    padding: 15px 0;
-    position: relative;
+    line-height: 50px;
+
+    .col-title {
+      position: relative;
+      .w-jianjie {
+        line-height: 25px;
+      }
+    }
+    .col-title:hover {
+      .w-jianjie {
+        display: block;
+      }
+    }
 
     .w-title {
       width: 85%;
@@ -284,6 +295,7 @@
         padding: 0 5px;
       }
     }
+
     .w-unit {
       padding-left: 10px;
       color: #9A9A9A;
@@ -318,9 +330,6 @@
     background: #ECFBFF;
     color: #184E99;
     border-bottom: 1px solid #dde5f2;
-    .w-jianjie {
-      display: block;
-    }
   }
 }
 
