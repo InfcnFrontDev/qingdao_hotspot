@@ -88,7 +88,6 @@ new Vue({
 
         // 初始时间段设置
         this.updateDate(this.lastDay);
-        console.log(jQuery.support.cors)
     },
     methods: {
         // 选择最n天内，更新时间段
@@ -129,7 +128,8 @@ new Vue({
                 $this.loading = false;
 
                 console.log(error);
-                layer.msg("error", {icon: 5});
+                let obj = JSON.parse(error.responseText)
+                layer.msg(obj.message, {icon: 5});
             })
         },
         // 选择主题词
@@ -189,15 +189,15 @@ new Vue({
                             '</div>';
                         $('#' + id).find('.col-title').append(div);
                     }
-                }, this.showError)
+                }, function (error) {
+                    console.log(error);
+                    let obj = JSON.parse(error.responseText)
+                    layer.msg(obj.message, {icon: 5});
+                })
             }
         },
         openUrl(url){
             window.open(url);
-        },
-        // 显示错误信息
-        showError(error){
-            console.log(error)
         }
     }
 });
