@@ -27,17 +27,17 @@
         <div class="nav-content layui-form wid1200">
             <div class="fleft">
                 <div class="nav-label">总数据 :</div>
-                <div class="nav-text">{{countData.total||0}}条</div>
+                <div class="nav-text">{{countData.total}}条</div>
                 <div class="nav-label">新增(本月) :</div>
-                <div class="nav-text">{{countData.newTotal||0}}条</div>
+                <div class="nav-text">{{countData.newTotal}}条</div>
             </div>
             <div class="fright">
                 <div class="nav-label">时间选择 :</div>
                 <div class="nav-select last-select"><select id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
-                <div class="nav-select date-select"><input v-model="startDate" type="text" class="datepicker" /></div>
+                <div class="nav-select date-select"><input v-model="startDate" type="text" class="datepicker" readonly="readonly"/></div>
                 <div class="nav-label">至</div>
-                <div class="nav-select date-select"><input v-model="endDate" type="text" class="datepicker" /></div>
+                <div class="nav-select date-select"><input v-model="endDate" type="text" class="datepicker" readonly="readonly" /></div>
                 <div class="nav-button"><button class="layui-btn layui-btn-primary" @click="update()"> 确定</button></div>
             </div>
             <div class="clear"></div>
@@ -59,8 +59,8 @@
                 <div class="col-xs-3">
                     <div class="theme-word">
                         <div class="theme-title">
-                            <div class="col-xs-6 text-left">热点主题词</div>
-                            <div class="col-xs-6 layui-form">
+                            <div class="col-xs-8 text-left">{{sortByFreqText}}</div>
+                            <div class="col-xs-4 layui-form">
                                 <div class="topn"><select lay-filter="size"><option value="10" selected="selected">10</option><option value="20">20</option><option value="20">30</option><option value="40">40</option><option value="50">50</option></select></div>
                             </div>
                         </div>
@@ -90,10 +90,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <div class="w-unit">市政信箱</div>
+                                    <div class="w-unit">{{item.units}}</div>
                                 </div>
                                 <div class="col-xs-3">
-                                    <div class="w-datetime">2016-01-01 12:20</div>
+                                    <div class="w-datetime">{{item.question_time | datetime}}</div>
                                 </div>
                                 <div class="clear"></div>
                             </div>
