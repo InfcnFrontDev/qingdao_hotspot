@@ -12,7 +12,7 @@
 <body>
     <!-- header start-->
     <div class="header">
-        <div class="header-content wid1200"><img src="images/logo.png" /><span>民政互动数据分析</span></div>
+        <div class="header-content wid1200"><img src="images/logo.png" /><span>政民互动数据分析</span></div>
     </div>
     <!-- header end-->
     <!-- header start-->
@@ -33,7 +33,6 @@
                 <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker"  readonly="readonly"/></div>
                 <div class="nav-button"><button class="layui-btn layui-btn-primary" @click="update()"> 确定</button></div>
             </div>
-            <div class="clear"></div>
         </div>
     </div>
     <!-- header end-->
@@ -83,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <div class="w-unit">{{item.units}}</div>
+                                    <div class="w-unit" title="{{item.units}}">{{item.units}}</div>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="w-datetime">{{item.question_time | datetime}}</div>
