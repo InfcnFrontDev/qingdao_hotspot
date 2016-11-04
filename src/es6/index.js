@@ -88,7 +88,6 @@ new Vue({
 
         // 初始时间段设置
         this.updateDate(this.lastDay);
-        console.log(jQuery.support.cors)
     },
     methods: {
         // 选择最n天内，更新时间段
