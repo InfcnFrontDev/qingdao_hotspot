@@ -43,7 +43,6 @@ new Vue({
     },
     ready(){
         let $this = this;
-
         // 监听下拉列表select事件
         layui.form().on('select(lastDay)', function (data) {
             $this.updateDate(data.value);
@@ -71,6 +70,7 @@ new Vue({
 
         // 初始时间段设置
         this.updateDate(this.lastDay);
+        console.log(jQuery.support.cors)
     },
     methods: {
         // 选择最n天内，更新时间段

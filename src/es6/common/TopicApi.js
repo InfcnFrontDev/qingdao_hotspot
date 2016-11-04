@@ -1,4 +1,4 @@
-let $ajax = function (url, success, error) {
+let $ajax = function (url, success, error) { 
     $.ajax({
         url: url,
         cache: false,
