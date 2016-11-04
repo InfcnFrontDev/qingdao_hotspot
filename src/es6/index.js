@@ -147,7 +147,14 @@ new Vue({
                     this.word = this.topicData[0].name;
                 }
                 // 去空
-                this.wordDocs = this.wordDocs.filter(d => d._id);
+                //this.wordDocs = this.wordDocs.filter(d => d._id);
+
+                this.wordDocs.forEach( d => {
+                    if(d._id){
+                    }else{
+                        console.log(d)
+                    }
+                });
             }
 
             let $this = this;
