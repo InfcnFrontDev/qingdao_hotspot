@@ -1,4 +1,5 @@
 let $ajax = function (url, success, error) {
+    jQuery.support.cors = true;
     $.ajax({
         url: url,
         cache: false,

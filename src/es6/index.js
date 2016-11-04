@@ -1,11 +1,17 @@
 import Vue from 'vue'
 
-Vue.config.debug = true;            // 只有开发版本可以使用调试模式。
-Vue.config.devtools = false;      // 配置是否允许 vue-devtools 检查代码
-Vue.config.silent = false;          // 取消 Vue.js 所有的日志与警告。
+Vue.config.debug = Config.debug;            // 只有开发版本可以使用调试模式。
+Vue.config.devtools = Config.devtools;      // 配置是否允许 vue-devtools 检查代码
+Vue.config.silent = Config.silent;          // 取消 Vue.js 所有的日志与警告。
+
 
 import TopicApi from './common/TopicApi'
 import Tools from './common/Tools'
+
+
+Vue.filter('datetime', function (value) {
+    return Tools.dateFormat(new Date(value), Tools.yyyyMMddHHmm_);
+})
 
 new Vue({
     el: 'body',
@@ -21,20 +27,20 @@ new Vue({
             size: 10,
             sortByFreq: true,
 
-            pageSize: 8,
+            pageSize: Config.pageSize,
             word: undefined,
             wordDocs: [], // 全部内容列表
             page: 1,
             pageDocs: [], // 分页后内容列表
 
-            loading:false,
-            nodata:false
-
-
+            loading: false,
+            nodata: false,
+            sortByFreqText: '热点主题词'
         }
     },
     watch: {
         'sortByFreq': function (val, oldVal) {
+            this.sortByFreqText = val ? '热点主题词' : '异常变动主题词';
             this.update();
         },
         'size': function (val, oldVal) {
@@ -87,25 +93,25 @@ new Vue({
         },
         // 更新数据
         update(){
-            this.isw=true;
-            this.isc=false;
+            this.isw = true;
+            this.isc = false;
             let $this = this;
 
-            this.loading=true;
+            this.loading = true;
             this.nodata = false;
             TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
-                $this.loading=false;
+                $this.loading = false;
                 $('.option-content').removeClass('hidden');
 
                 if (result.obj) {
                     $this.topicData = result.obj;
                     $this.searchWord();
-                }else{
+                } else {
                     $this.nodata = true;
                 }
                 //layer.msg("success", {icon: 6});
             }, function (error) {
-                $this.loading=false;
+                $this.loading = false;
 
                 console.log(error);
                 layer.msg("error", {icon: 5});
@@ -124,7 +130,7 @@ new Vue({
                     this.word = this.topicData[0].name;
                 }
                 // 去空
-                this.wordDocs  = this.wordDocs.filter(d => d._id);
+                this.wordDocs = this.wordDocs.filter(d => d._id);
             }
 
             let $this = this;
@@ -159,7 +165,7 @@ new Vue({
                     if (result.ok) {
                         let div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
                             //'<h1>简介:</h1>' +
-                            '<p>' + result.obj.answer.substring(0, 150) + '</p>' +
+                            '<p>' + result.obj.question.substring(0, 150) + '</p>' +
                             '</div>';
                         $('#' + id).find('.col-title').append(div);
                     }
