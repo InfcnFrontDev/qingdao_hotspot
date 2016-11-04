@@ -35,6 +35,8 @@ new Vue({
 
             loading: false,
             nodata: false,
+            error: true,
+            errorMessage: '',
             sortByFreqText: '热点主题词'
         }
     },
@@ -113,6 +115,7 @@ new Vue({
 
             this.loading = true;
             this.nodata = false;
+            this.error = false;
             TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
                 $this.loading = false;
                 $('.option-content').removeClass('hidden');
@@ -123,12 +126,12 @@ new Vue({
                 } else {
                     $this.nodata = true;
                 }
-                //layer.msg("success", {icon: 6});
             }, function (error) {
                 $this.loading = false;
 
-                console.log(error);
-                layer.msg("error", {icon: 5});
+                let obj = JSON.parse(error.responseText)
+                $this.error = true;
+                $this.errorMessage = obj.message;
             })
         },
         // 选择主题词
@@ -188,15 +191,13 @@ new Vue({
                             '</div>';
                         $('#' + id).find('.col-title').append(div);
                     }
-                }, this.showError)
+                }, function (error) {
+                    console.log(error);
+                })
             }
         },
         openUrl(url){
             window.open(url);
-        },
-        // 显示错误信息
-        showError(error){
-            console.log(error)
         }
     }
 });

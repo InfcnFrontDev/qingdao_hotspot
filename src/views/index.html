@@ -47,7 +47,7 @@
                     <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
-            <div class="row option-content hidden"  v-show="!loading && !nodata">
+            <div class="row option-content hidden"  v-show="!loading && !nodata && !error">
                 <div class="col-xs-3">
                     <div class="theme-word">
                         <div class="theme-title">
@@ -99,6 +99,7 @@
                 <img src="images/loding.gif" alt="">
             </div>
             <div class="row nodata" v-show="nodata">暂无相关数据！</div>
+            <div class="row error" v-show="error">{{errorMessage}}</div>
         </div>
     </div>
     <!-- content end-->
