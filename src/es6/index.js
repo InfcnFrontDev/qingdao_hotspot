@@ -165,7 +165,7 @@ new Vue({
                     if (result.ok) {
                         let div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
                             //'<h1>简介:</h1>' +
-                            '<p>' + result.obj.question.substring(0, 150) + '</p>' +
+                            '<p>' + result.obj.question.substring(0, 124) + '</p>' +
                             '</div>';
                         $('#' + id).find('.col-title').append(div);
                     }
