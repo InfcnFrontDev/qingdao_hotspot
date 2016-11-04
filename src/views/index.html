@@ -8,13 +8,6 @@
     <link rel="stylesheet" href="vendor/layui/css/layui.css" />
     <link rel="stylesheet" href="vendor/jquery-ui/themes/redmond/jquery-ui.min.css" />
     <link rel="stylesheet" href="css/all.css" />
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 <body>
     <!-- header start-->
@@ -35,9 +28,9 @@
                 <div class="nav-label">时间选择 :</div>
                 <div class="nav-select last-select"><select id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
-                <div class="nav-select date-select"><input v-model="startDate" type="text" class="datepicker" readonly="readonly"/></div>
+                <div class="nav-select date-select"><input id="startDate" type="text" class="datepicker" readonly="readonly"/></div>
                 <div class="nav-label">至</div>
-                <div class="nav-select date-select"><input v-model="endDate" type="text" class="datepicker"  readonly="readonly"/></div>
+                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker"  readonly="readonly"/></div>
                 <div class="nav-button"><button class="layui-btn layui-btn-primary" @click="update()"> 确定</button></div>
             </div>
             <div class="clear"></div>

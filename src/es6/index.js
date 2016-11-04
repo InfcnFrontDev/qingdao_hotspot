@@ -59,11 +59,23 @@ new Vue({
         });
 
         // 初始化日期控件
-        $(".datepicker").datepicker({
+        $("#startDate").datepicker({
             dateFormat: 'yy-mm-dd',
             onSelect: function (dateText, inst) {
                 $('#lastDay').val('-');
                 layui.form().render('select'); //刷新select选择框渲染
+
+                $this.startDate = dateText;
+            }
+        });
+        // 初始化日期控件
+        $("#endDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onSelect: function (dateText, inst) {
+                $('#lastDay').val('-');
+                layui.form().render('select'); //刷新select选择框渲染
+
+                $this.endDate = dateText;
             }
         });
 
@@ -87,6 +99,9 @@ new Vue({
                 date1 = Tools.dateAdd(date2, -(val * 24 * 60 * 60));
                 this.startDate = Tools.dateFormat(date1, Tools.yyyyMMdd_);
                 this.endDate = Tools.dateFormat(date2, Tools.yyyyMMdd_);
+
+                $('#startDate').val(this.startDate);
+                $('#endDate').val(this.endDate);
 
                 this.update();
             }
