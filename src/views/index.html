@@ -47,7 +47,7 @@
                     <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
                 </div>
             </div>
-            <div class="row option-content hidden"  v-show="!loading && !nodata">
+            <div class="row option-content hidden"  v-show="!loading && !nodata && !error">
                 <div class="col-xs-3">
                     <div class="theme-word">
                         <div class="theme-title">
@@ -78,8 +78,8 @@
                             <div id="{{item._id}}" class="w-item" v-for="item in pageDocs" @mouseover="showSummary(item._id)" @click="openUrl(item.pageurl)">
                                 <div class="col-xs-7 col-title">
                                     <div class="w-title">{{item.title}}
-                                        <span title="有{{item.sames&&item.sames.length}}个同样内容。" v-show="item.sames">+{{item.sames&&item.sames.length}}</span>
                                     </div>
+                                    <span title="有{{item.sames&&item.sames.length}}个同样内容。" v-show="item.sames">+{{item.sames&&item.sames.length}}</span>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="w-unit" title="{{item.units}}">{{item.units}}</div>
@@ -99,6 +99,7 @@
                 <img src="images/loding.gif" alt="">
             </div>
             <div class="row nodata" v-show="nodata">暂无相关数据！</div>
+            <div class="row error" v-show="error">{{errorMessage}}</div>
         </div>
     </div>
     <!-- content end-->
