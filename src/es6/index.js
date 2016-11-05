@@ -109,8 +109,6 @@ new Vue({
         },
         // 更新数据
         update(){
-            this.isw = true;
-            this.isc = false;
             let $this = this;
 
             this.loading = true;
