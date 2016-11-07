@@ -109,8 +109,6 @@ new Vue({
         },
         // 更新数据
         update(){
-            this.isw = true;
-            this.isc = false;
             let $this = this;
 
             this.loading = true;
@@ -147,7 +145,7 @@ new Vue({
                     this.word = this.topicData[0].name;
                 }
                 // 去空
-                this.wordDocs = this.wordDocs.filter(d => d._id);
+                //this.wordDocs = this.wordDocs.filter(d => d._id);
             }
 
             let $this = this;
