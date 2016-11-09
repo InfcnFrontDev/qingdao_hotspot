@@ -20,18 +20,18 @@
         <div class="nav-content layui-form wid1200">
             <div class="fleft">
                 <div class="nav-label">总数据 :</div>
-                <div class="nav-text">{{countData.total}}条</div>
+                <div class="nav-text conce-data"><span>11111</span>条</div>
                 <div class="nav-label">新增(本月) :</div>
-                <div class="nav-text">{{countData.newTotal}}条</div>
+                <div class="nav-text add-data"><span>11111</span>条</div>
             </div>
             <div class="fright">
                 <div class="nav-label">时间选择 :</div>
-                <div class="nav-select last-select"><select id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
+                <div class="nav-select last-select"><select  id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
                 <div class="nav-select date-select"><input id="startDate" type="text" class="datepicker" readonly="readonly"/></div>
-                <div class="nav-label">至</div>
-                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker"  readonly="readonly"/></div>
-                <div class="nav-button"><button class="layui-btn layui-btn-primary" @click="update()"> 确定</button></div>
+                <div class="nav-label lable-zhi">至</div>
+                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker inpText1"  readonly="readonly"/></div>
+                <div class="nav-button"><input type="button" class="layui-btn layui-btn-primary" @click="update()" value="确定"/></div>
             </div>
         </div>
     </div>
@@ -95,8 +95,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="row loading" v-show="loading">
-                <img src="images/loding.gif" alt="">
+            <div class="row loading" style="display:none">
             </div>
             <div class="row nodata" v-show="nodata">暂无相关数据！</div>
             <div class="row error" v-show="error">{{errorMessage}}</div>

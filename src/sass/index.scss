@@ -23,7 +23,9 @@
   font-weight: 900;
   vertical-align: middle;
 }
-
+.header-content img {
+  vertical-align: middle;
+}
 /*底部*/
 .footer {
   width: 100%;
@@ -62,7 +64,6 @@
   padding: 10px 0;
   height: 30px !important;
   .fleft {
-    width: 300px;
     height: 30px;
     line-height: 30px;
     overflow: hidden;
@@ -84,17 +85,34 @@
     margin-right: 10px;
     float: left;
   }
+  .conce-data span,.add-data span{
+    color: #fff;
+  }
   .nav-select {
     display: inline-block;
     margin: 0px 5px;
     float: left;
+    .inpText1{
+      margin-right: 4px;
+    }
+    select{
+      width:100px;
+      height:30px;
+      outline: none;
+      option{
+        height:30px;
+        line-height: 30px;
+      }
+    }
   }
   .nav-button {
     display: inline-block;
     margin-left: 5px;
     float: left;
-    button {
+    input {
       color: buttontext;
+      padding:0 4px;
+      height:30px;
     }
   }
   .last-select {
@@ -105,7 +123,7 @@
     width: 140px;
     float: left;
     input {
-      width: 100%;
+      width: 95%;
       height: 30px;
       line-height: 30px;
       border: 0;
@@ -161,16 +179,7 @@
 
 .loading {
   min-height: 568px;
-  background: #fff;
-  position: relative;
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-  }
+  background: #fff url('../images/loding.gif') no-repeat center center;
 }
 
 .nodata {
