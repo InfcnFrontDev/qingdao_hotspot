@@ -117,7 +117,7 @@ function compileJade(srcPath, destPath) {
 gulp.task('sass', function () {
     return gulp.src('src/sass/**/*.scss')
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError)) //nested, compact, expanded, compressed
-        .pipe(postcss([autoprefixer({browsers: ['last 2 version', '> 10%']})]))
+        .pipe(postcss([autoprefixer({browsers: ['last 2 version', 'ie 8', 'ie 7', '> 10%']})]))
         .pipe(concat('all.css'))
         .pipe(minifycss({
             keepBreaks: true,
