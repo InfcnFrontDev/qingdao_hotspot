@@ -1,12 +1,17 @@
 // ready
 $(function () {
+
+    $('.loading').addClass('hidden')
+    $('.option-content').addClass('hidden');
+    $('.error').addClass('hidden');
+    $('.nodata').addClass('hidden');
     // 加载count数据
     TopicApi.count(function (result) {
         $('.nav-text:first').text(result.obj.total+"条");
         $('.nav-text:last').text(result.obj.newTotal+"条");
 
     }, function (error) {
-        console.log(error);
+        $('.error').addClass('hidden')
     });
 
     $this.setSortByFreq(true);
@@ -51,7 +56,7 @@ $(function () {
     });*/
 
     // 初始化日期控件
-   /* $("#startDate").datepicker({
+    /*$("#startDate").datepicker({
         dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             $('#lastDay').val('-');
@@ -99,9 +104,9 @@ var $this={
     page: 1,
     pageDocs: [], // 分页后内容列表
 
-    loading: false,
+    /*loading: false,
     nodata: false,
-    error: true,
+    error: true,*/
     errorMessage: '',
     sortByFreqText: '热点主题词',
     setSortByFreq: function (val) {
@@ -124,7 +129,6 @@ var $this={
         update();
     }
 };
-
 // 选择最n天内，更新时间段
 var updateDate=function(val){
     if (val != '-') {
@@ -141,10 +145,12 @@ var updateDate=function(val){
 };
 // 更新数据
 var update=function(){
-
-
+    $('.option-content').addClass('hidden');
+    $('.loading').removeClass('hidden')
+    $('.nodata').addClass('hidden');
+    $('.error').addClass('hidden');
     TopicApi.topic($this.startDate, $this.endDate, $this.size, $this.sortByFreq, function (result) {
-
+        $('.loading').addClass('hidden')
         $('.option-content').removeClass('hidden');
         if (result.obj) {
             $this.topicData = result.obj;
@@ -170,15 +176,15 @@ var update=function(){
         } else {
             $('.words-list').html('');
             $('.wenzhang-list').html('');
-
+            $('.nodata').removeClass('hidden');
+            $('.option-content').addClass('hidden');
         }
     }, function (error) {
+        $('.error').removeClass('hidden')
+
         var obj = JSON.parse(error.responseText)
         error = true;
-        $this.errorMessage = obj.message;
-
-
-
+        $('.error').text(obj.message);
     });
 };
 // 选择主题词

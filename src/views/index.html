@@ -21,9 +21,9 @@
         <div class="nav-content layui-form wid1200">
             <div class="fleft">
                 <div class="nav-label">总数据 :</div>
-                <div class="nav-text conce-data"><span>11111</span>条</div>
+                <div class="nav-text conce-data"></div>
                 <div class="nav-label">新增(本月) :</div>
-                <div class="nav-text add-data"><span>11111</span>条</div>
+                <div class="nav-text add-data"></div>
             </div>
             <div class="fright">
                 <div class="nav-label">时间选择 :</div>
@@ -98,10 +98,10 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="row loading" style="display:none">
+            <div class="row loading hidden">
             </div>
-            <div class="row nodata" v-show="nodata">暂无相关数据！</div>
-            <div class="row error" v-show="error">{{errorMessage}}</div>
+            <div class="row nodata hidden">暂无相关数据！</div>
+            <div class="row error hidden"></div>
         </div>
     </div>
     <!-- content end-->
