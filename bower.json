@@ -1,11 +1,13 @@
 {
-  "name": "authorized_access",
+  "name": "qingdao_hotspot",
   "description": "",
   "version": "1.0.0",
-  "homepage": "http://192.168.10.158/InfcnFrontDev/authorized_access",
+  "homepage": "http://192.168.10.158/InfcnFrontDev/qingdao_hotspot",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "jquery": "1.9.1"
+    "jquery": "1.9.1",
+    "jquery-ui": "1.9.1"
+
   }
 }
