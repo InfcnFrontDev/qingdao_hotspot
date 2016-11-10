@@ -7,8 +7,8 @@ $(function () {
     $('.nodata').addClass('hidden');
     // 加载count数据
     TopicApi.count(function (result) {
-        $('.nav-text:first').text(result.obj.total+"条");
-        $('.nav-text:last').text(result.obj.newTotal+"条");
+        $('.nav-text:first').html(result.obj.total+"条");
+        $('.nav-text:last').html(result.obj.newTotal+"条");
 
     }, function (error) {
         $('.error').addClass('hidden')
@@ -212,20 +212,26 @@ var searchWord=function(words){
             listPage(obj.curr);
         }
     });*/
-    $('#pagination1').jqPaginator({
-        totalPages: Math.ceil($this.wordDocs.length / Config.pageSize),
-        visiblePages: Config.pageSize,
-        currentPage: 1,
-        first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
-        prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
-        next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
-        last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
-        page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
-        onPageChange: function (num, type) {
-            $('#text').html('当前第' + num + '页');
-            listPage(num);
-        }
-    });
+    if(Math.ceil($this.wordDocs.length / Config.pageSize)>1){
+        $('#page').removeClass('hidden')
+        $('#pagination1').jqPaginator({
+            totalPages: Math.ceil($this.wordDocs.length / Config.pageSize),
+            visiblePages: Config.pageSize,
+            currentPage: 1,
+            first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+            last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+            page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+            onPageChange: function (num, type) {
+                $('#text').html('当前第' + num + '页');
+                listPage(num);
+            }
+        });
+    }else{
+        $('#page').addClass('hidden')
+    }
+
 
     listPage(1);
 };
