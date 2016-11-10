@@ -14,7 +14,7 @@ $(function () {
         $('.error').addClass('hidden')
     });
     //日历
-    $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
+
 
     $('.btn-qiehuan:first').addClass('selected');
 
@@ -29,7 +29,10 @@ $(function () {
         }
     });
     $('#lastDay').change(function(){
-        $this.setLastDay(this.value)
+        if($('#lastDay').val()!='-'){
+            $this.setLastDay(this.value)
+        }
+
     });
     $('.topn').children().change(function(){
         $this.setSize(this.value);
@@ -37,45 +40,28 @@ $(function () {
     });
 
 
-
-
-
-    /*$("#startDate").datepicker({
+    // 初始化日期控件
+    $("#startDate").datepicker({
         dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             $('#lastDay').val('-');
-            layui.form().render('select'); //刷新select选择框渲染
-
-            startDate = dateText;
+             //刷新select选择框渲染
+            $this.startDate = dateText;
         }
     });
-    layui.form().on('select(lastDay)', function (data) {
-        updateDate(data.value);
+    // 初始化日期控件
+    $("#endDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        onSelect: function (dateText, inst) {
+            $('#lastDay').val('-');
+             //刷新select选择框渲染
+
+            $this.endDate = dateText;
+        }
     });
-    layui.form().on('select(size)', function (data) {
-        size = data.value;
-    });*/
-
-    // 初始化日期控件
-    /*$("#startDate").datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function (dateText, inst) {
-            $('#lastDay').val('-');
-            layui.form().render('select'); //刷新select选择框渲染
-
-            startDate = dateText;
-        }
-    });*/
-    // 初始化日期控件
-    /*$("#endDate").datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function (dateText, inst) {
-            $('#lastDay').val('-');
-            layui.form().render('select'); //刷新select选择框渲染
-
-            endDate = dateText;
-        }
-    });*/
+    $('.layui-btn').on('click',function(){
+        update()
+    })
 
 
 
@@ -260,17 +246,18 @@ var listPage=function(pageIndex){
 
         if($this.pageDocs[i].sames){
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
+                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
                 "<div class=\"col-xs-7 col-title\">"+
                 "<div class=\"w-title\">"+
                 $this.pageDocs[i].title+
                 "</div>"+
-                "<span title=\"有个同样内容。\" >"+
+                "<span title=\"有"+$this.pageDocs[i].sames.length+"个同样内容。\" >"+
                 "+"+
                 $this.pageDocs[i].sames.length+
                 "</span>"+
                 "</div>"+
                 "<div class=\"col-xs-2\">"+
-                "<div class=\"w-unit\" title=\"{{item.units}}\">"+
+                "<div class=\"w-unit\" title=\""+$this.pageDocs[i].units+"\">"+
                 $this.pageDocs[i].units
                 +"</div>"+
                 "</div>"+
@@ -278,16 +265,18 @@ var listPage=function(pageIndex){
                 "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
                 "</div>"+
                 "<div class=\"clear\"></div>"+
+                "</a>"+
                 "</div>"
         }else{
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
+                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
                 "<div class=\"col-xs-7 col-title\">"+
                 "<div class=\"w-title\">"+
                 $this.pageDocs[i].title+
                 "</div>"+
                 "</div>"+
                 "<div class=\"col-xs-2\">"+
-                "<div class=\"w-unit\" title=\"{{item.units}}\">"+
+                "<div class=\"w-unit\" title=\""+$this.pageDocs[i].units+"\">"+
                 $this.pageDocs[i].units
                 +"</div>"+
                 "</div>"+
@@ -295,15 +284,24 @@ var listPage=function(pageIndex){
                 "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
                 "</div>"+
                 "<div class=\"clear\"></div>"+
+                "</a>"+
                 "</div>"
         }
 
 
     }
     $('.wenzhang-list').html(li);
+    var openUrl=function(url){
+        window.open(url);
+    };
     $('.wenzhang-list').children().on('mouseover',function(){
         showSummary($(this).attr("id"))
     })
+    $('.wenzhang-list').children().on('click',function(){
+        openUrl
+    })
+
+
 };
 // 加载摘要
 var showSummary=function(id){
@@ -324,5 +322,6 @@ var showSummary=function(id){
         }, function (error) {});
     }
 };
+
 
 
