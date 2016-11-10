@@ -1,14 +1,17 @@
 // ready
 $(function () {
-
+    $('.loading').addClass('hidden')
+    $('.option-content').addClass('hidden');
+    $('.error').addClass('hidden');
+    $('.nodata').addClass('hidden');
     // 加载count数据
     TopicApi.count(function (result) {
-
 
         $('.nav-text:first').text(result.obj.total+"条");
         $('.nav-text:last').text(result.obj.newTotal+"条");
 
     }, function (error) {
+        $('.error').addClass('hidden')
         console.log(error);
     });
 
@@ -101,9 +104,9 @@ var $this={
     page: 1,
     pageDocs: [], // 分页后内容列表
 
-    loading: false,
+    /*loading: false,
     nodata: false,
-    error: true,
+    error: true,*/
     errorMessage: '',
     sortByFreqText: '热点主题词',
     setSortByFreq: function (val) {
@@ -126,7 +129,6 @@ var $this={
         update();
     }
 };
-
 // 选择最n天内，更新时间段
 var updateDate=function(val){
     if (val != '-') {
@@ -142,11 +144,37 @@ var updateDate=function(val){
     }
 };
 // 更新数据
+/*update(){
+    let $this = this;
+
+    this.loading = true;
+    this.nodata = false;
+    this.error = false;
+    TopicApi.topic(this.startDate, this.endDate, this.size, this.sortByFreq).then(function (result) {
+        $this.loading = false;
+        $('.option-content').removeClass('hidden');
+
+        if (result.obj) {
+            $this.topicData = result.obj;
+            $this.searchWord();
+        } else {
+            $this.nodata = true;
+        }
+    }, function (error) {
+        $this.loading = false;
+
+        let obj = JSON.parse(error.responseText)
+        $this.error = true;
+        $this.errorMessage = obj.message;
+    })
+},*/
 var update=function(){
-
-
+    $('.option-content').addClass('hidden');
+    $('.loading').removeClass('hidden')
+    $('.nodata').addClass('hidden');
+    $('.error').addClass('hidden');
     TopicApi.topic($this.startDate, $this.endDate, $this.size, $this.sortByFreq, function (result) {
-
+        $('.loading').addClass('hidden')
         $('.option-content').removeClass('hidden');
 
         if (result.obj) {
@@ -163,10 +191,11 @@ var update=function(){
 
             searchWord($this.topicData[0].name);
         } else {
-
+            $('.nodata').removeClass('hidden')
         }
     }, function (error) {
-
+        /*$('.loading').addClass('hidden')*/
+        $('.error').removeClass('hidden')
 
         var obj = JSON.parse(error.responseText)
         error = true;
