@@ -1,10 +1,14 @@
 // ready
 $(function () {
-
+    /*laydate({
+        elem: '#startDate',
+       /!* format: 'YYYY/MM/DD', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        choose: function(datas){ //选择日期完毕的回调
+            alert('得到：'+datas);
+        }*!/});*/
     // 加载count数据
     TopicApi.count(function (result) {
-
-
         $('.nav-text:first').text(result.obj.total+"条");
         $('.nav-text:last').text(result.obj.newTotal+"条");
 
@@ -31,7 +35,8 @@ $(function () {
     $('.topn').children().change(function(){
         $this.setSize(this.value);
 
-    })
+    });
+
 
 
 
@@ -135,6 +140,7 @@ var updateDate=function(val){
         date1 = Tools.dateAdd(date2, -(val * 24 * 60 * 60));
         $this.startDate = Tools.dateFormat(date1, Tools.yyyyMMdd_);
         $this.endDate = Tools.dateFormat(date2, Tools.yyyyMMdd_);
+        console.log($this.startDate+"+"+$this.endDate)
 
         $('#startDate').val($this.startDate);
         $('#endDate').val($this.endDate);
@@ -148,29 +154,40 @@ var update=function(){
     TopicApi.topic($this.startDate, $this.endDate, $this.size, $this.sortByFreq, function (result) {
 
         $('.option-content').removeClass('hidden');
-
+        console.log(result.message);
         if (result.obj) {
             $this.topicData = result.obj;
+
             var li='';
             for(var i=0; i<$this.topicData.length; i++){
-                li +="<li onclick=\"searchWord("+$this.topicData[i].name+")\">"+
+                li +="<li>"+
                 "<div class=\"col-xs-2\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
                 "<div class=\"col-xs-8\"><span class=\"s-cente\">"+$this.topicData[i].name+"</span></div>"+
                 "<div class=\"col-xs-2\"><span class=\"s-right\">"+$this.topicData[i].size+"</span></div>"+
                 "</li>"
             }
             $('.words-list').html(li);
+            $('.words-list').children().on('click',function(){
+                searchWord($(this).find('.s-cente').text());
+            });
+            $('.words-list').children().eq(0).addClass("selected");
+            for(var i=0; i<3; i++){
+                $('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
+            }
 
             searchWord($this.topicData[0].name);
         } else {
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
 
         }
     }, function (error) {
-
-
         var obj = JSON.parse(error.responseText)
         error = true;
         $this.errorMessage = obj.message;
+
+
+
     });
 };
 // 选择主题词
@@ -190,25 +207,53 @@ var searchWord=function(words){
             $this.wordDocs = arr[0].docs;
             var li='';
             for(var i=0; i<$this.wordDocs.length; i++){
-                li+="<div id=\"{{item._id}}\" class=\"w-item\">"+
-                "<div class=\"col-xs-7 col-title\">"+
-                "<div class=\"w-title\">"+
-                    $this.wordDocs[i].title+
-                "</div>"+
-                "<span title=\"有{{item.sames&&item.sames.length}}个同样内容。\" ></span>"+
-                "</div>"+
-                "<div class=\"col-xs-2\">"+
-                "<div class=\"w-unit\" title=\"{{item.units}}\">"+
-                    $this.wordDocs[i].units
-                    +"</div>"+
-                "</div>"+
-                "<div class=\"col-xs-3\">"+
-                "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.wordDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
-                "</div>"+
-                "<div class=\"clear\"></div>"+
-                "</div>"
+
+                if($this.wordDocs[i].sames){
+                    li+="<div id=\""+$this.wordDocs[i]._id+"\" class=\"w-item\">"+
+                        "<div class=\"col-xs-7 col-title\">"+
+                        "<div class=\"w-title\">"+
+                        $this.wordDocs[i].title+
+                        "</div>"+
+                        "<span title=\"有个同样内容。\" >"+
+                        "+"+
+                        $this.wordDocs[i].sames.length+
+                        "</span>"+
+                        "</div>"+
+                        "<div class=\"col-xs-2\">"+
+                        "<div class=\"w-unit\" title=\"{{item.units}}\">"+
+                        $this.wordDocs[i].units
+                        +"</div>"+
+                        "</div>"+
+                        "<div class=\"col-xs-3\">"+
+                        "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.wordDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                        "</div>"+
+                        "<div class=\"clear\"></div>"+
+                        "</div>"
+                }else{
+                    li+="<div id=\""+$this.wordDocs[i]._id+"\" class=\"w-item\">"+
+                        "<div class=\"col-xs-7 col-title\">"+
+                        "<div class=\"w-title\">"+
+                        $this.wordDocs[i].title+
+                        "</div>"+
+                        "</div>"+
+                        "<div class=\"col-xs-2\">"+
+                        "<div class=\"w-unit\" title=\"{{item.units}}\">"+
+                        $this.wordDocs[i].units
+                        +"</div>"+
+                        "</div>"+
+                        "<div class=\"col-xs-3\">"+
+                        "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.wordDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                        "</div>"+
+                        "<div class=\"clear\"></div>"+
+                        "</div>"
+                }
+
+
             }
             $('.wenzhang-list').html(li);
+            $('.wenzhang-list').children().on('mouseover',function(){
+                showSummary($(this).attr("id"))
+            })
 
         } else {
             $this.wordDocs = $this.topicData[0].docs;
