@@ -179,11 +179,15 @@ var update=function(){
             $('.option-content').addClass('hidden');
         }
     }, function (error) {
+        $('.loading').addClass('hidden')
         $('.error').removeClass('hidden')
 
-        // var obj = JSON.parse(error.responseText)
-        // error = true;
-        // $('.error').text(obj.message);
+        if(error.status == 500){
+            var obj = JSON.parse(error.responseText)
+            $('.error').text(obj.message);
+        }else{
+            $('.error').text("服务器出现异常！“" + error.status +"，"+ error.statusText + "”");
+        }
     });
 };
 // 选择主题词
@@ -310,9 +314,7 @@ var showSummary=function(id){
                       '</div>';
                 $('#' + id).find('.col-title').append(div);
             }
-        }, function (error) {
-            console.log(error);
-        })
+        }, function (error) {});
     }
 };
 
