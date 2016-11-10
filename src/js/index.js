@@ -178,7 +178,6 @@ var update=function(){
     TopicApi.topic($this.startDate, $this.endDate, $this.size, $this.sortByFreq, function (result) {
         $('.loading').addClass('hidden')
         $('.option-content').removeClass('hidden');
-        console.log(result.message);
         if (result.obj) {
             $this.topicData = result.obj;
 
@@ -201,20 +200,17 @@ var update=function(){
 
             searchWord($this.topicData[0].name);
         } else {
-            /*$('.words-list').html('');
-            $('.wenzhang-list').html('');*/
-            $('.nodata').removeClass('hidden')
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
+            $('.nodata').removeClass('hidden');
+            $('.option-content').addClass('hidden');
         }
     }, function (error) {
-        /*$('.loading').addClass('hidden')*/
         $('.error').removeClass('hidden')
 
         var obj = JSON.parse(error.responseText)
         error = true;
-        $this.errorMessage = obj.message;
-
-
-
+        $('.error').text(obj.message);
     });
 };
 // 选择主题词
