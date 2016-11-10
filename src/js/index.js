@@ -1,24 +1,12 @@
 // ready
 $(function () {
-<<<<<<< HEAD
+
     $('.loading').addClass('hidden')
     $('.option-content').addClass('hidden');
     $('.error').addClass('hidden');
     $('.nodata').addClass('hidden');
     // 加载count数据
     TopicApi.count(function (result) {
-
-=======
-    /*laydate({
-        elem: '#startDate',
-       /!* format: 'YYYY/MM/DD', // 分隔符可以任意定义，该例子表示只显示年月
-        festival: true, //显示节日
-        choose: function(datas){ //选择日期完毕的回调
-            alert('得到：'+datas);
-        }*!/});*/
-    // 加载count数据
-    TopicApi.count(function (result) {
->>>>>>> 58c3e4115490fff4dab54b3d435dcd6e5f3da3c9
         $('.nav-text:first').text(result.obj.total+"条");
         $('.nav-text:last').text(result.obj.newTotal+"条");
 
@@ -213,7 +201,8 @@ var update=function(){
 
             searchWord($this.topicData[0].name);
         } else {
-
+            /*$('.words-list').html('');
+            $('.wenzhang-list').html('');*/
             $('.nodata').removeClass('hidden')
         }
     }, function (error) {
