@@ -25,6 +25,14 @@ $(function () {
             $this.setSortByFreq(false);
         }
     });
+    $('#lastDay').change(function(){
+        $this.setLastDay(this.value)
+    });
+    $('.topn').children().change(function(){
+        $this.setSize(this.value);
+
+    })
+
 
 
 
@@ -109,8 +117,13 @@ var $this={
         update()
     },
     setLastDay: function (val) {
-        this.lastDay = val;
+        $this.lastDay = val;
         updateDate(val);
+        update();
+    },
+    setSize:function(val){
+        $this.size = val;
+        update();
     }
 };
 
@@ -141,7 +154,7 @@ var update=function(){
             var li='';
             for(var i=0; i<$this.topicData.length; i++){
                 li +="<li onclick=\"searchWord("+$this.topicData[i].name+")\">"+
-                "<div class=\"col-xs-2\"><span class=\"s-left\" >"+i+"</span></div>"+
+                "<div class=\"col-xs-2\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
                 "<div class=\"col-xs-8\"><span class=\"s-cente\">"+$this.topicData[i].name+"</span></div>"+
                 "<div class=\"col-xs-2\"><span class=\"s-right\">"+$this.topicData[i].size+"</span></div>"+
                 "</li>"
@@ -205,7 +218,7 @@ var searchWord=function(words){
         //this.wordDocs = this.wordDocs.filter(d => d._id);
     }
 
-
+/*
     layui.laypage({
         cont: 'page',
         pages: Math.ceil($this.wordDocs.length / $this.pageSize), //得到总页数
@@ -213,7 +226,7 @@ var searchWord=function(words){
         jump: function (obj) {
             listPage(obj.curr);
         }
-    });
+    });*/
 
     listPage(1);
 };
