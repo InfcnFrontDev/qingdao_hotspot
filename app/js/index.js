@@ -14,8 +14,8 @@ $(function () {
         $('.error').addClass('hidden')
     });
 
-    $this.setSortByFreq(true);
     $('.btn-qiehuan:first').addClass('selected');
+    $this.setSortByFreq(true);
 
     $('.btn-qiehuan').on('click',function(){
         $(this).addClass('selected');
@@ -117,7 +117,6 @@ var $this={
         }else{
             $(".text-left").text("异常变动主题词");
         }
-        update()
     },
     setLastDay: function (val) {
         $this.lastDay = val;
@@ -182,9 +181,9 @@ var update=function(){
     }, function (error) {
         $('.error').removeClass('hidden')
 
-        var obj = JSON.parse(error.responseText)
-        error = true;
-        $('.error').text(obj.message);
+        // var obj = JSON.parse(error.responseText)
+        // error = true;
+        // $('.error').text(obj.message);
     });
 };
 // 选择主题词
