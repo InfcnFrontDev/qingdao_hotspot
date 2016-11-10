@@ -3,13 +3,10 @@ $(function () {
 
     // 加载count数据
     TopicApi.count(function (result) {
-        console.log(result)
-        var data='';
-        data="<div class=\"nav-label\">总数据 :</div>"+
-        "<div class=\"nav-text\">"+result.obj.total+"条</div>"+
-        "<div class=\"nav-label\">新增(本月) :</div>"+
-        "<div class=\"nav-text\">"+result.obj.newTotal+"条</div>"
-        $('.fleft').html(data);
+
+
+        $('.nav-text:first').text(result.obj.total+"条");
+        $('.nav-text:last').text(result.obj.newTotal+"条");
 
     }, function (error) {
         console.log(error);
@@ -103,7 +100,6 @@ var $this={
     sortByFreqText: '热点主题词',
     setSortByFreq: function (val) {
         $this.sortByFreq = val;
-        console.log(this.sortByFreq)
 
         if(val){
             $(".text-left").text("热点主题词");
@@ -151,7 +147,7 @@ var update=function(){
                 "</li>"
             }
             $('.words-list').html(li);
-            console.log(li)
+
             searchWord($this.topicData[0].name);
         } else {
 
@@ -168,7 +164,7 @@ var update=function(){
 var searchWord=function(words){
     $this.word = words;
     $this.wordDocs = [];
-    console.log($this.topicData)
+
     if ($this.topicData && $this.topicData.length > 0) {
         var arr=[];
         for(var i=0; i<$this.topicData.length; i++){
@@ -176,7 +172,7 @@ var searchWord=function(words){
                 arr.push($this.topicData[i])
             }
         }
-        console.log(arr);
+
         if (arr.length > 0) {
             $this.wordDocs = arr[0].docs;
             var li='';
