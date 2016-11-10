@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8,chrome=1">
+    <title>政民互动数据分析</title>
+  <!--  <link rel="stylesheet" href="vendor/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="vendor/layui/css/layui.css" />
+    <link rel="stylesheet" href="vendor/jquery-ui/themes/redmond/jquery-ui.min.css" />-->
+    <link type="text/css" rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/all.css" />
+</head>
+<body>
+    <!-- header start-->
+    <div class="header">
+        <div class="header-content wid1200"><img src="images/logo.png" /><span>政民互动数据分析</span></div>
+    </div>
+    <!-- header end-->
+    <!-- header start-->
+    <div class="nav">
+        <div class="nav-content layui-form wid1200">
+            <div class="fleft">
+                <div class="nav-label">总数据 :</div>
+                <div class="nav-text conce-data"></div>
+                <div class="nav-label">新增(本月) :</div>
+                <div class="nav-text add-data"></div>
+            </div>
+            <div class="fright">
+                <div class="nav-label">时间选择 :</div>
+                <div class="nav-select last-select"><select  id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
+                <div class="nav-label">区间选择 :</div>
+                <div class="nav-select date-select"><input id="startDate" type="text" class="laydate-icon"/></div>
+                <div class="nav-label lable-zhi">至</div>
+                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker inpText1"  readonly="readonly"/></div>
+                <div class="nav-button"><input type="button" class="layui-btn layui-btn-primary" @click="update()" value="确定"/></div>
+            </div>
+        </div>
+    </div>
+    <!-- header end-->
+    <!-- content start-->
+    <div class="content">
+        <div class="content-box wid1200 ">
+            <div class="row option-btn">
+                <div class="col-xs-6">
+                    <div class="btn-qiehuan" :class="{'selected': sortByFreq}" @click="sortByFreq=true">热点主题</div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
+                </div>
+            </div>
+            <div class="row option-content hidden"  v-show="!loading && !nodata && !error">
+                <div class="col-xs-3">
+                    <div class="theme-word">
+                        <div class="theme-title">
+                            <div class="col-xs-8 text-left">{{sortByFreqText}}</div>
+                            <div class="col-xs-4 layui-form">
+                                <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+                            </div>
+                        </div>
+                        <div class="theme-words">
+                            <ul class="words-list">
+                                <li v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                    <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">{{$index+1}}</span></div>
+                                    <div class="col-xs-8"><span class="s-center">{{item.name}}</span></div>
+                                    <div class="col-xs-2"><span class="s-right">{{item.size}}</span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div >
+                <div class="col-xs-9">
+                    <div class="wenzhang-content">
+                        <div class="wenzhang-title">
+                            <div class="col-xs-7"><span>问政内容</span></div>
+                            <div class="col-xs-2"><span>问政部门</span></div>
+                            <div class="col-xs-3"><span>问政时间</span></div>
+                        </div>
+                        <div class="wenzhang-list">
+                            <div id="{{item._id}}" class="w-item" v-for="item in pageDocs" @mouseover="showSummary(item._id)" @click="openUrl(item.pageurl)">
+                                <div class="col-xs-7 col-title">
+                                    <div class="w-title">{{item.title}}
+                                    </div>
+                                    <span title="有{{item.sames&&item.sames.length}}个同样内容。" v-show="item.sames">+{{item.sames&&item.sames.length}}</span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="w-unit" title="{{item.units}}">{{item.units}}</div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="w-datetime">{{item.question_time | datetime}}</div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div id="page" >
+                            <ul class="pagination" id="pagination1"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="row loading hidden">
+            </div>
+            <div class="row nodata hidden">暂无相关数据！</div>
+            <div class="row error hidden"></div>
+        </div>
+    </div>
+    <!-- content end-->
+    <!-- footer start-->
+    <div class="footer">
+        <div class="footer-con wid1200">© 2011-2016 北京英富森软件股份有限公司 版权所有</div>
+    </div>
+    <!-- footer end-->
+    <!-- public script-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jqPaginator.min.js"></script>
+  <!--  <script src="vendor/jquery/laydate.js"></script>-->
+    <!--<script src="vendor/layui/layui.js"></script>
+    <script src="vendor/layui/lay/dest/layui.all.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="vendor/jquery-ui/ui/i18n/datepicker-zh-HK.js"></script>-->
+
+    <script src="js/Config.js"></script>
+    <script src="js/Tools.js"></script>
+    <script src="js/TopicApi.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
