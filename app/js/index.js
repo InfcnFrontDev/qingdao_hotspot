@@ -13,6 +13,8 @@ $(function () {
     }, function (error) {
         $('.error').addClass('hidden')
     });
+    //日历
+    $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
 
     $('.btn-qiehuan:first').addClass('selected');
 
