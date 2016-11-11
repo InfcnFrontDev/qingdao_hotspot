@@ -255,9 +255,6 @@ var listPage=function(pageIndex){
         if($this.pageDocs[i].sames){
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
                 "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
-                "<div class=\"col-xs-7 col-title\">"+
-                "<div class=\"w-title\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
                 "<div class=\"col-xs-7 col-title cc\">"+
                 "<div class=\"w-title cc\">"+
                 $this.pageDocs[i].title+
@@ -280,12 +277,9 @@ var listPage=function(pageIndex){
                 "</div>"
         }else{
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
+                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
                 "<div class=\"col-xs-7 col-title cc\">"+
                 "<div class=\"w-title cc\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
-                "<div class=\"col-xs-7 col-title\">"+
-                "<div class=\"w-title\">"+
                 $this.pageDocs[i].title+
                 "</div>"+
                 "</div>"+
