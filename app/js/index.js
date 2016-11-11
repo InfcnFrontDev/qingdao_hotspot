@@ -254,7 +254,7 @@ var listPage=function(pageIndex){
 
         if($this.pageDocs[i].sames){
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
+                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
                 "<div class=\"col-xs-7 col-title\">"+
                 "<div class=\"w-title\">"+
                 $this.pageDocs[i].title+
@@ -277,7 +277,7 @@ var listPage=function(pageIndex){
                 "</div>"
         }else{
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
+                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
                 "<div class=\"col-xs-7 col-title\">"+
                 "<div class=\"w-title\">"+
                 $this.pageDocs[i].title+
@@ -299,16 +299,9 @@ var listPage=function(pageIndex){
 
     }
     $('.wenzhang-list').html(li);
-    var openUrl=function(url){
-        window.open(url);
-    };
     $('.wenzhang-list').children().on('mouseover',function(){
         showSummary($(this).attr("id"))
     })
-    $('.wenzhang-list').children().on('click',function(){
-        openUrl
-    })
-
 
 };
 // 加载摘要
