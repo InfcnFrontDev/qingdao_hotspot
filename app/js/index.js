@@ -152,6 +152,8 @@ var update=function(){
             }
             $('.words-list').html(li);
             $('.words-list').children().on('click',function(){
+                $(this).addClass('selected');
+                $(this).siblings().removeClass('selected');
                 searchWord($(this).find('.s-cente').text());
             });
             $('.words-list').children().eq(0).addClass("selected");
