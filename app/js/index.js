@@ -144,10 +144,10 @@ var update=function(){
 
             var li='';
             for(var i=0; i<$this.topicData.length; i++){
-                li +="<li>"+
-                "<div class=\"col-xs-2\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
-                "<div class=\"col-xs-8\"><span class=\"s-cente\">"+$this.topicData[i].name+"</span></div>"+
-                "<div class=\"col-xs-2\"><span class=\"s-right\">"+$this.topicData[i].size+"</span></div>"+
+                li +="<li class=\"cc\">"+
+                "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
+                "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].name+"</span></div>"+
+                "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].size+"</span></div>"+
                 "</li>"
             }
             $('.words-list').html(li);
@@ -253,8 +253,8 @@ var listPage=function(pageIndex){
         if($this.pageDocs[i].sames){
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
                 "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
-                "<div class=\"col-xs-7 col-title\">"+
-                "<div class=\"w-title\">"+
+                "<div class=\"col-xs-7 col-title cc\">"+
+                "<div class=\"w-title cc\">"+
                 $this.pageDocs[i].title+
                 "</div>"+
                 "<span title=\"有"+$this.pageDocs[i].sames.length+"个同样内容。\" >"+
@@ -262,13 +262,13 @@ var listPage=function(pageIndex){
                 $this.pageDocs[i].sames.length+
                 "</span>"+
                 "</div>"+
-                "<div class=\"col-xs-2\">"+
-                "<div class=\"w-unit\" title=\""+$this.pageDocs[i].units+"\">"+
+                "<div class=\"col-xs-2 cc\">"+
+                "<div class=\"w-unit cc\" title=\""+$this.pageDocs[i].units+"\">"+
                 $this.pageDocs[i].units
                 +"</div>"+
                 "</div>"+
-                "<div class=\"col-xs-3\">"+
-                "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                "<div class=\"col-xs-3 cc\">"+
+                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
                 "</div>"+
                 "<div class=\"clear\"></div>"+
                 "</a>"+
@@ -276,18 +276,18 @@ var listPage=function(pageIndex){
         }else{
             li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
                 "<a href=\""+$this.pageDocs[i].pageurl+"\">"+
-                "<div class=\"col-xs-7 col-title\">"+
-                "<div class=\"w-title\">"+
+                "<div class=\"col-xs-7 col-title cc\">"+
+                "<div class=\"w-title cc\">"+
                 $this.pageDocs[i].title+
                 "</div>"+
                 "</div>"+
-                "<div class=\"col-xs-2\">"+
-                "<div class=\"w-unit\" title=\""+$this.pageDocs[i].units+"\">"+
+                "<div class=\"col-xs-2 cc\">"+
+                "<div class=\"w-unit cc\" title=\""+$this.pageDocs[i].units+"\">"+
                 $this.pageDocs[i].units
                 +"</div>"+
                 "</div>"+
-                "<div class=\"col-xs-3\">"+
-                "<div class=\"w-datetime\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                "<div class=\"col-xs-3 cc\">"+
+                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
                 "</div>"+
                 "<div class=\"clear\"></div>"+
                 "</a>"+
@@ -320,7 +320,7 @@ var showSummary=function(id){
                     question = question.substring(0, 120) + '...';
                 }
 
-                var div = '<div class="w-jianjie"><img src="images/lan-jiantou.png" />' +
+                var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
                       '<p>' + question + '</p>' +
                       '</div>';
                 $('#' + id).find('.col-title').append(div);

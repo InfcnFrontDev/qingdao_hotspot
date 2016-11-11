@@ -56,8 +56,8 @@
                         </div>
                         <div class="theme-words">
                             <ul class="words-list">
-                                <li v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
-                                    <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">{{$index+1}}</span></div>
+                                <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                    <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">{{$index+1}}</span></div>
                                     <div class="col-xs-8"><span class="s-center">{{item.name}}</span></div>
                                     <div class="col-xs-2"><span class="s-right">{{item.size}}</span></div>
                                 </li>
@@ -88,7 +88,7 @@
                                 <div class="clear"></div>
                             </div>
                         </div>
-                        <div id="page" >
+                        <div id="page">
                             <ul class="pagination" id="pagination1"></ul>
                         </div>
                     </div>
