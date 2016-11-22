@@ -247,12 +247,18 @@ body,html{height:100%}
 .clear{clear:both}
 .hidden{display:none}
 .wid1200{width:1000px;margin:0 auto}
+.shuipingxian{width:100%; border-bottom:1px solid #999; margin:20px 0;}
 .footer,.header,.nav{width:100%}
 .header{height:90px;background:url(../images/backbar.jpg) repeat-x}
 .header-content{height:90px;line-height:90px}
 .header-content span{font-size:20px;color:#fff;font-weight:900}
 .footer{height:98px;background:#f6f9fe;border-top:2px solid #07d}
 .footer-con{height:98px;text-align:center;line-height:98px;font-size:14px;color:#3a3a3a}
+.navth{background:#0099ff}
+.navth-content{margin:0 auto;font-size:20px;height:70px!important}
+.navth-content .navth-text{color:#fff; height:70px; line-height:70px; text-align:center;cursor:pointer}
+.navth-content .navth-click{background:#07d}
+.col-xs-1_5{width:20%;box-sizing:border-box;position:relative;min-height:1px;float:left;}
 .nav{background:#07d}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .nav-content{margin:0 auto;font-size:16px;padding:10px 0;height:30px!important}
@@ -273,7 +279,7 @@ body,html{height:100%}
 .content{width:100%;background:#f0f5fb}
 .content-box{margin:0 auto;padding:30px 0}
 .option-btn{width:100%;height:42px;margin-bottom:30px}
-.option-btn .btn-qiehuan{width:100%;height:42px;text-align:center;line-height:42px;border:1px solid #bdbdbb;background:#f6f9fe;font-size:20px;color:#0078d9;cursor:pointer}
+.option-btn .btn-qiehuan{width:100%;height:42px;text-align:center;line-height:42px;border:1px solid #bdbdbb;background:#f6f9fe;font-size:18px;color:#0078d9;cursor:pointer}
 .error,.nodata{min-height:568px;font-size:16px}
 .option-btn .btn-qiehuan:hover{background-color:#ECFBFF}
 .option-btn .selected{background:#07d;color:#fff}
@@ -294,7 +300,10 @@ body,html{height:100%}
 .theme-words .words-list li .s-right{display:inline-block;width:100%;text-align:center;color:#9A9A9A}
 .theme-words .words-list .selected,.theme-words .words-list li:hover{background:#ECFBFF;color:#184E99;border-bottom:1px solid #dde5f2}
 .theme-words .words-list .selected{font-weight:700}
-.wenzhang-content{padding-left:20px}
+
+.tubiao{padding-left:20px;box-sizing:border-box}
+.tubiao-content{width:100%; height:428px; background:red;}
+.tubiao-content img{width:100%; height:100%;}
 .wenzhang-title{height:50px;background:#e4eef8;border:1px solid #bdbdbd;color:#7c7c7c;line-height:50px;text-align:left;font-size:18px}
 .wenzhang-list,.wenzhang-list .w-item .w-jianjie{border-left:1px solid #dde5f2;border-right:1px solid #dde5f2;position: relative;}
 #page,.ui-datepicker .ui-state-default{text-align:center}

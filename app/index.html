@@ -14,17 +14,27 @@
     </div>
     <!-- header end-->
     <!-- header start-->
+    <div class="navth">
+        <div class="navth-content wid1200 row">
+            <div id='sybtn' class="col-xs-3 navth-text navth-click">首页</div>
+            <div id='rdbtn' class="col-xs-3 navth-text">热点主题</div>
+            <div id='zdbtn' class="col-xs-3 navth-text">最大变动主题</div>
+            <div id='ycbtn' class="col-xs-3 navth-text">异常变动主题</div>
+        </div>
+    </div>
     <div class="nav">
-        <div class="nav-content layui-form wid1200">
+        <div class="nav-content  wid1200">
             <div class="fleft">
                 <div class="nav-label">总数据 :</div>
                 <div class="nav-text conce-data">&nbsp;&nbsp;0&nbsp;条</div>
-                <div class="nav-label">新增(本月) :</div>
+                <div class="nav-label">本月 :</div>
+                <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
+                <div class="nav-label">7天内新增 :</div>
+                <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
+                <div class="nav-label">30天内新增 :</div>
                 <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
             </div>
             <div class="fright">
-                <div class="nav-label">时间选择 :</div>
-                <div class="nav-select last-select"><select  id="lastDay" lay-filter="lastDay"><option value="1">1天内</option><option value="3">3天内</option><option value="7">7天内</option><option value="30" selected="selected">30天内</option><option value="-">选择时间</option></select></div>
                 <div class="nav-label">区间选择 :</div>
                 <div class="nav-select date-select"><input id="startDate"  type="text" class="laydate-icon datepicker" readonly="readonly"/></div>
                 <div class="nav-label lable-zhi">至</div>
@@ -38,48 +48,193 @@
     <div class="content">
         <div class="content-box wid1200 ">
             <div class="row option-btn">
-                <div class="col-xs-6">
-                    <div class="btn-qiehuan" :class="{'selected': sortByFreq}" @click="sortByFreq=true">热点主题</div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一周内</div>
                 </div>
-                <div class="col-xs-6">
-                    <div class="btn-qiehuan" :class="{'selected': !sortByFreq}" @click="sortByFreq=false">异常变动主题</div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一个月内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">三个月内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">半年内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一年内</div>
                 </div>
             </div>
-            <div class="row option-content hidden"  v-show="!loading && !nodata && !error">
-                <div class="col-xs-3">
-                    <div class="theme-word">
-                        <div class="theme-title">
-                            <div class="col-xs-8 text-left">热点主题词</div>
-                            <div class="col-xs-4 layui-form">
-                                <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+            <div id="ztcbox" class="row">
+                <div id="redian" class="row">
+                    <div class="col-xs-3">
+                        <div class="theme-word">
+                            <div class="theme-title">
+                                <div class="col-xs-8 text-left">热点主题词</div>
+                                <div class="col-xs-4 layui-form">
+                                    <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+                                </div>
+                            </div>
+                            <div class="theme-words">
+                                <ul class="words-list">
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="theme-words">
-                            <ul class="words-list">
-                                <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
-                                    <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">{{$index+1}}</span></div>
-                                    <div class="col-xs-8"><span class="s-center">{{item.name}}</span></div>
-                                    <div class="col-xs-2"><span class="s-right">{{item.size}}</span></div>
-                                </li>
-                            </ul>
+                    </div >
+                    <div class="col-xs-9 tubiao">
+                        <div class="tubiao-content">
+                            <img src="images/u20.png" alt="">
                         </div>
+
                     </div>
-                </div >
-                <div class="col-xs-9">
-                    <div class="wenzhang-content">
-                        <div class="wenzhang-title">
-                            <div class="col-xs-7"><span>信件内容</span></div>
-                            <div class="col-xs-2"><span>部门</span></div>
-                            <div class="col-xs-3"><span>时间</span></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="shuipingxian"></div>
+                <div id="zuida" class="row">
+                    <div class="col-xs-3">
+                        <div class="theme-word">
+                            <div class="theme-title">
+                                <div class="col-xs-8 text-left">最大变动主题词</div>
+                                <div class="col-xs-4 layui-form">
+                                    <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+                                </div>
+                            </div>
+                            <div class="theme-words">
+                                <ul class="words-list">
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="wenzhang-list">
+                    </div >
+                    <div class="col-xs-9 tubiao">
+                        <div class="tubiao-content">
+                            <img src="images/u20.png" alt="">
                         </div>
-                        <div id="page">
-                            <ul class="pagination" id="pagination1"></ul>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="shuipingxian"></div>
+                <div id="yichang" class="row">
+                    <div class="col-xs-3">
+                        <div class="theme-word">
+                            <div class="theme-title">
+                                <div class="col-xs-8 text-left">异常变动主题词</div>
+                                <div class="col-xs-4 layui-form">
+                                    <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+                                </div>
+                            </div>
+                            <div class="theme-words">
+                                <ul class="words-list">
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                    <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+                                        <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+                                        <div class="col-xs-8"><span class="s-center">环保</span></div>
+                                        <div class="col-xs-2"><span class="s-right">1223</span></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                    </div >
+                    <div class="col-xs-9 tubiao">
+                        <div class="tubiao-content">
+                            <img src="images/u20.png" alt="">
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="shuipingxian"></div>
+
+            <div id="wzbox" class="row">
+                <div class="wenzhang-content">
+                    <div class="wenzhang-title">
+                        <div class="col-xs-7"><span>信件内容</span></div>
+                        <div class="col-xs-2"><span>部门</span></div>
+                        <div class="col-xs-3"><span>时间</span></div>
+                    </div>
+                    <div class="wenzhang-list">
+                        <div id="" class="w-item">
+                            <a href="" target='_blank'>
+                                <div class="col-xs-7 col-title cc">
+                                    <div class="w-title cc">
+                                        几点开始就是就看见就看见看看加快建设度时间
+                                    </div>
+                                    <span title="个同样内容。">1+</span>
+                                </div>
+                                <div class="col-xs-2 cc">
+                                    <div class="w-unit cc" title="">
+                                        市政邮箱
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 cc">
+                                    <div class="w-datetime cc">
+                                       2016-11-22
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div id="page">
+                        <ul class="pagination" id="pagination1"></ul>
                     </div>
                 </div>
-                <div class="clear"></div>
             </div>
             <div class="row loading hidden">
             </div>

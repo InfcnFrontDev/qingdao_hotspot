@@ -1,51 +1,39 @@
 // ready
 $(function () {
-
-    $('.loading').addClass('hidden')
-    $('.option-content').addClass('hidden');
-    $('.error').addClass('hidden');
-    $('.nodata').addClass('hidden');
-    // 加载count数据
-    TopicApi.count(function (result) {
-        $('.nav-text:first').html(result.obj.total+"条");
-        $('.nav-text:last').html(result.obj.newTotal+"条");
-
-    }, function (error) {
-        $('.error').addClass('hidden')
+    $('#sybtn').on('click',function(){
+        $('#ztcbox').children().show();
+        $('#wzbox').hide();
+        $('#sybtn').addClass('navth-click')
+        $('#sybtn').siblings().removeClass('navth-click')
     });
-    //日历
-
-
-    $('.btn-qiehuan:first').addClass('selected');
-
-    $('.btn-qiehuan').on('click',function(){
-        $(this).addClass('selected');
-        $(this).parent().siblings().children().removeClass('selected');
-        if($(this).text()=="热点主题"){
-            $this.setSortByFreq(true);
-        }
-        if($(this).text()=="异常变动主题"){
-            $this.setSortByFreq(false);
-        }
+    $('#rdbtn').on('click',function(){
+        $('#redian').show();
+        $('#redian').siblings().hide();
+        $('#wzbox').show();
+        $('#rdbtn').addClass('navth-click')
+        $('#rdbtn').siblings().removeClass('navth-click')
     });
-    $('#lastDay').change(function(){
-        if($('#lastDay').val()!='-'){
-            $this.setLastDay(this.value)
-        }
-
+    $('#zdbtn').on('click',function(){
+        $('#zuida').show();
+        $('#zuida').siblings().hide();
+        $('#wzbox').show();
+        $('#zdbtn').addClass('navth-click')
+        $('#zdbtn').siblings().removeClass('navth-click')
     });
-    $('.topn').children().change(function(){
-        $this.setSize(this.value);
-
+    $('#ycbtn').on('click',function(){
+        $('#yichang').show();
+        $('#yichang').siblings().hide();
+        $('#wzbox').show();
+        $('#ycbtn').addClass('navth-click')
+        $('#ycbtn').siblings().removeClass('navth-click')
     });
-
 
     // 初始化日期控件
     $("#startDate").datepicker({
         dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             $('#lastDay').val('-');
-             //刷新select选择框渲染
+            //刷新select选择框渲染
             $this.startDate = dateText;
         }
     });
@@ -54,25 +42,37 @@ $(function () {
         dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             $('#lastDay').val('-');
-             //刷新select选择框渲染
+            //刷新select选择框渲染
 
             $this.endDate = dateText;
         }
     });
-    $('.layui-btn').on('click',function(){
-        update()
-    })
+    updateDate(7);
+    $('.btn-qiehuan:first').addClass('selected');
+    $('.btn-qiehuan').on('click',function(){
+        $(this).addClass('selected');
+        $(this).parent().siblings().children().removeClass('selected');
+        if($(this).text()=="一周内"){
+            updateDate(7);
+        }
+        if($(this).text()=="一个月内") {
+            updateDate(dateInterval(1));
 
+        }
+        if($(this).text()=="三个月内"){
+            updateDate(dateInterval(3));
 
+        }
+        if($(this).text()=="半年内"){
+            updateDate(dateInterval(6));
 
-    // 初始时间段设置
-    updateDate(30);
+        }
+        if($(this).text()=="一年内"){
+            updateDate(dateInterval(12));
 
-    /*$( ".datepicker" ).datepicker({
-        dateFormat: 'yy-mm-dd'
-    });*/
+        }
 
-
+    });
 });
 var $this={
     countData: {total: 0, newTotal: 0},// 接口count数据
@@ -116,6 +116,34 @@ var $this={
         update();
     }
 };
+var dateInterval=function(val){
+    var nowdate = new Date();
+    var year = nowdate.getFullYear();
+    var mouth = nowdate.getMonth()+1;
+    var days;
+    var zongshu=0;
+    for (var i=0; i<val; i++){
+        mouth--;
+        if(mouth==0){
+            mouth=12
+        }
+
+        if (mouth == 2) {
+            days = year % 4 == 0 ? 29 : 28;
+
+        }
+        else if (mouth == 1 || mouth == 3 || mouth == 5 || mouth == 7 || mouth == 8 || mouth == 10 || mouth == 12) {
+            //月份为：1,3,5,7,8,10,12 时，为大月.则天数为31；
+            days = 31;
+        }
+        else {
+            //其他月份，天数为：30.
+            days = 30;
+        }
+        zongshu += days
+    }
+    return zongshu
+}
 // 选择最n天内，更新时间段
 var updateDate=function(val){
     if (val != '-') {
@@ -125,9 +153,11 @@ var updateDate=function(val){
         $this.startDate = Tools.dateFormat(date1, Tools.yyyyMMdd_);
         $this.endDate = Tools.dateFormat(date2, Tools.yyyyMMdd_);
 
+
+
         $('#startDate').val($this.startDate);
         $('#endDate').val($this.endDate);
-        update();
+        /*update();*/
     }
 };
 // 更新数据
