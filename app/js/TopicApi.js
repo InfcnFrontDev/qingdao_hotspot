@@ -23,22 +23,22 @@ var TopicApi = {
     /**
      * 获取全部数据
      */
-    count: function(success, error) {
-        var url = apiPath() + '/QingDaoTopicApi/count';
+    statistical:function(success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/statistical';
         return $ajax(url, success, error);
     },
     /**
      * 获取问政数据
      */
-    topic: function(startDate, endDate, size, sortByFreq, success, error) {
-        var url = apiPath() + '/QingDaoTopicApi/topic?startDate=' + startDate + '&endDate=' + endDate + '&size=' + size + '&sortByFreq=' + sortByFreq;
+    topic: function(krywords,startDate, endDate, size, success, error) {
+        var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate + '&size=' + size ;
         return $ajax(url, success, error);
     },
     /**
      * 获取详细
      */
-    findById: function(id, success, error){
-        var url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
+    searchByQuery: function(size,onset, success, error){
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc';
         return $ajax(url, success, error);
     }
 };

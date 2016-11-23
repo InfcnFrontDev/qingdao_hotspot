@@ -274,7 +274,7 @@ body,html{height:100%}
 .nav-content .nav-button{display:inline-block;margin-left:5px;float:left}
 .nav-content .nav-button input{color:buttontext;padding:0 4px;height:30px;border:0}
 .nav-content .last-select{width:100px;float:left}
-.nav-content .date-select{width:140px;float:left}
+.nav-content .date-select{width:108px;float:left}
 .nav-content .date-select input{width:95%;height:30px;line-height:30px;border:0;border-radius:2px;padding-left:5px}
 .content{width:100%;background:#f0f5fb}
 .content-box{margin:0 auto;padding:30px 0}

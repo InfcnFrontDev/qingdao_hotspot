@@ -1,0 +1,135 @@
+<div id="redian1" class="row">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">热点主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <img src="images/u20.png" alt="">
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="shuipingxian"></div>
+<div id="zuida1" class="row">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">最大变动主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <img src="images/u20.png" alt="">
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="shuipingxian"></div>
+<div id="yichang1" class="row">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">异常变动主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2"><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <img src="images/u20.png" alt="">
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="row loading hidden"></div>
+<div class="row nodata hidden">暂无相关数据！</div>
+<div class="row error hidden"></div>
+<script src="home/main.js"></script>

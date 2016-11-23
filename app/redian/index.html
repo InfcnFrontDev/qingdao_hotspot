@@ -1,0 +1,84 @@
+<div id="redian1" class="row">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">热点主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <img src="images/u20.png" alt="">
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="shuipingxian"></div>
+<div class="row" id="wzbox" >
+  <div class="wenzhang-content">
+    <div class="wenzhang-title">
+      <div class="col-xs-7"><span>信件内容</span></div>
+      <div class="col-xs-2"><span>部门</span></div>
+      <div class="col-xs-3"><span>时间</span></div>
+    </div>
+    <div class="wenzhang-list">
+      <div id="" class="w-item">
+        <a href="" target='_blank'>
+          <div class="col-xs-7 col-title cc">
+            <div class="w-title cc">
+              几点开始就是就看见就看见看看加快建设度时间
+            </div>
+            <span title="个同样内容。">1+</span>
+          </div>
+          <div class="col-xs-2 cc">
+            <div class="w-unit cc" title="">
+              市政邮箱
+            </div>
+          </div>
+          <div class="col-xs-3 cc">
+            <div class="w-datetime cc">
+              2016-11-22
+            </div>
+          </div>
+          <div class="clear"></div>
+        </a>
+      </div>
+
+    </div>
+    <div id="page">
+      <ul class="pagination" id="pagination1"></ul>
+    </div>
+  </div>
+</div>
+<div class="row loading hidden"></div>
+<div class="row nodata hidden">暂无相关数据！</div>
+<div class="row error hidden"></div>
+<script src="redian/main.js"></script>

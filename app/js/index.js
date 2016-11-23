@@ -1,31 +1,40 @@
 // ready
 $(function () {
+    TopicApi.statistical(function (result) {
+        $('.nav-text:first').html(result.obj.all+"条");
+        $('.nav-text').eq(1).html(result.obj.month+"条");
+        $('.nav-text').eq(2).html(result.obj.d7+"条");
+        $('.nav-text:last').html(result.obj.d30+"条");
+
+    }, function (error) {
+        $('.error').addClass('hidden')
+    });
+    var url=location.hash.replace(/^#/, '');
+    checkURL(url);
+
     $('#sybtn').on('click',function(){
-        $('#ztcbox').children().show();
-        $('#wzbox').hide();
         $('#sybtn').addClass('navth-click')
         $('#sybtn').siblings().removeClass('navth-click')
+        container = $('#ztcbox');
+        loadURL( 'home/index.html', container);
     });
     $('#rdbtn').on('click',function(){
-        $('#redian').show();
-        $('#redian').siblings().hide();
-        $('#wzbox').show();
+        container = $('#ztcbox');
+        loadURL('redian/index.html', container);
         $('#rdbtn').addClass('navth-click')
         $('#rdbtn').siblings().removeClass('navth-click')
     });
     $('#zdbtn').on('click',function(){
-        $('#zuida').show();
-        $('#zuida').siblings().hide();
-        $('#wzbox').show();
         $('#zdbtn').addClass('navth-click')
         $('#zdbtn').siblings().removeClass('navth-click')
+        container = $('#ztcbox');
+        loadURL('zuida/index.html', container);
     });
     $('#ycbtn').on('click',function(){
-        $('#yichang').show();
-        $('#yichang').siblings().hide();
-        $('#wzbox').show();
         $('#ycbtn').addClass('navth-click')
         $('#ycbtn').siblings().removeClass('navth-click')
+        container = $('#ztcbox');
+        loadURL( 'yichang/index.html', container);
     });
 
     // 初始化日期控件
@@ -47,6 +56,7 @@ $(function () {
             $this.endDate = dateText;
         }
     });
+
     updateDate(7);
     $('.btn-qiehuan:first').addClass('selected');
     $('.btn-qiehuan').on('click',function(){
@@ -57,28 +67,67 @@ $(function () {
         }
         if($(this).text()=="一个月内") {
             updateDate(dateInterval(1));
-
         }
         if($(this).text()=="三个月内"){
             updateDate(dateInterval(3));
-
         }
         if($(this).text()=="半年内"){
             updateDate(dateInterval(6));
-
         }
         if($(this).text()=="一年内"){
             updateDate(dateInterval(12));
-
         }
-
     });
 });
+
+$(window).on('hashchange', function () {
+    checkURL();
+});
+
+function checkURL(url) {
+    //get the url by removing the hash
+    var val=$('#'+url+'1').find('.topn').children().val()
+        $('#'+url+'1').find('.topn').children().val(val);
+
+    container = $('#ztcbox');
+    // Do this if url exists (for page refresh, etc...)
+    if (url) {
+        // parse url to jquery
+        loadURL(url+ '/index.html', container);
+        $('.navth-content a[href="#' + url + '"]').addClass('navth-click')
+        $('.navth-content a[href="#' + url + '"]').siblings().removeClass('navth-click')
+    } else {
+        // grab the first URL from nav
+       /* $this = $('.navth-content > a[href!="#"]');
+        //update hash
+        window.location.hash = $this.attr('href');*/
+    }
+}
+
+function loadURL(url, container) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: 'html',
+        cache: true, // (warning: this will cause a timestamp and will call the request twice)
+        success: function (data) {
+            container.html(data)
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            container.html(
+                '<h4 style="margin-top:10px; display:block; text-align:left"><i class="fa fa-warning txt-color-orangeDark"></i> Error 404! Page not found.</h4>'
+            );
+            drawBreadCrumb();
+        }
+    });
+}
+
+
 var $this={
     countData: {total: 0, newTotal: 0},// 接口count数据
     topicData: [],  // 接口topic数据
     //
-
     lastDay: '30',
     startDate: '',
     endDate: '',
@@ -111,9 +160,9 @@ var $this={
         updateDate(val);
         update();
     },
-    setSize:function(val){
+    setSize:function(val,keywords,id){
         $this.size = val;
-        update();
+        update(keywords,id);
     }
 };
 var dateInterval=function(val){
@@ -161,12 +210,12 @@ var updateDate=function(val){
     }
 };
 // 更新数据
-var update=function(){
+var update=function(keywords,id){
     $('.option-content').addClass('hidden');
     $('.loading').removeClass('hidden')
     $('.nodata').addClass('hidden');
     $('.error').addClass('hidden');
-    TopicApi.topic($this.startDate, $this.endDate, $this.size, $this.sortByFreq, function (result) {
+    TopicApi.topic(keywords,$this.startDate, $this.endDate, $this.size, function (result) {
         $('.loading').addClass('hidden')
         $('.option-content').removeClass('hidden');
         if (result.obj) {
@@ -176,22 +225,30 @@ var update=function(){
             for(var i=0; i<$this.topicData.length; i++){
                 li +="<li class=\"cc\">"+
                 "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
-                "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].name+"</span></div>"+
-                "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].size+"</span></div>"+
+                "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].key+"</span></div>"+
+                "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].doc_count+"</span></div>"+
                 "</li>"
             }
-            $('.words-list').html(li);
-            $('.words-list').children().on('click',function(){
-                $(this).addClass('selected');
-                $(this).siblings().removeClass('selected');
-                searchWord($(this).find('.s-cente').text());
-            });
-            $('.words-list').children().eq(0).addClass("selected");
-            for(var i=0; i<3; i++){
-                $('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
+            $('#'+id+'').find('.words-list').html(li);
+            $('#'+id+'').find('.words-list').children().on('click',function(){
+            $(this).addClass('selected');
+            $(this).siblings().removeClass('selected');
+            console.log(id)
+            var url=id.replace('1','')
+            var hrf=location.hash.replace(/^#/, '');
+            if(url!=hrf){
+                checkURL(url)
             }
 
-            searchWord($this.topicData[0].name);
+            window.location.hash=url;
+                /*searchWord($(this).find('.s-cente').text());*/
+            });
+            $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
+            for(var i=0; i<3; i++){
+                $('#'+id+'').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
+            }
+
+            /*searchWord($this.topicData[0].name);*/
         } else {
             $('.words-list').html('');
             $('.wenzhang-list').html('');
@@ -355,4 +412,56 @@ var showSummary=function(id){
 };
 
 
+var updatehome=function(keywords,id,startDate, endDate, size){
+    $('.option-content').addClass('hidden');
+    $('.loading').removeClass('hidden')
+    $('.nodata').addClass('hidden');
+    $('.error').addClass('hidden');
+    TopicApi.topic(keywords,startDate, endDate, size, function (result) {
+        $('.loading').addClass('hidden')
+        $('.option-content').removeClass('hidden');
+        if (result.obj) {
+            $this.topicData = result.obj;
+            var li='';
+            for(var i=0; i<$this.topicData.length; i++){
+                li +="<li class=\"cc\">"+
+                    "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
+                    "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].key+"</span></div>"+
+                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].doc_count+"</span></div>"+
+                    "</li>"
+            }
+            $('#'+id+'').find('.words-list').html(li);
+            $('#'+id+'').find('.words-list').children().on('click',function(){
+            $(this).addClass('selected');
+            $(this).siblings().removeClass('selected');
+            console.log(id)
+            var url=id.replace('1','')
+            checkURL(url)
+            window.location.hash=url;
+                /*searchWord($(this).find('.s-cente').text());*/
+            });
+            $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
+            for(var i=0; i<3; i++){
+                $('#'+id+'').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
+            }
+
+            /*searchWord($this.topicData[0].name);*/
+        } else {
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
+            $('.nodata').removeClass('hidden');
+            $('.option-content').addClass('hidden');
+        }
+    }, function (error) {
+        $('.loading').addClass('hidden')
+        $('.error').removeClass('hidden')
+
+        if(error.status == 500){
+            var obj = JSON.parse(error.responseText)
+            $('.error').text(obj.message);
+        }else{
+            $('.error').text("服务器出现异常！“" + error.status +"，"+ error.statusText + "”");
+        }
+    });
+};
 
