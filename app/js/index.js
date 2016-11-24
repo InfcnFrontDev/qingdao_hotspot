@@ -1,15 +1,14 @@
+
+$(window).on('hashchange', function () {
+    checkURL();
+});
+
 // ready
 $(function () {
 
-    TopicApi.searchByQuery(0,Config.pageSize, function (result) {
-        if(result.obj.hits.total>10000){
-            $this.allPageSize=10000;
-        }else{
-            $this.allPageSize=result.obj.hits.total;
-        }
-    },function(){
+    checkURL();
 
-    })
+
     TopicApi.statistical(function (result) {
         $('.nav-text:first').html(result.obj.all+"条");
         $('.nav-text').eq(1).html(result.obj.month+"条");
@@ -18,33 +17,26 @@ $(function () {
     }, function (error) {
         $('.error').addClass('hidden')
     });
-    checkURL('home');
-    var url=location.hash.replace(/^#/, '');
-    checkURL(url);
+
+
+
     $('#sybtn').on('click',function(){
         $('#sybtn').addClass('navth-click')
         $('#sybtn').siblings().removeClass('navth-click')
-        container = $('#ztcbox');
-        loadURL( 'home/index.html', container);
     });
     $('#rdbtn').on('click',function(){
-        container = $('#ztcbox');
-        loadURL('redian/index.html', container);
         $('#rdbtn').addClass('navth-click')
-        $('#rdbtn').siblings().removeClass('navth-click')
+        $('#rdbtn').siblings().removeClass('navth-click');
     });
     $('#zdbtn').on('click',function(){
         $('#zdbtn').addClass('navth-click')
         $('#zdbtn').siblings().removeClass('navth-click')
-        container = $('#ztcbox');
-        loadURL('zuida/index.html', container);
     });
     $('#ycbtn').on('click',function(){
         $('#ycbtn').addClass('navth-click')
         $('#ycbtn').siblings().removeClass('navth-click')
-        container = $('#ztcbox');
-        loadURL( 'yichang/index.html', container);
     });
+
 
     // 初始化日期控件
     $("#startDate").datepicker({
@@ -67,6 +59,7 @@ $(function () {
     });
 
     updateDate(7);
+
     $('.btn-qiehuan:first').addClass('selected');
     $('.btn-qiehuan').on('click',function(){
         $(this).addClass('selected');
@@ -87,29 +80,20 @@ $(function () {
             updateDate(dateInterval(12));
         }
     });
+
+
 });
 
-$(window).on('hashchange', function () {
-    checkURL();
-});
 
 function checkURL(url) {
-    //get the url by removing the hash
-    var val=$('#'+url+'1').find('.topn').children().val()
-        $('#'+url+'1').find('.topn').children().val(val);
-
-    container = $('#ztcbox');
-    // Do this if url exists (for page refresh, etc...)
-    if (url) {
-        // parse url to jquery
-        loadURL(url+ '/index.html', container);
+    var url=location.hash.replace(/^#/, '');
+    if (url && url!='') {
+        loadURL(url+ '/index.html', $('#ztcbox'));
         $('.navth-content a[href="#' + url + '"]').addClass('navth-click')
         $('.navth-content a[href="#' + url + '"]').siblings().removeClass('navth-click')
     } else {
-        // grab the first URL from nav
-       /* $this = $('.navth-content > a[href!="#"]');
         //update hash
-        window.location.hash = $this.attr('href');*/
+        window.location.hash = 'home';
     }
 }
 
@@ -215,6 +199,7 @@ var updateDate=function(val){
         /*update();*/
     }
 };
+
 // 更新数据
 var update=function(keywords,id){
     $('#ztcbox').addClass('hidden');
@@ -299,6 +284,18 @@ var update=function(keywords,id){
         }
     });
 };
+
+
+
+var updateSubject = function (subject) {
+
+};
+
+var updateWord = function (word) {
+
+};
+
+
 //全部文章分页
 var fenye=function(qishi,size){
     TopicApi.searchByQuery(qishi,size,function(result){
@@ -444,27 +441,6 @@ var wenZhangShowTag=function(tag){
         }
     })
 }
-//加载详情摘要
-var showSummaryTag=function(qishi,size,id,tag){
-    if ($('#' + id).find('.w-jianjie').length == 0) {
-        TopicApi.searchByQueryTag(qishi,size,tag,$this.startDate, $this.endDate, function (result) {
-            var arr=result.obj.hits.hits;
-            var question;
-            for(var i=0; i<arr.length; i++){
-                if(id==arr[i]._id){
-                    question=arr[i]._source.question;
-                }
-            }
-            if (question.length > 120) {
-                question = question.substring(0, 120) + '...';
-            }
-            var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
-                '<p>' + question + '</p>' +
-                '</div>';
-            $('#' + id).find('.col-title').append(div);
-        }, function (error) {});
-    }
-};
 
 //加载echarts对比图
 var redianCycle=function(element,num,tags,startDate,endDate){
