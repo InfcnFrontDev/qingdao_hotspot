@@ -51,7 +51,22 @@ var TopicApi = {
     findById: function(id, success, error){
         var url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
         return $ajax(url, success, error);
+    },
+    /**
+     * 获取热点周期对比
+     */
+    searchCycleData: function(tags,num,begin ,end,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
+        return $ajax(url, success, error);
+    },
+    /**
+     * 获取关键词变化数据
+     */
+    searchkeyData: function(tag,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?tag=' + tag;
+        return $ajax(url, success, error);
     }
 };
+
 /*
 http://192.168.10.9:9095/api/MssSearchApi/searchByQuery?tableNames=network_asked&from=0&size=20&sort=question_time|desc&query=tags:"教育"*/

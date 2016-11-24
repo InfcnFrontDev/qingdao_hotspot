@@ -87,3 +87,6 @@ $('.layui-btn').on('click',function(){
     update('changeWord','yichang1');
     $('.btn-qiehuan').removeClass('selected');
 })
+
+
+

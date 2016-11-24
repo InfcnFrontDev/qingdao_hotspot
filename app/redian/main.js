@@ -8,3 +8,4 @@ $('#redian1').find('select').val(reSelectval)
 $this.setSize(reSelectval,'hotWord','redian1');
 wenZhangShow();
 
+
