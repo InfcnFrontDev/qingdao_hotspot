@@ -40,5 +40,19 @@ var TopicApi = {
     searchByQuery: function(size,onset, success, error){
         var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc';
         return $ajax(url, success, error);
+    },
+    /**
+     * 获取热点周期对比
+     */
+    searchCycleData: function(tags,num,begin ,end,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
+        return $ajax(url, success, error);
+    },
+    /**
+     * 获取关键词变化数据
+     */
+    searchkeyData: function(tag, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?tag=' + tag;
+        return $ajax(url, success, error);
     }
 };

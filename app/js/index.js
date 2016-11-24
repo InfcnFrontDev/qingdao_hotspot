@@ -58,6 +58,7 @@ $(function () {
     });
 
     updateDate(7);
+
     $('.btn-qiehuan:first').addClass('selected');
     $('.btn-qiehuan').on('click',function(){
         $(this).addClass('selected');
@@ -222,25 +223,47 @@ var update=function(keywords,id){
             $this.topicData = result.obj;
 
             var li='';
+            var redianArr=[];
+            var yichangArr=[];
+            var zuidaArr=[];
             for(var i=0; i<$this.topicData.length; i++){
                 li +="<li class=\"cc\">"+
                 "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
-                "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].key+"</span></div>"+
+                "<div class=\"col-xs-8 height-word\"><span class=\"s-cente guanjianci\">"+$this.topicData[i].key+"</span></div>"+
                 "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].doc_count+"</span></div>"+
                 "</li>"
+                if(i<5&&keywords=='hotWord'){
+                    redianArr.push($this.topicData[i].key)
+                }
+                if(i<5&&keywords=='abnormalWord'){
+                    zuidaArr.push($this.topicData[i].key)
+                }
+                if(i<5&&keywords=='changeWord'){
+                    yichangArr.push($this.topicData[i].key)
+                }
+
             }
+            var redianStr=redianArr.join(',');
+            var zuidaStr=zuidaArr.join(',')
+            var yichangStr=yichangArr.join(',')
+            redianCycle($('#rediantu'),3,redianStr,$this.startDate,$this.endDate);
+            zuidaCycle($('#zuidatu'),2,zuidaStr,$this.startDate,$this.endDate);
+            yichangCycle($('#yichangtu'),2,yichangStr,$this.startDate,$this.endDate);
             $('#'+id+'').find('.words-list').html(li);
             $('#'+id+'').find('.words-list').children().on('click',function(){
-            $(this).addClass('selected');
-            $(this).siblings().removeClass('selected');
-            console.log(id)
-            var url=id.replace('1','')
-            var hrf=location.hash.replace(/^#/, '');
-            if(url!=hrf){
-                checkURL(url)
-            }
+                var guanjianci=$(this).find('.guanjianci').text();
+                console.log(keywords)
 
-            window.location.hash=url;
+             /*   zhexianData($(''))*/
+                $(this).addClass('selected');
+                $(this).siblings().removeClass('selected');
+
+                var url=id.replace('1','')
+                var hrf=location.hash.replace(/^#/, '');
+                if(url!=hrf){
+                    checkURL(url)
+                }
+                window.location.hash=url;
                 /*searchWord($(this).find('.s-cente').text());*/
             });
             $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
@@ -411,57 +434,229 @@ var showSummary=function(id){
     }
 };
 
+//加载echarts对比图
+var redianCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
 
-var updatehome=function(keywords,id,startDate, endDate, size){
-    $('.option-content').addClass('hidden');
-    $('.loading').removeClass('hidden')
-    $('.nodata').addClass('hidden');
-    $('.error').addClass('hidden');
-    TopicApi.topic(keywords,startDate, endDate, size, function (result) {
-        $('.loading').addClass('hidden')
-        $('.option-content').removeClass('hidden');
-        if (result.obj) {
-            $this.topicData = result.obj;
-            var li='';
-            for(var i=0; i<$this.topicData.length; i++){
-                li +="<li class=\"cc\">"+
-                    "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
-                    "<div class=\"col-xs-8 height-word\"><span class=\"s-cente\">"+$this.topicData[i].key+"</span></div>"+
-                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].doc_count+"</span></div>"+
-                    "</li>"
-            }
-            $('#'+id+'').find('.words-list').html(li);
-            $('#'+id+'').find('.words-list').children().on('click',function(){
-            $(this).addClass('selected');
-            $(this).siblings().removeClass('selected');
-            console.log(id)
-            var url=id.replace('1','')
-            checkURL(url)
-            window.location.hash=url;
-                /*searchWord($(this).find('.s-cente').text());*/
-            });
-            $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
-            for(var i=0; i<3; i++){
-                $('#'+id+'').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
-            }
+    TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
+        var obj=result.obj;
 
-            /*searchWord($this.topicData[0].name);*/
-        } else {
-            $('.words-list').html('');
-            $('.wenzhang-list').html('');
-            $('.nodata').removeClass('hidden');
-            $('.option-content').addClass('hidden');
-        }
+        var tagarr=[];
+        var now=[];
+        var pre=[];
+        var prepre=[];
+        for(var i in obj){
+            var word = obj[i];
+
+            tagarr.push(word.tag);
+            prepre.push(word.buckets[0].doc_count);
+            pre.push(word.buckets[1].doc_count);
+            now.push(word.buckets[2].doc_count);
+        };
+
+        var myChart = echarts.init(id[0], 'macarons');
+        var option = {
+            title : {
+                text: '某地区蒸发量和降水量'
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['本周期','最近一周期','最近二周期']
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : tagarr
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'周期3',
+                    type:'bar',
+                    data:prepre
+                },
+                {
+                    name:'周期2',
+                    type:'bar',
+                    data:pre
+                },
+                {
+                    name:'周期1',
+                    type:'bar',
+                    data:now
+                }
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+
     }, function (error) {
-        $('.loading').addClass('hidden')
-        $('.error').removeClass('hidden')
 
-        if(error.status == 500){
-            var obj = JSON.parse(error.responseText)
-            $('.error').text(obj.message);
-        }else{
-            $('.error').text("服务器出现异常！“" + error.status +"，"+ error.statusText + "”");
-        }
-    });
-};
+    })
+
+
+}
+
+var zuidaCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
+
+    TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
+        var obj=result.obj;
+
+        var tagarr=[];
+        var now=[];
+        var pre=[];
+        for(var i in obj){
+            var word = obj[i];
+            tagarr.push(word.tag);
+            pre.push(word.buckets[0].doc_count);
+            now.push(word.buckets[1].doc_count);
+        };
+
+        var myChart = echarts.init(id[0], 'macarons');
+        option = {
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data:['直接访问', '邮件营销']
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : tagarr
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'直接访问',
+                    type:'bar',
+                    stack: '总量',
+                    data:now
+                },
+                {
+                    name:'邮件营销',
+                    type:'bar',
+                    stack: '总量',
+                    data:pre
+                }
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+
+    }, function (error) {
+
+    })
+
+
+}
+var yichangCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
+
+    TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
+        var obj=result.obj;
+
+        var tagarr=[];
+        var now=[];
+        var pre=[];
+        for(var i in obj){
+            var word = obj[i];
+            tagarr.push(word.tag);
+            pre.push(word.buckets[0].doc_count);
+            now.push(word.buckets[1].doc_count);
+        };
+
+        var myChart = echarts.init(id[0], 'macarons');
+        option = {
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data:['直接访问', '邮件营销']
+            },
+            xAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'category',
+                    data : tagarr
+                }
+            ],
+            series : [
+                {
+                    name:'本周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    data:now
+                },
+                {
+                    name:'上一周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    data:pre
+                }
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+
+    }, function (error) {
+
+    })
+
+
+}
+
+//加载echarts折线图
+ var zhexianData=function(element,tag){
+ var id=element;
+ var tag=tag;
+
+
+ TopicApi.searchkeyData(tag, function (result){
+
+ })
+
+
+ }
 
