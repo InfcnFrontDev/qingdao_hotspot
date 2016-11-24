@@ -17,7 +17,7 @@ $(function () {
     }, function (error) {
         $('.error').addClass('hidden')
     });
-    checkURL('home');
+    //checkURL('home');
     var url=location.hash.replace(/^#/, '');
     checkURL(url);
     $('#sybtn').on('click',function(){
@@ -221,6 +221,9 @@ var update=function(keywords,id){
     $('.loading').removeClass('hidden')
     $('.nodata').addClass('hidden');
     $('.error').addClass('hidden');
+
+    console.log('update');
+
     var $ztcbox =$('#ztcbox')
     TopicApi.topic(keywords,$this.startDate, $this.endDate, $this.size, function (result) {
         $('.loading').addClass('hidden');
@@ -229,34 +232,33 @@ var update=function(keywords,id){
             $this.topicData = result.obj;
 
             var li='';
-            var redianArr=[];
-            var yichangArr=[];
-            var zuidaArr=[];
+            var tags=[];
             for(var i=0; i<$this.topicData.length; i++){
                 li +="<li class=\"cc\">"+
                 "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >"+parseInt(i+1)+"</span></div>"+
                 "<div class=\"col-xs-8 height-word\"><span class=\"s-cente guanjianci\">"+$this.topicData[i].key+"</span></div>"+
                 "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">"+$this.topicData[i].doc_count+"</span></div>"+
                 "</li>"
-                if(i<5&&keywords=='hotWord'){
-                    redianArr.push($this.topicData[i].key)
-                }
-                if(i<5&&keywords=='abnormalWord'){
-                    zuidaArr.push($this.topicData[i].key)
-                }
-                if(i<5&&keywords=='changeWord'){
-                    yichangArr.push($this.topicData[i].key)
-                }
 
+                if(i<5){
+                    tags.push($this.topicData[i].key)
+                }
             }
-            var redianStr=redianArr.join(',');
-            var zuidaStr=zuidaArr.join(',')
-            var yichangStr=yichangArr.join(',')
-            redianCycle($('#rediantu'),3,redianStr,$this.startDate,$this.endDate);
-            zuidaCycle($('#zuidatu'),2,zuidaStr,$this.startDate,$this.endDate);
-            yichangCycle($('#yichangtu'),2,yichangStr,$this.startDate,$this.endDate);
             $('#'+id+'').find('.words-list').html(li);
             $('#'+id+'').find('.words-list').children().on('click',function(){
+                var guanjianci=$(this).find('.guanjianci').text();
+
+                if(keywords == 'hotWord')
+                    zhexianData($('#rediantu'), guanjianci);
+
+                if(keywords == 'abnormalWord')
+                    zhexianData($('#zuidatu'), guanjianci);
+
+                if(keywords == 'changeWord')
+                    zhexianData($('#yichangtu'), guanjianci);
+
+
+
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
                 var url=id.replace('1','')
@@ -272,6 +274,14 @@ var update=function(keywords,id){
             for(var i=0; i<3; i++){
                 $('#'+id+'').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
             }
+
+            var tagsStr=tags.join(',');
+            if(keywords=='hotWord')
+                redianCycle($('#rediantu'),3,tagsStr,$this.startDate,$this.endDate);
+            if(keywords=='abnormalWord')
+                zuidaCycle($('#zuidatu'),2,tagsStr,$this.startDate,$this.endDate);
+            if(keywords=='changeWord')
+                yichangCycle($('#yichangtu'),2,tagsStr,$this.startDate,$this.endDate);
 
             /*searchWord($this.topicData[0].name);*/
         } else {
@@ -465,6 +475,7 @@ var redianCycle=function(element,num,tags,startDate,endDate){
     var tags=tags;
     var startDate=startDate;
     var endDate=endDate;
+
 
     TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
         var obj=result.obj;
@@ -673,13 +684,53 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
 //加载echarts折线图
  var zhexianData=function(element,tag){
- var id=element;
- var tag=tag;
+     var id=element;
+     var tag=tag;
 
 
- TopicApi.searchkeyData(tag, function (result){
+     TopicApi.searchkeyData(tag, function (result){
+         var obj=result.obj;
 
- })
+         var tagarr=[];
+         var now=[];
+         for(var i in obj){
+             var word = obj[i];
+             tagarr.push(word.key_as_string);
+             now.push(word.doc_count);
+         };
+
+         var myChart = echarts.init(id[0], 'macarons');
+         option = {
+             title : {
+                 text: '未来一周气温变化'
+             },
+             tooltip : {
+                 trigger: 'axis'
+             },
+             xAxis : [
+                 {
+                     type : 'category',
+                     boundaryGap : false,
+                     data : tagarr
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     name:'最高气温',
+                     type:'line',
+                     data:now
+                 }
+             ]
+         };
+
+         // 为echarts对象加载数据
+         myChart.setOption(option);
+     })
 
 
  }

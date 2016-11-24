@@ -58,7 +58,7 @@ var TopicApi = {
     /**
      * 获取关键词变化数据
      */
-    searchkeyData: function(tag, error){
+    searchkeyData: function(tag,success, error){
         var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?tag=' + tag;
         return $ajax(url, success, error);
     }
