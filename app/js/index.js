@@ -496,7 +496,7 @@ var redianCycle=function(element,num,tags,startDate,endDate){
         var myChart = echarts.init(id[0], 'macarons');
         var option = {
             title : {
-                text: '某地区蒸发量和降水量'
+                text: "最近三个周期对比"
             },
             tooltip : {
                 trigger: 'axis'
@@ -574,7 +574,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             legend: {
-                data:['直接访问', '邮件营销']
+                data:['上一周期', '本周期']
             },
             xAxis : [
                 {
@@ -589,16 +589,16 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             ],
             series : [
                 {
-                    name:'直接访问',
-                    type:'bar',
-                    stack: '总量',
-                    data:now
-                },
-                {
-                    name:'邮件营销',
+                    name:'上一周期',
                     type:'bar',
                     stack: '总量',
                     data:pre
+                },
+                {
+                    name:'本周期',
+                    type:'bar',
+                    stack: '总量',
+                    data:now
                 }
             ]
         };
@@ -642,7 +642,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             legend: {
-                data:['直接访问', '邮件营销']
+                data:['本周期', '上一周期']
             },
             xAxis : [
                 {
@@ -702,7 +702,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
          var myChart = echarts.init(id[0], 'macarons');
          option = {
              title : {
-                 text: '未来一周气温变化'
+                 text: ''
              },
              tooltip : {
                  trigger: 'axis'
