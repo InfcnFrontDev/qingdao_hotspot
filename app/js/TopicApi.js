@@ -35,10 +35,19 @@ var TopicApi = {
         return $ajax(url, success, error);
     },
     /**
-     * 获取详细
+     * 获取全部文章
      */
-    searchByQuery: function(size,onset, success, error){
+    searchByQuery: function(onset,size, success, error){
         var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc';
+        return $ajax(url, success, error);
+    },
+    /**
+     * 获取详细文章
+     */
+    searchByQueryTag: function(onset,size,tag,startTime,endTime, success, error){
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
         return $ajax(url, success, error);
     }
 };
+/*
+http://192.168.10.9:9095/api/MssSearchApi/searchByQuery?tableNames=network_asked&from=0&size=20&sort=question_time|desc&query=tags:"教育"*/
