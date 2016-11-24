@@ -244,7 +244,6 @@ var update=function(keywords,id){
             $('#'+id+'').find('.words-list').html(li);
             $('#'+id+'').find('.words-list').children().on('click',function(){
                 var guanjianci=$(this).find('.guanjianci').text();
-
                 if(keywords == 'hotWord')
                     zhexianData($('#rediantu'), guanjianci);
 
@@ -493,9 +492,9 @@ var redianCycle=function(element,num,tags,startDate,endDate){
         };
 
         var myChart = echarts.init(id[0], 'macarons');
-        var option = {
+        option = {
             title : {
-                text: "最近三个周期对比"
+                text: '最近三个周期对比'
             },
             tooltip : {
                 trigger: 'axis'
@@ -516,22 +515,23 @@ var redianCycle=function(element,num,tags,startDate,endDate){
             ],
             series : [
                 {
-                    name:'周期3',
+                    name:'最近二周期',
                     type:'bar',
                     data:prepre
                 },
                 {
-                    name:'周期2',
+                    name:'最近一周期',
                     type:'bar',
                     data:pre
                 },
                 {
-                    name:'周期1',
+                    name:'本周期',
                     type:'bar',
                     data:now
                 }
             ]
         };
+
         // 为echarts对象加载数据
         myChart.setOption(option);
 
@@ -573,7 +573,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             legend: {
-                data:['上一周期', '本周期']
+                data:['本周期', '上一周期']
             },
             xAxis : [
                 {
@@ -588,17 +588,18 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             ],
             series : [
                 {
-                    name:'上一周期',
-                    type:'bar',
-                    stack: '总量',
-                    data:pre
-                },
-                {
                     name:'本周期',
                     type:'bar',
                     stack: '总量',
                     data:now
+                },
+                {
+                    name:'上一周期',
+                    type:'bar',
+                    stack: '总量',
+                    data:pre
                 }
+
             ]
         };
         // 为echarts对象加载数据
@@ -685,8 +686,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
  var zhexianData=function(element,tag){
      var id=element;
      var tag=tag;
-
-
+     var key=id.parents(".zhuanti").find('.guanjianci').text();
      TopicApi.searchkeyData(tag, function (result){
          var obj=result.obj;
 
@@ -701,7 +701,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
          var myChart = echarts.init(id[0], 'macarons');
          option = {
              title : {
-                 text: ''
+                 text:tag
              },
              tooltip : {
                  trigger: 'axis'
@@ -720,7 +720,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              ],
              series : [
                  {
-                     name:'最高气温',
+                     name:'数量',
                      type:'line',
                      data:now
                  }
