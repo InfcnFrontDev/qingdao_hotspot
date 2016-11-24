@@ -50,5 +50,6 @@ $('.btn-qiehuan').on('click',function(){
         update('hotWord','redian1');
     }
 });
+wenZhangShow();
 
 

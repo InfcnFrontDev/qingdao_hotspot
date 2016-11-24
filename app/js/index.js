@@ -1,17 +1,25 @@
 // ready
 $(function () {
+    TopicApi.searchByQuery(0,Config.pageSize, function (result) {
+        if(result.obj.hits.total>10000){
+            $this.allPageSize=10000;
+        }else{
+            $this.allPageSize=result.obj.hits.total;
+        }
+    },function(){
+
+    })
     TopicApi.statistical(function (result) {
         $('.nav-text:first').html(result.obj.all+"条");
         $('.nav-text').eq(1).html(result.obj.month+"条");
         $('.nav-text').eq(2).html(result.obj.d7+"条");
         $('.nav-text:last').html(result.obj.d30+"条");
-
     }, function (error) {
         $('.error').addClass('hidden')
     });
+    checkURL('home');
     var url=location.hash.replace(/^#/, '');
     checkURL(url);
-
     $('#sybtn').on('click',function(){
         $('#sybtn').addClass('navth-click')
         $('#sybtn').siblings().removeClass('navth-click')
@@ -113,7 +121,6 @@ function loadURL(url, container) {
         cache: true, // (warning: this will cause a timestamp and will call the request twice)
         success: function (data) {
             container.html(data)
-
         },
         error: function (xhr, ajaxOptions, thrownError) {
             container.html(
@@ -129,18 +136,17 @@ var $this={
     countData: {total: 0, newTotal: 0},// 接口count数据
     topicData: [],  // 接口topic数据
     //
+    allPageSize:0,
     lastDay: '30',
     startDate: '',
     endDate: '',
     size: 10,
     sortByFreq: true,
-
     pageSize: Config.pageSize,
     word: undefined,
     wordDocs: [], // 全部内容列表
     page: 1,
     pageDocs: [], // 分页后内容列表
-
     /*loading: false,
     nodata: false,
     error: true,*/
@@ -166,6 +172,7 @@ var $this={
         update(keywords,id);
     }
 };
+//时间间隔
 var dateInterval=function(val){
     var nowdate = new Date();
     var year = nowdate.getFullYear();
@@ -177,10 +184,8 @@ var dateInterval=function(val){
         if(mouth==0){
             mouth=12
         }
-
         if (mouth == 2) {
             days = year % 4 == 0 ? 29 : 28;
-
         }
         else if (mouth == 1 || mouth == 3 || mouth == 5 || mouth == 7 || mouth == 8 || mouth == 10 || mouth == 12) {
             //月份为：1,3,5,7,8,10,12 时，为大月.则天数为31；
@@ -212,14 +217,15 @@ var updateDate=function(val){
 };
 // 更新数据
 var update=function(keywords,id){
-    $('.option-content').addClass('hidden');
+    $('#ztcbox').addClass('hidden');
     $('.loading').removeClass('hidden')
     $('.nodata').addClass('hidden');
     $('.error').addClass('hidden');
+    var $ztcbox =$('#ztcbox')
     TopicApi.topic(keywords,$this.startDate, $this.endDate, $this.size, function (result) {
-        $('.loading').addClass('hidden')
-        $('.option-content').removeClass('hidden');
-        if (result.obj) {
+        $('.loading').addClass('hidden');
+        $ztcbox.removeClass('hidden');
+        if (result.obj.length>0) {
             $this.topicData = result.obj;
 
             var li='';
@@ -251,19 +257,15 @@ var update=function(keywords,id){
             yichangCycle($('#yichangtu'),2,yichangStr,$this.startDate,$this.endDate);
             $('#'+id+'').find('.words-list').html(li);
             $('#'+id+'').find('.words-list').children().on('click',function(){
-                var guanjianci=$(this).find('.guanjianci').text();
-                console.log(keywords)
-
-             /*   zhexianData($(''))*/
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
-
                 var url=id.replace('1','')
                 var hrf=location.hash.replace(/^#/, '');
                 if(url!=hrf){
                     checkURL(url)
                 }
                 window.location.hash=url;
+                wenZhangShowTag($(this).find('.s-cente').text());
                 /*searchWord($(this).find('.s-cente').text());*/
             });
             $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
@@ -276,12 +278,11 @@ var update=function(keywords,id){
             $('.words-list').html('');
             $('.wenzhang-list').html('');
             $('.nodata').removeClass('hidden');
-            $('.option-content').addClass('hidden');
+            $('#ztcbox').addClass('hidden');
         }
     }, function (error) {
-        $('.loading').addClass('hidden')
-        $('.error').removeClass('hidden')
-
+        $('.loading').addClass('hidden');
+        $('.error').removeClass('hidden');
         if(error.status == 500){
             var obj = JSON.parse(error.responseText)
             $('.error').text(obj.message);
@@ -290,146 +291,169 @@ var update=function(keywords,id){
         }
     });
 };
-// 选择主题词
-var searchWord=function(words){
-    $this.word = words;
-    $this.wordDocs = [];
-
-    if ($this.topicData && $this.topicData.length > 0) {
-        var arr=[];
-        for(var i=0; i<$this.topicData.length; i++){
-            if($this.topicData[i].name == words){
-                arr.push($this.topicData[i])
-            }
-        }
-
-        if (arr.length > 0) {
-            $this.wordDocs = arr[0].docs;
-
-
-        } else {
-            $this.wordDocs = $this.topicData[0].docs;
-            $this.word = $this.topicData[0].name;
-        }
-        // 去空
-        //this.wordDocs = this.wordDocs.filter(d => d._id);
-    }
-
-/*
-    layui.laypage({
-        cont: 'page',
-        pages: Math.ceil($this.wordDocs.length / $this.pageSize), //得到总页数
-        skin: '#0077dd',
-        jump: function (obj) {
-            listPage(obj.curr);
-        }
-    });*/
-    if(Math.ceil($this.wordDocs.length / Config.pageSize)>1){
-        $('#page').removeClass('hidden')
-        $('#pagination1').jqPaginator({
-            totalPages: Math.ceil($this.wordDocs.length / Config.pageSize),
-            visiblePages: Config.pageSize,
-            currentPage: 1,
-            first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
-            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
-            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
-            last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
-            page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
-            onPageChange: function (num, type) {
-                $('#text').html('当前第' + num + '页');
-                listPage(num);
-            }
-        });
-    }else{
-        $('#page').addClass('hidden')
-    }
-
-
-    listPage(1);
-};
-// 选择分页
-var listPage=function(pageIndex){
-    var list = $this.wordDocs;
-    var docs = [];
-    var pagenum = pageIndex - 1;
-    for (var i = 0; i < $this.pageSize; i++) {
-        var dai = parseInt(pagenum * $this.pageSize) + parseInt(i)
-        if (dai < list.length) {
-            docs.push(list[dai]);
-        }
-    }
-    $this.pageDocs = docs;
-    var li='';
-    for(var i=0; i<$this.pageDocs.length; i++){
-
-        if($this.pageDocs[i].sames){
-            li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
+//全部文章分页
+var fenye=function(qishi,size){
+    TopicApi.searchByQuery(qishi,size,function(result){
+        var arr=result.obj.hits.hits;
+        $this.wordDocs = arr;
+        var li='';
+        for(var i=0; i<arr.length; i++){
+            li+="<div id=\""+arr[i]._id+"\" class=\"w-item\">"+
+                "<a href=\""+arr[i]._source.pageurl+"\" target='_blank'>"+
                 "<div class=\"col-xs-7 col-title cc\">"+
                 "<div class=\"w-title cc\">"+
-                $this.pageDocs[i].title+
-                "</div>"+
-                "<span title=\"有"+$this.pageDocs[i].sames.length+"个同样内容。\" >"+
-                "+"+
-                $this.pageDocs[i].sames.length+
-                "</span>"+
-                "</div>"+
-                "<div class=\"col-xs-2 cc\">"+
-                "<div class=\"w-unit cc\" title=\""+$this.pageDocs[i].units+"\">"+
-                $this.pageDocs[i].units
-                +"</div>"+
-                "</div>"+
-                "<div class=\"col-xs-3 cc\">"+
-                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
-                "</div>"+
-                "<div class=\"clear\"></div>"+
-                "</a>"+
-                "</div>"
-        }else{
-            li+="<div id=\""+$this.pageDocs[i]._id+"\" class=\"w-item\">"+
-                "<a href=\""+$this.pageDocs[i].pageurl+"\" target='_blank'>"+
-                "<div class=\"col-xs-7 col-title cc\">"+
-                "<div class=\"w-title cc\">"+
-                $this.pageDocs[i].title+
+                arr[i]._source.title+
                 "</div>"+
                 "</div>"+
                 "<div class=\"col-xs-2 cc\">"+
-                "<div class=\"w-unit cc\" title=\""+$this.pageDocs[i].units+"\">"+
-                $this.pageDocs[i].units
+                "<div class=\"w-unit cc\" title=\""+arr[i]._source.units+"\">"+
+                arr[i]._source.units
                 +"</div>"+
                 "</div>"+
                 "<div class=\"col-xs-3 cc\">"+
-                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date($this.pageDocs[i].question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_)+"</div>"+
                 "</div>"+
                 "<div class=\"clear\"></div>"+
                 "</a>"+
                 "</div>"
         }
+        $('.wenzhang-list').html(li);
+        $('.wenzhang-list').children().on('mouseover',function(){
+            showSummary($(this).attr("id"))
+        })
 
+    },function(error){
 
-    }
-    $('.wenzhang-list').html(li);
-    $('.wenzhang-list').children().on('mouseover',function(){
-        showSummary($(this).attr("id"))
     })
-
-};
-// 加载摘要
+}
+//全部文章显示
+var wenZhangShow=function(){
+    fenye(0,Config.pageSize)
+    TopicApi.searchByQuery(0,Config.pageSize,function(result){
+        var numm=result.obj.hits.total
+        if(Math.ceil(numm/ Config.pageSize)>1){
+            $('#page').removeClass('hidden')
+            $('#pagination1').jqPaginator({
+                totalPages: Math.ceil(numm / Config.pageSize),
+                visiblePages: Config.pageSize,
+                currentPage: 1,
+                first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+                prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+                next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+                last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+                page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+                onPageChange: function (num, type) {
+                    $('#text').html('当前第' + num + '页');
+                    var a=num*Config.pageSize
+                    fenye(a,Config.pageSize);
+                }
+            });
+        }else{
+            $('#page').addClass('hidden')
+        }
+    },function(){
+    })
+}
+// 加载文章摘要
 var showSummary=function(id){
     if ($('#' + id).find('.w-jianjie').length == 0) {
-        TopicApi.findById(id, function (result) {
-            if (result.ok) {
-
-                var question = result.obj.question;
-                if (question.length > 120) {
-                    question = question.substring(0, 120) + '...';
+        TopicApi.searchByQuery(0,$this.allPageSize, function (result) {
+            var arr=result.obj.hits.hits;
+            var question;
+            for(var i=0; i<arr.length; i++){
+                if(id==arr[i]._id){
+                    question=arr[i]._source.question;
                 }
-
-                var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
-                      '<p>' + question + '</p>' +
-                      '</div>';
-                $('#' + id).find('.col-title').append(div);
             }
+            if (question.length > 120) {
+                question = question.substring(0, 120) + '...';
+            }
+            var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
+                '<p>' + question + '</p>' +
+                '</div>';
+            $('#' + id).find('.col-title').append(div);
+        }, function (error) {});
+    }
+};
+//文章详情分页
+var fenyeTag=function(qishi,size,tag){
+    TopicApi.searchByQueryTag(qishi,size,tag,$this.startDate, $this.endDate,function(result){
+        var arr=result.obj.hits.hits;
+        var zongshu=result.obj.hits.total;
+        $this.wordDocs = arr;
+        var li='';
+        for(var i=0; i<arr.length; i++){
+            li+="<div id=\""+arr[i]._id+"\" class=\"w-item\">"+
+                "<a href=\""+arr[i]._source.pageurl+"\" target='_blank'>"+
+                "<div class=\"col-xs-7 col-title cc\">"+
+                "<div class=\"w-title cc\">"+
+                arr[i]._source.title+
+                "</div>"+
+                "</div>"+
+                "<div class=\"col-xs-2 cc\">"+
+                "<div class=\"w-unit cc\" title=\""+arr[i]._source.units+"\">"+
+                arr[i]._source.units
+                +"</div>"+
+                "</div>"+
+                "<div class=\"col-xs-3 cc\">"+
+                "<div class=\"w-datetime cc\">"+Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_)+"</div>"+
+                "</div>"+
+                "<div class=\"clear\"></div>"+
+                "</a>"+
+                "</div>"
+        }
+        $('.wenzhang-list').html(li);
+        $('.wenzhang-list').children().on('mouseover',function(){
+            showSummaryTag(qishi,size,$(this).attr("id"),tag)
+        })
+
+    },function(error){
+
+    })
+
+}
+//文章详情显示
+var wenZhangShowTag=function(tag){
+    fenyeTag(0,Config.pageSize,tag)
+    TopicApi.searchByQueryTag(0,Config.pageSize,tag,$this.startDate,$this.endDate,function(result){
+        if(Math.ceil(result.obj.hits.total / Config.pageSize)>1){
+            $('#page').removeClass('hidden');
+            $('#pagination1').jqPaginator({
+                totalPages: Math.ceil(result.obj.hits.total/Config.pageSize)-1,
+                visiblePages: Config.pageSize,
+                currentPage: 1,
+                prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+                next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+                page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+                onPageChange: function (num, type) {
+                    $('#text').html('当前第' + num + '页');
+                    var a=num*Config.pageSize
+                    fenyeTag(a,Config.pageSize,tag);
+                }
+            });
+        }else{
+            $('#page').addClass('hidden')
+        }
+    })
+}
+//加载详情摘要
+var showSummaryTag=function(qishi,size,id,tag){
+    if ($('#' + id).find('.w-jianjie').length == 0) {
+        TopicApi.searchByQueryTag(qishi,size,tag,$this.startDate, $this.endDate, function (result) {
+            var arr=result.obj.hits.hits;
+            var question;
+            for(var i=0; i<arr.length; i++){
+                if(id==arr[i]._id){
+                    question=arr[i]._source.question;
+                }
+            }
+            if (question.length > 120) {
+                question = question.substring(0, 120) + '...';
+            }
+            var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
+                '<p>' + question + '</p>' +
+                '</div>';
+            $('#' + id).find('.col-title').append(div);
         }, function (error) {});
     }
 };
@@ -659,4 +683,5 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
 
  }
+
 

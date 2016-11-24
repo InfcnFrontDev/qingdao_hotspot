@@ -51,7 +51,7 @@ $('.btn-qiehuan').on('click',function(){
     }
 });
 
-
+wenZhangShow();
 
 /*
 abnormalWord*/
