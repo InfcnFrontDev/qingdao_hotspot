@@ -48,6 +48,10 @@ var TopicApi = {
         var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
         return $ajax(url, success, error);
     },
+    findById: function(id, success, error){
+        var url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
+        return $ajax(url, success, error);
+    },
     /**
      * 获取热点周期对比
      */
@@ -63,3 +67,6 @@ var TopicApi = {
         return $ajax(url, success, error);
     }
 };
+
+/*
+http://192.168.10.9:9095/api/MssSearchApi/searchByQuery?tableNames=network_asked&from=0&size=20&sort=question_time|desc&query=tags:"教育"*/

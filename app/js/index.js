@@ -1,5 +1,6 @@
 // ready
 $(function () {
+
     TopicApi.searchByQuery(0,Config.pageSize, function (result) {
         if(result.obj.hits.total>10000){
             $this.allPageSize=10000;
@@ -17,7 +18,7 @@ $(function () {
     }, function (error) {
         $('.error').addClass('hidden')
     });
-    //checkURL('home');
+    checkURL('home');
     var url=location.hash.replace(/^#/, '');
     checkURL(url);
     $('#sybtn').on('click',function(){
@@ -66,7 +67,6 @@ $(function () {
     });
 
     updateDate(7);
-
     $('.btn-qiehuan:first').addClass('selected');
     $('.btn-qiehuan').on('click',function(){
         $(this).addClass('selected');
@@ -221,9 +221,6 @@ var update=function(keywords,id){
     $('.loading').removeClass('hidden')
     $('.nodata').addClass('hidden');
     $('.error').addClass('hidden');
-
-    console.log('update');
-
     var $ztcbox =$('#ztcbox')
     TopicApi.topic(keywords,$this.startDate, $this.endDate, $this.size, function (result) {
         $('.loading').addClass('hidden');
@@ -267,8 +264,10 @@ var update=function(keywords,id){
                     checkURL(url)
                 }
                 window.location.hash=url;
+
                 wenZhangShowTag($(this).find('.s-cente').text());
                 /*searchWord($(this).find('.s-cente').text());*/
+
             });
             $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
             for(var i=0; i<3; i++){
