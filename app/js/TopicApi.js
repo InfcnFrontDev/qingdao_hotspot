@@ -47,6 +47,10 @@ var TopicApi = {
     searchByQueryTag: function(onset,size,tag,startTime,endTime, success, error){
         var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
         return $ajax(url, success, error);
+    },
+    findById: function(id, success, error){
+        var url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
+        return $ajax(url, success, error);
     }
 };
 /*

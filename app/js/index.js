@@ -1,5 +1,6 @@
 // ready
 $(function () {
+
     TopicApi.searchByQuery(0,Config.pageSize, function (result) {
         if(result.obj.hits.total>10000){
             $this.allPageSize=10000;
@@ -64,6 +65,13 @@ $(function () {
             $this.endDate = dateText;
         }
     });
+    $('.layui-btn').on('click',function(){
+        update('hotWord','redian1');
+        update('abnormalWord','zuida1');
+        update('changeWord','yichang1');
+        $('.btn-qiehuan').removeClass('selected');
+    })
+
 
     updateDate(7);
     $('.btn-qiehuan:first').addClass('selected');
@@ -72,25 +80,40 @@ $(function () {
         $(this).parent().siblings().children().removeClass('selected');
         if($(this).text()=="一周内"){
             updateDate(7);
+            update('hotWord','redian1');
+            update('abnormalWord','zuida1');
+            update('changeWord','yichang1');
         }
         if($(this).text()=="一个月内") {
             updateDate(dateInterval(1));
+            update('hotWord','redian1');
+            update('abnormalWord','zuida1');
+            update('changeWord','yichang1');
         }
         if($(this).text()=="三个月内"){
             updateDate(dateInterval(3));
+            update('hotWord','redian1');
+            update('abnormalWord','zuida1');
+            update('changeWord','yichang1');
         }
         if($(this).text()=="半年内"){
             updateDate(dateInterval(6));
+            update('hotWord','redian1');
+            update('abnormalWord','zuida1');
+            update('changeWord','yichang1');
         }
         if($(this).text()=="一年内"){
             updateDate(dateInterval(12));
+            update('hotWord','redian1');
+            update('abnormalWord','zuida1');
+            update('changeWord','yichang1');
         }
     });
 });
 
-$(window).on('hashchange', function () {
+/*$(window).on('hashchange', function () {
     checkURL();
-});
+});*/
 
 function checkURL(url) {
     //get the url by removing the hash
@@ -215,6 +238,8 @@ var updateDate=function(val){
     }
 };
 // 更新数据
+
+var revalue,zuivalue,yivalue,reSelectval=10,zuiSelectval=10,yiSelectval=10;;
 var update=function(keywords,id){
     $('#ztcbox').addClass('hidden');
     $('.loading').removeClass('hidden')
@@ -236,19 +261,53 @@ var update=function(keywords,id){
                 "</li>"
             }
             $('#'+id+'').find('.words-list').html(li);
+
             $('#'+id+'').find('.words-list').children().on('click',function(){
+                reSelectval=$('#redian1').find('select').val()
+                zuiSelectval=$('#zuida1').find('select').val()
+                yiSelectval=$('#yichang1').find('select').val()
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
                 var url=id.replace('1','')
+                if(id=='redian1'){
+                    revalue=$(this).children().eq(0).text()-1;
+                }
+                if(id=='zuida1'){
+                    zuivalue=$(this).children().eq(0).text()-1;
+                }
+                if(id=='yichang1'){
+                    yivalue=$(this).children().eq(0).text()-1;
+                }
+                console.log($(this).parent().children().scrollTop());
+
+
                 var hrf=location.hash.replace(/^#/, '');
                 if(url!=hrf){
                     checkURL(url)
                 }
                 window.location.hash=url;
+
                 wenZhangShowTag($(this).find('.s-cente').text());
                 /*searchWord($(this).find('.s-cente').text());*/
+
             });
-            $('#'+id+'').find('.words-list').children().eq(0).addClass("selected");
+            $('#'+id+'').find('.words-list').children().eq(0).addClass('selected');
+            if(keywords=='hotWord'){
+                $('#redian1').find('.words-list').children().eq(revalue).addClass('selected');
+                $('#redian1').find('.words-list').children().eq(revalue).siblings().removeClass('selected');
+            }
+            if(keywords=='abnormalWord'){
+                $('#zuida1').find('.words-list').children().eq(zuivalue).addClass('selected');
+                $('#zuida1').find('.words-list').children().eq(zuivalue).siblings().removeClass('selected');
+                $('#zuida1').find('select').val(zuiSelectval)
+            }
+            if(keywords=='changeWord'){
+                $('#yichang1').find('.words-list').children().eq(yivalue).addClass('selected');
+                $('#yichang1').find('.words-list').children().eq(yivalue).siblings().removeClass('selected');
+                $('#yichang1').find('select').val(yiSelectval)
+            }
+
+
             for(var i=0; i<3; i++){
                 $('#'+id+'').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
             }
@@ -317,10 +376,8 @@ var wenZhangShow=function(){
                 totalPages: Math.ceil(numm / Config.pageSize),
                 visiblePages: Config.pageSize,
                 currentPage: 1,
-                first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
                 prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
                 next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
-                last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
                 page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
                 onPageChange: function (num, type) {
                     $('#text').html('当前第' + num + '页');
@@ -337,21 +394,19 @@ var wenZhangShow=function(){
 // 加载文章摘要
 var showSummary=function(id){
     if ($('#' + id).find('.w-jianjie').length == 0) {
-        TopicApi.searchByQuery(0,$this.allPageSize, function (result) {
-            var arr=result.obj.hits.hits;
-            var question;
-            for(var i=0; i<arr.length; i++){
-                if(id==arr[i]._id){
-                    question=arr[i]._source.question;
+        TopicApi.findById(id, function (result) {
+            if (result.ok) {
+
+                var question = result.obj.question;
+                if (question.length > 120) {
+                    question = question.substring(0, 120) + '...';
                 }
+
+                var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
+                    '<p>' + question + '</p>' +
+                    '</div>';
+                $('#' + id).find('.col-title').append(div);
             }
-            if (question.length > 120) {
-                question = question.substring(0, 120) + '...';
-            }
-            var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
-                '<p>' + question + '</p>' +
-                '</div>';
-            $('#' + id).find('.col-title').append(div);
         }, function (error) {});
     }
 };
@@ -384,7 +439,7 @@ var fenyeTag=function(qishi,size,tag){
         }
         $('.wenzhang-list').html(li);
         $('.wenzhang-list').children().on('mouseover',function(){
-            showSummaryTag(qishi,size,$(this).attr("id"),tag)
+            showSummary($(this).attr("id"))
         })
 
     },function(error){
@@ -416,27 +471,7 @@ var wenZhangShowTag=function(tag){
         }
     })
 }
-//加载详情摘要
-var showSummaryTag=function(qishi,size,id,tag){
-    if ($('#' + id).find('.w-jianjie').length == 0) {
-        TopicApi.searchByQueryTag(qishi,size,tag,$this.startDate, $this.endDate, function (result) {
-            var arr=result.obj.hits.hits;
-            var question;
-            for(var i=0; i<arr.length; i++){
-                if(id==arr[i]._id){
-                    question=arr[i]._source.question;
-                }
-            }
-            if (question.length > 120) {
-                question = question.substring(0, 120) + '...';
-            }
-            var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
-                '<p>' + question + '</p>' +
-                '</div>';
-            $('#' + id).find('.col-title').append(div);
-        }, function (error) {});
-    }
-};
+
 
 
 
