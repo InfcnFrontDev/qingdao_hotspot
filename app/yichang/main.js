@@ -6,9 +6,13 @@ $('#yichang1').find('.topn').children().val($this.yichangSize);
 
 var update = function () {
 
-    updateWords('changeWord', 'yichang1',$this.yichangSize, function (words) {
+    updateWords('abnormalWord', 'yichang1',$this.yichangSize, function (words) {
 
         if($this.word){
+
+            // 滚动条定位
+            $('.theme-words').scrollTop($('.words-list .selected').position().top);
+
             zhexianData($('#yichangtu'), $this.word);
             wenZhangShowTag($this.word);
         }else{

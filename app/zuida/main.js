@@ -5,9 +5,13 @@ $('#zuida1').find('.topn').children().change(function(){
 $('#zuida1').find('.topn').children().val($this.zuidaSize);
 var update = function () {
 
-    updateWords('abnormalWord','zuida1',$this.zuidaSize, function (words) {
+    updateWords('changeWord','zuida1',$this.zuidaSize, function (words) {
 
         if($this.word){
+
+            // 滚动条定位
+            $('.theme-words').scrollTop($('.words-list .selected').position().top);
+
             zhexianData($('#zuidatu'), $this.word);
             wenZhangShowTag($this.word);
         }else{

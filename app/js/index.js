@@ -347,7 +347,7 @@ var fenye = function (qishi, size) {
 }
 //全部文章显示
 var wenZhangShow = function () {
-    fenye(0, Config.pageSize)
+    fenye(0, Config.pageSize);
     TopicApi.searchByQuery(0, Config.pageSize,$this.startDate,$this.endDate, function (result) {
         var numm = result.obj.hits.total
         if (Math.ceil(numm / Config.pageSize) > 1) {
@@ -361,7 +361,7 @@ var wenZhangShow = function () {
                 page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
                 onPageChange: function (num, type) {
                     $('#text').html('当前第' + num + '页');
-                    var a = num * Config.pageSize
+                    var a = (num-1) * Config.pageSize
                     fenye(a, Config.pageSize);
                 }
             });
@@ -418,6 +418,30 @@ var fenyeTag = function (qishi, size, tag) {
                 "</a>" +
                 "</div>"
         }
+
+        function parseISO8601(dateStringInRange) {
+            var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+                date = new Date(NaN), month,
+                parts = isoExp.exec(dateStringInRange);
+
+            if(parts) {
+                month = +parts[2];
+                date.setFullYear(parts[1], month - 1, parts[3]);
+                if(month != date.getMonth() + 1) {
+                    date.setTime(NaN);
+                }
+            }
+            return date;
+        }
+
+
+        console.log(arr[0]);
+        console.log(arr[0]._source.question_time);
+        console.log(new Date(arr[0]._source.question_time));
+
+
+
+
         $('.wenzhang-list').html(li);
         $('.wenzhang-list').children().on('mouseover', function () {
             showSummary($(this).attr("id"))
@@ -430,6 +454,9 @@ var fenyeTag = function (qishi, size, tag) {
 }
 //文章详情显示
 var wenZhangShowTag = function (tag) {
+
+    tag = encodeURI(tag);
+
     fenyeTag(0, Config.pageSize, tag)
     TopicApi.searchByQueryTag(0, Config.pageSize, tag, $this.startDate, $this.endDate, function (result) {
         if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
@@ -443,7 +470,7 @@ var wenZhangShowTag = function (tag) {
                 page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
                 onPageChange: function (num, type) {
                     $('#text').html('当前第' + num + '页');
-                    var a = num * Config.pageSize
+                    var a = (num-1) * Config.pageSize
                     fenyeTag(a, Config.pageSize, tag);
                 }
             });

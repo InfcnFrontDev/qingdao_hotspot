@@ -9,6 +9,10 @@ var update = function () {
 
     updateWords('hotWord','redian1',$this.redianSize, function (words) {
         if($this.word){
+
+            // 滚动条定位
+            $('.theme-words').scrollTop($('.words-list .selected').position().top);
+
             zhexianData($('#rediantu'), $this.word);
             wenZhangShowTag($this.word);
         }else{

@@ -25,13 +25,13 @@ var update1 = function () {
 };
 
 var update2 = function () {
-    updateWords('abnormalWord','zuida1',$this.zuidaSize, function (words) {
+    updateWords('changeWord','zuida1',$this.zuidaSize, function (words) {
         zuidaCycle($('#zuidatu'),2,words.join(','),$this.startDate,$this.endDate);
     });
 };
 
 var update3 = function () {
-    updateWords('changeWord','yichang1',$this.yichangSize, function (words) {
+    updateWords('abnormalWord','yichang1',$this.yichangSize, function (words) {
         yichangCycle($('#yichangtu'),2,words.join(','),$this.startDate,$this.endDate);
     });
 };
