@@ -38,14 +38,14 @@ var TopicApi = {
      * 获取全部文章
      */
     searchByQuery: function(onset,size, success, error){
-        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc';
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size;
         return $ajax(url, success, error);
     },
     /**
      * 获取详细文章
      */
     searchByQueryTag: function(onset,size,tag,startTime,endTime, success, error){
-        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&sort=question_time|desc&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
         return $ajax(url, success, error);
     },
     findById: function(id, success, error){
