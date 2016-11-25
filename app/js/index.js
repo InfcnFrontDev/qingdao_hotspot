@@ -704,8 +704,10 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
          var now=[];
          for(var i in obj){
              var word = obj[i];
-             console.log(word.key_as_string)
-             tagarr.push(word.key_as_string);
+            var year= word.key_as_string.substr(0,4);
+             var month= word.key_as_string.substr(4,2);
+            var item=year+"年"+month+"月"
+             tagarr.push(item);
              now.push(word.doc_count);
          };
 
@@ -718,7 +720,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                  trigger: 'axis'
              },
              grid:{
-                 x:30,
+                 x:40,
                  x2:10,
                  y2:30
              },
@@ -726,7 +728,8 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                  {
                      type : 'category',
                      boundaryGap : false,
-                     data : tagarr
+                     itemStyle : { normal: {label : {show: true}}},
+                     data : tagarr,
                  }
              ],
              yAxis : [
@@ -738,6 +741,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                  {
                      name:'数量',
                      type:'line',
+                     itemStyle : { normal: {label : {show: true}}},
                      data:now
                  }
              ]
