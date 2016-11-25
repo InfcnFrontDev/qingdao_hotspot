@@ -1,4 +1,4 @@
-var chart_theme = 'mint';
+var chart_theme = 'macarons';
 
 
 $(window).on('hashchange', function () {
