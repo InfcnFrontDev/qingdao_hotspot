@@ -229,6 +229,7 @@ var update=function(keywords,id){
             $('#'+id+'').find('.words-list').html(li);
             $('#'+id+'').find('.words-list').children().on('click',function(){
                 var guanjianci=$(this).find('.guanjianci').text();
+                guanjianci=encodeURI(guanjianci);
                 if(keywords == 'hotWord')
                     zhexianData($('#rediantu'), guanjianci);
 
@@ -259,6 +260,7 @@ var update=function(keywords,id){
             }
 
             var tagsStr=tags.join(',');
+            tagsStr=encodeURI(tagsStr);
             if(keywords=='hotWord')
                 redianCycle($('#rediantu'),3,tagsStr,$this.startDate,$this.endDate);
             if(keywords=='abnormalWord')
@@ -460,7 +462,6 @@ var redianCycle=function(element,num,tags,startDate,endDate){
         var prepre=[];
         for(var i in obj){
             var word = obj[i];
-
             tagarr.push(word.tag);
             prepre.push(word.buckets[0].doc_count);
             pre.push(word.buckets[1].doc_count);
@@ -473,7 +474,10 @@ var redianCycle=function(element,num,tags,startDate,endDate){
                 text: '最近三个周期对比'
             },
             tooltip : {
-                trigger: 'axis'
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                 }
             },
             legend: {
                 data:['本周期','最近一周期','最近二周期']
@@ -493,16 +497,19 @@ var redianCycle=function(element,num,tags,startDate,endDate){
                 {
                     name:'最近二周期',
                     type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
                     data:prepre
                 },
                 {
                     name:'最近一周期',
                     type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
                     data:pre
                 },
                 {
                     name:'本周期',
                     type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
                     data:now
                 }
             ]
@@ -542,6 +549,9 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
 
         var myChart = echarts.init(id[0], 'macarons');
         option = {
+            title : {
+                text: '本周期与上周期对比增量'
+            },
             tooltip : {
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -567,12 +577,14 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                     name:'本周期',
                     type:'bar',
                     stack: '总量',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
                     data:now
                 },
                 {
                     name:'上一周期',
                     type:'bar',
                     stack: '总量',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
                     data:pre
                 }
 
@@ -611,6 +623,9 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
         var myChart = echarts.init(id[0], 'macarons');
         option = {
+            title : {
+                text: '异常变动'
+            },
             tooltip : {
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -662,10 +677,11 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
  var zhexianData=function(element,tag){
      var id=element;
      var tag=tag;
+
      var key=id.parents(".zhuanti").find('.guanjianci').text();
      TopicApi.searchkeyData(tag, function (result){
          var obj=result.obj;
-
+        tag= decodeURI(tag)
          var tagarr=[];
          var now=[];
          for(var i in obj){
