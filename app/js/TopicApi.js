@@ -37,8 +37,8 @@ var TopicApi = {
     /**
      * 获取全部文章
      */
-    searchByQuery: function(onset,size, success, error){
-        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size;
+    searchByQuery: function(onset,size,startTime,endTime, success, error){
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
         return $ajax(url, success, error);
     },
     /**

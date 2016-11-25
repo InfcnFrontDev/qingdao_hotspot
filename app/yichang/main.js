@@ -1,12 +1,12 @@
 $this.size=10;
 $('#yichang1').find('.topn').children().change(function(){
-    $this.setSize(this.value, update);
+    $this.yichangSetSize(this.value, update);
 });
-
+$('#yichang1').find('.topn').children().val($this.yichangSize);
 
 var update = function () {
 
-    updateWords('changeWord', 'yichang1', function (words) {
+    updateWords('changeWord', 'yichang1',$this.yichangSize, function (words) {
 
         if($this.word){
             zhexianData($('#yichangtu'), $this.word);

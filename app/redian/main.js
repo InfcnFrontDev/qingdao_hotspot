@@ -1,12 +1,13 @@
-$this.size=10;
+
 $('#redian1').find('.topn').children().change(function(){
-    $this.setSize(this.value, update);
+    $this.redianSetSize(this.value, update);
 });
+$('#redian1').find('.topn').children().val($this.redianSize);
 
 
 var update = function () {
 
-    updateWords('hotWord','redian1', function (words) {
+    updateWords('hotWord','redian1',$this.redianSize, function (words) {
         if($this.word){
             zhexianData($('#rediantu'), $this.word);
             wenZhangShowTag($this.word);
