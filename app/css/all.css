@@ -301,7 +301,7 @@ body,html{height:100%}
 .theme-words .words-list .selected,.theme-words .words-list li:hover{background:#ECFBFF;color:#184E99;border-bottom:1px solid #dde5f2}
 .theme-words .words-list .selected{font-weight:700}
 
-.tubiao{padding-left:20px;*padding-left:0; box-sizing:border-box}
+.tubiao{padding-left:20px; box-sizing:border-box}
 .tubiao-content{width:100%; height:428px;}
 .tubiao-content img{width:100%; height:100%;}
 .wenzhang-title{height:50px;background:#e4eef8;border:1px solid #bdbdbd;color:#7c7c7c;line-height:50px;text-align:left;font-size:18px}
