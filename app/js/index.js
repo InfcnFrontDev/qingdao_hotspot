@@ -606,6 +606,12 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             toolbox: {
                 show : true,
             },
+            grid:{
+                x:40,
+                x2:40,
+                y2:30
+
+            },
             calculable : true,
             xAxis : [
                 {
@@ -724,7 +730,6 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             grid:{
-
                 x2:40,
                 y2:30
 
