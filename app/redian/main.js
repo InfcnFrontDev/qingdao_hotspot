@@ -11,7 +11,7 @@ var update = function () {
             zhexianData($('#rediantu'), $this.word);
             wenZhangShowTag($this.word);
         }else{
-            redianCycle($('#rediantu'),3,encodeURI(words.join(',')),$this.startDate,$this.endDate);
+            redianCycle($('#rediantu'),3,words.join(','),$this.startDate,$this.endDate);
             wenZhangShow();
         }
     });

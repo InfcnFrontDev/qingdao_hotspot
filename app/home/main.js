@@ -17,19 +17,19 @@ var update = function () {
 
 var update1 = function () {
     updateWords('hotWord','redian1', function (words) {
-        redianCycle($('#rediantu'),3,encodeURI(words.join(',')),$this.startDate,$this.endDate);
+        redianCycle($('#rediantu'),3,words.join(','),$this.startDate,$this.endDate);
     });
 };
 
 var update2 = function () {
     updateWords('abnormalWord','zuida1', function (words) {
-        zuidaCycle($('#zuidatu'),2,encodeURI(words.join(',')),$this.startDate,$this.endDate);
+        zuidaCycle($('#zuidatu'),2,words.join(','),$this.startDate,$this.endDate);
     });
 };
 
 var update3 = function () {
     updateWords('changeWord','yichang1', function (words) {
-        yichangCycle($('#yichangtu'),2,encodeURI(words.join(',')),$this.startDate,$this.endDate);
+        yichangCycle($('#yichangtu'),2,words.join(','),$this.startDate,$this.endDate);
     });
 };
 
