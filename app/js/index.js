@@ -1,3 +1,5 @@
+var chart_theme = 'mint';
+
 
 $(window).on('hashchange', function () {
     checkURL();
@@ -468,7 +470,7 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
         }
         ;
 
-        var myChart = echarts.init(id[0], 'macarons');
+        var myChart = echarts.init(id[0], chart_theme);
         option = {
             title : {
                 text: '最近三个周期对比'
@@ -547,7 +549,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             now.push(word.buckets[1].doc_count);
         };
 
-        var myChart = echarts.init(id[0], 'macarons');
+        var myChart = echarts.init(id[0], chart_theme);
         option = {
             title : {
                 text: '本周期与上周期对比增量'
@@ -621,7 +623,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
             now.push(word.buckets[1].doc_count);
         };
 
-        var myChart = echarts.init(id[0], 'macarons');
+        var myChart = echarts.init(id[0], chart_theme);
         option = {
             title : {
                 text: '异常变动'
@@ -690,7 +692,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              now.push(word.doc_count);
          };
 
-         var myChart = echarts.init(id[0], 'macarons');
+         var myChart = echarts.init(id[0], chart_theme);
          option = {
              title : {
                  text:tag

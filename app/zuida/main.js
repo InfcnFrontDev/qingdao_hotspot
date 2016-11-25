@@ -11,7 +11,7 @@ var update = function () {
             zhexianData($('#zuidatu'), $this.word);
             wenZhangShowTag($this.word);
         }else{
-            zuidaCycle($('#zuidatu'),2,words.join(','),$this.startDate,$this.endDate);
+            zuidaCycle($('#zuidatu'),2,encodeURI(words.join(',')),$this.startDate,$this.endDate);
             wenZhangShow();
         }
 

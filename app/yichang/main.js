@@ -12,7 +12,7 @@ var update = function () {
             zhexianData($('#yichangtu'), $this.word);
             wenZhangShowTag($this.word);
         }else{
-            yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
+            yichangCycle($('#yichangtu'), 2, encodeURI(words.join(',')), $this.startDate, $this.endDate);
             wenZhangShow();
         }
 

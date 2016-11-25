@@ -7,15 +7,13 @@ $('#redian1').find('.topn').children().change(function(){
 var update = function () {
 
     updateWords('hotWord','redian1', function (words) {
-
         if($this.word){
             zhexianData($('#rediantu'), $this.word);
             wenZhangShowTag($this.word);
         }else{
-            redianCycle($('#rediantu'),3,words.join(','),$this.startDate,$this.endDate);
+            redianCycle($('#rediantu'),3,encodeURI(words.join(',')),$this.startDate,$this.endDate);
             wenZhangShow();
         }
-
     });
 
 };
@@ -25,7 +23,6 @@ var enterWord = function(word) {
     zhexianData($('#rediantu'), word);
     wenZhangShowTag(word);
 };
-
 
 update();
 
