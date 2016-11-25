@@ -452,7 +452,7 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
     var tags = tags;
     var startDate = startDate;
     var endDate = endDate;
-
+    tags=encodeURI(tags)
 
     TopicApi.searchCycleData(tags, num, startDate, endDate, function (result) {
         var obj = result.obj;
@@ -480,6 +480,12 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                  }
+            },
+            grid:{
+                x:30,
+                x2:10,
+                y2:30
+
             },
             legend: {
                 data:['本周期','最近一周期','最近二周期']
@@ -535,7 +541,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
     var tags=tags;
     var startDate=startDate;
     var endDate=endDate;
-
+    tags=encodeURI(tags)
     TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
         var obj=result.obj;
 
@@ -562,6 +568,12 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             },
             legend: {
                 data:['本周期', '上一周期']
+            },
+            grid:{
+                x:30,
+                x2:10,
+                y2:30
+
             },
             xAxis : [
                 {
@@ -609,7 +621,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
     var tags=tags;
     var startDate=startDate;
     var endDate=endDate;
-
+    tags=encodeURI(tags)
     TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
         var obj=result.obj;
 
@@ -633,6 +645,12 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                 }
+            },
+            grid:{
+                x:70,
+                x2:10,
+                y2:30
+
             },
             legend: {
                 data:['本周期', '上一周期']
@@ -679,7 +697,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
  var zhexianData=function(element,tag){
      var id=element;
      var tag=tag;
-
+     tag=encodeURI(tag)
      var key=id.parents(".zhuanti").find('.guanjianci').text();
      TopicApi.searchkeyData(tag, function (result){
          var obj=result.obj;
@@ -688,6 +706,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
          var now=[];
          for(var i in obj){
              var word = obj[i];
+             console.log(word.key_as_string)
              tagarr.push(word.key_as_string);
              now.push(word.doc_count);
          };
@@ -699,6 +718,11 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              },
              tooltip : {
                  trigger: 'axis'
+             },
+             grid:{
+                 x:30,
+                 x2:10,
+                 y2:30
              },
              xAxis : [
                  {
