@@ -71,13 +71,13 @@ $(function () {
         }
     });
 
-    updateDate(7);
+    updateDate(dateInterval(3));
     $('.layui-btn').on('click', function () {
         $('.btn-qiehuan').removeClass('selected');
         update();
     })
 
-    $('.btn-qiehuan:first').addClass('selected');
+    $('.btn-qiehuan').eq(2).addClass('selected');
     $('.btn-qiehuan').on('click', function () {
         $(this).addClass('selected');
         $(this).parent().siblings().children().removeClass('selected');
@@ -155,7 +155,9 @@ var $this = {
     lastDay: '30',
     startDate: '',
     endDate: '',
-    size: 10,
+    redianSize: 10,
+    zuidaSize: 10,
+    yichangSize: 10,
     sortByFreq: true,
     pageSize: Config.pageSize,
     word: undefined,
@@ -182,8 +184,16 @@ var $this = {
         updateDate(val);
         update();
     },
-    setSize: function (val, fn) {
-        $this.size = val;
+    redianSetSize: function (val, fn) {
+        $this.redianSize = val;
+        if(fn) fn();
+    },
+    zuidaSetSize: function (val, fn) {
+        $this.zuidaSize = val;
+        if(fn) fn();
+    },
+    yichangSetSize: function (val, fn) {
+        $this.yichangSize = val;
         if(fn) fn();
     }
 };
@@ -231,16 +241,16 @@ var updateDate = function (val) {
 };
 
 
-var updateWords = function (keywords, id, successCallback) {
+var updateWords = function (keywords, id, size,successCallback) {
     // $('#ztcbox').addClass('hidden');
     // $('.loading').removeClass('hidden')
     // $('.nodata').addClass('hidden');
     // $('.error').addClass('hidden');
     var $ztcbox = $('#ztcbox')
 
-    TopicApi.topic(keywords, $this.startDate, $this.endDate, $this.size, function (result) {
-        // $('.loading').addClass('hidden');
-        // $ztcbox.removeClass('hidden');
+    TopicApi.topic(keywords, $this.startDate, $this.endDate, size, function (result) {
+        $('.nodata').addClass('hidden');
+        $('#ztcbox').removeClass('hidden');
         if (result.obj.length > 0) {
             $this.topicData = result.obj;
 
@@ -704,7 +714,6 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
          var now=[];
          for(var i in obj){
              var word = obj[i];
-             console.log(word.key_as_string)
              tagarr.push(word.key_as_string);
              now.push(word.doc_count);
          };

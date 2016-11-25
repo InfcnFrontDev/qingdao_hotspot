@@ -1,11 +1,11 @@
 $this.size=10;
 $('#zuida1').find('.topn').children().change(function(){
-    $this.setSize(this.value, update);
+    $this.zuidaSetSize(this.value, update);
 });
-
+$('#zuida1').find('.topn').children().val($this.zuidaSize);
 var update = function () {
 
-    updateWords('abnormalWord','zuida1', function (words) {
+    updateWords('abnormalWord','zuida1',$this.zuidaSize, function (words) {
 
         if($this.word){
             zhexianData($('#zuidatu'), $this.word);
