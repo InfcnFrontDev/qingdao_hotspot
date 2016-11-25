@@ -312,7 +312,7 @@ var updateWords = function (keywords, id, size,successCallback) {
 
 //全部文章分页
 var fenye = function (qishi, size) {
-    TopicApi.searchByQuery(qishi, size, function (result) {
+    TopicApi.searchByQuery(qishi, size,$this.startDate,$this.endDate, function (result) {
         var arr = result.obj.hits.hits;
         $this.wordDocs = arr;
         var li = '';
@@ -348,7 +348,7 @@ var fenye = function (qishi, size) {
 //全部文章显示
 var wenZhangShow = function () {
     fenye(0, Config.pageSize)
-    TopicApi.searchByQuery(0, Config.pageSize, function (result) {
+    TopicApi.searchByQuery(0, Config.pageSize,$this.startDate,$this.endDate, function (result) {
         var numm = result.obj.hits.total
         if (Math.ceil(numm / Config.pageSize) > 1) {
             $('#page').removeClass('hidden')
