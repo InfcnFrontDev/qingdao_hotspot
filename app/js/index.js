@@ -480,13 +480,13 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
                  }
             },
             grid:{
-                x:30,
+                x:40,
                 x2:10,
                 y2:30
 
             },
             legend: {
-                data:['本周期','最近一周期','最近二周期']
+                data:['本周期','上周期','上上周期']
             },
             xAxis : [
                 {
@@ -501,21 +501,21 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
             ],
             series : [
                 {
-                    name:'最近二周期',
+                    name:'上上周期',
                     type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                     data:prepre
                 },
                 {
-                    name:'最近一周期',
+                    name:'上周期',
                     type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                     data:pre
                 },
                 {
                     name:'本周期',
                     type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
                     data:now
                 }
             ]
@@ -549,30 +549,42 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
         for(var i in obj){
             var word = obj[i];
             tagarr.push(word.tag);
+
             pre.push(word.buckets[0].doc_count);
             now.push(word.buckets[1].doc_count);
         };
-
+        var zlArr=[];
+        var sumArr = [];
+        for(i in now){
+            var zl=Math.abs(now[i]-pre[i]);
+            zlArr.push(zl);
+            sumArr.push(0);
+        }
         var myChart = echarts.init(id[0], chart_theme);
         option = {
             title : {
-                text: '本周期与上周期对比增量'
+                text: '本周期与上周期对比增量',
             },
             tooltip : {
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter: function (params){
+                    return params[0].name + '<br/>'
+                        + params[2].seriesName + ' : ' + params[2].value + '<br/>'
+                        + params[0].seriesName + ' : ' + (params[1].value + params[2].value) + '<br/>'
+                        + params[1].seriesName + ' : ' + params[1].value;
                 }
             },
             legend: {
-                data:['本周期', '上一周期']
+                selectedMode:false,
+                data:['增量', '上周期']
             },
-            grid:{
-                x:30,
-                x2:10,
-                y2:30
-
+            toolbox: {
+                show : true,
             },
+            calculable : true,
             xAxis : [
                 {
                     type : 'category',
@@ -581,26 +593,71 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
             ],
             yAxis : [
                 {
-                    type : 'value'
+                    type : 'value',
+                    boundaryGap: [0, 0.1]
                 }
             ],
             series : [
                 {
-                    name:'本周期',
+                    name:'上周期',
                     type:'bar',
-                    stack: '总量',
-                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
-                    data:now
+                    stack: 'sum',
+                    barCategoryGap: '50%',
+                    itemStyle: {
+                        normal: {
+                            label : {
+                                show: true,
+                                position: 'inside'
+                            }
+                        }
+                    },
+                    data:pre
                 },
                 {
-                    name:'上一周期',
+                    name:'增量',
                     type:'bar',
-                    stack: '总量',
-                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
-                    data:pre
+                    stack: 'sum',
+                    itemStyle: {
+                        normal: {
+                            label : {
+                                show: true,
+                                position: 'inside'
+                            }
+                        }
+                    },
+                    data:zlArr
+                },
+                {
+                    name:'本周期',
+                    type:'bar',
+                    stack: 'sum',
+                    itemStyle: {
+                        normal: {
+                            color: '#fff',
+                            barBorderColor: 'tomato',
+                            barBorderWidth: 6,
+                            barBorderRadius:0,
+                            label : {
+                                show: true,
+                                position: 'top',
+                                formatter: function (params) {
+                                    for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
+                                        if (option.xAxis[0].data[i] == params.name) {
+                                            return option.series[0].data[i] + option.series[1].data[i];
+                                        }
+                                    }
+                                },
+                                textStyle: {
+                                    color: 'tomato'
+                                }
+                            }
+                        }
+                    },
+                    data:sumArr
                 }
 
             ]
+
         };
         // 为echarts对象加载数据
         myChart.setOption(option);
@@ -645,13 +702,13 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             grid:{
-                x:70,
-                x2:10,
+
+                x2:40,
                 y2:30
 
             },
             legend: {
-                data:['本周期', '上一周期']
+                data:['本周期', '上周期']
             },
             xAxis : [
                 {
@@ -668,13 +725,13 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 {
                     name:'本周期',
                     type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
                     data:now
                 },
                 {
-                    name:'上一周期',
+                    name:'上周期',
                     type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
                     data:pre
                 }
             ]
@@ -685,7 +742,6 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
 
     }, function (error) {
-
     })
 
 
