@@ -1,3 +1,4 @@
+
 $(window).on('hashchange', function () {
     checkURL();
 });
@@ -460,7 +461,6 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
         var prepre = [];
         for (var i in obj) {
             var word = obj[i];
-
             tagarr.push(word.tag);
             prepre.push(word.buckets[0].doc_count);
             pre.push(word.buckets[1].doc_count);
@@ -469,47 +469,55 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
         ;
 
         var myChart = echarts.init(id[0], 'macarons');
-        var option = {
-            title: {
-                text: '某地区蒸发量和降水量'
+        option = {
+            title : {
+                text: '最近三个周期对比'
             },
-            tooltip: {
-                trigger: 'axis'
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                 }
             },
             legend: {
-                data: ['本周期', '最近一周期', '最近二周期']
+                data:['本周期','最近一周期','最近二周期']
             },
-            xAxis: [
+            xAxis : [
                 {
-                    type: 'category',
-                    data: tagarr
+                    type : 'category',
+                    data : tagarr
                 }
             ],
-            yAxis: [
+            yAxis : [
                 {
-                    type: 'value'
+                    type : 'value'
                 }
             ],
-            series: [
+            series : [
                 {
-                    name: '周期3',
-                    type: 'bar',
-                    data: prepre
+                    name:'最近二周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    data:prepre
                 },
                 {
-                    name: '周期2',
-                    type: 'bar',
-                    data: pre
+                    name:'最近一周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    data:pre
                 },
                 {
-                    name: '周期1',
-                    type: 'bar',
-                    data: now
+                    name:'本周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    data:now
                 }
             ]
         };
+
         // 为echarts对象加载数据
         myChart.setOption(option);
+
 
 
     }, function (error) {
@@ -519,66 +527,72 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
 
 }
 
-var zuidaCycle = function (element, num, tags, startDate, endDate) {
-    var id = element;
-    var num = num;
-    var tags = tags;
-    var startDate = startDate;
-    var endDate = endDate;
+var zuidaCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
 
-    TopicApi.searchCycleData(tags, num, startDate, endDate, function (result) {
-        var obj = result.obj;
+    TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
+        var obj=result.obj;
 
-        var tagarr = [];
-        var now = [];
-        var pre = [];
-        for (var i in obj) {
+        var tagarr=[];
+        var now=[];
+        var pre=[];
+        for(var i in obj){
             var word = obj[i];
             tagarr.push(word.tag);
             pre.push(word.buckets[0].doc_count);
             now.push(word.buckets[1].doc_count);
-        }
-        ;
+        };
 
         var myChart = echarts.init(id[0], 'macarons');
         option = {
-            tooltip: {
+            title : {
+                text: '本周期与上周期对比增量'
+            },
+            tooltip : {
                 trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
             legend: {
-                data: ['直接访问', '邮件营销']
+                data:['本周期', '上一周期']
             },
-            xAxis: [
+            xAxis : [
                 {
-                    type: 'category',
-                    data: tagarr
+                    type : 'category',
+                    data : tagarr
                 }
             ],
-            yAxis: [
+            yAxis : [
                 {
-                    type: 'value'
+                    type : 'value'
                 }
             ],
-            series: [
+            series : [
                 {
-                    name: '直接访问',
-                    type: 'bar',
+                    name:'本周期',
+                    type:'bar',
                     stack: '总量',
-                    data: now
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    data:now
                 },
                 {
-                    name: '邮件营销',
-                    type: 'bar',
+                    name:'上一周期',
+                    type:'bar',
                     stack: '总量',
-                    data: pre
+                    itemStyle : { normal: {label : {show: true, position: 'insideTop'}}},
+                    data:pre
                 }
+
             ]
         };
         // 为echarts对象加载数据
         myChart.setOption(option);
+
 
 
     }, function (error) {
@@ -587,66 +601,69 @@ var zuidaCycle = function (element, num, tags, startDate, endDate) {
 
 
 }
-var yichangCycle = function (element, num, tags, startDate, endDate) {
-    var id = element;
-    var num = num;
-    var tags = tags;
-    var startDate = startDate;
-    var endDate = endDate;
+var yichangCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
 
-    TopicApi.searchCycleData(tags, num, startDate, endDate, function (result) {
-        var obj = result.obj;
+    TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
+        var obj=result.obj;
 
-        var tagarr = [];
-        var now = [];
-        var pre = [];
-        for (var i in obj) {
+        var tagarr=[];
+        var now=[];
+        var pre=[];
+        for(var i in obj){
             var word = obj[i];
             tagarr.push(word.tag);
             pre.push(word.buckets[0].doc_count);
             now.push(word.buckets[1].doc_count);
-        }
-        ;
+        };
 
         var myChart = echarts.init(id[0], 'macarons');
         option = {
-            tooltip: {
+            title : {
+                text: '异常变动'
+            },
+            tooltip : {
                 trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
             legend: {
-                data: ['直接访问', '邮件营销']
+                data:['本周期', '上一周期']
             },
-            xAxis: [
+            xAxis : [
                 {
-                    type: 'value'
+                    type : 'value'
                 }
             ],
-            yAxis: [
+            yAxis : [
                 {
-                    type: 'category',
-                    data: tagarr
+                    type : 'category',
+                    data : tagarr
                 }
             ],
-            series: [
+            series : [
                 {
-                    name: '本周期',
-                    type: 'bar',
-                    itemStyle: {normal: {label: {show: true, position: 'insideRight'}}},
-                    data: now
+                    name:'本周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    data:now
                 },
                 {
-                    name: '上一周期',
-                    type: 'bar',
-                    itemStyle: {normal: {label: {show: true, position: 'insideRight'}}},
-                    data: pre
+                    name:'上一周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+                    data:pre
                 }
             ]
         };
         // 为echarts对象加载数据
         myChart.setOption(option);
+
 
 
     }, function (error) {
@@ -657,57 +674,56 @@ var yichangCycle = function (element, num, tags, startDate, endDate) {
 }
 
 //加载echarts折线图
-var zhexianData = function (element, tag) {
-    var id = element;
-    var tag = tag;
+ var zhexianData=function(element,tag){
+     var id=element;
+     var tag=tag;
+
+     var key=id.parents(".zhuanti").find('.guanjianci').text();
+     TopicApi.searchkeyData(tag, function (result){
+         var obj=result.obj;
+        tag= decodeURI(tag)
+         var tagarr=[];
+         var now=[];
+         for(var i in obj){
+             var word = obj[i];
+             tagarr.push(word.key_as_string);
+             now.push(word.doc_count);
+         };
+
+         var myChart = echarts.init(id[0], 'macarons');
+         option = {
+             title : {
+                 text:tag
+             },
+             tooltip : {
+                 trigger: 'axis'
+             },
+             xAxis : [
+                 {
+                     type : 'category',
+                     boundaryGap : false,
+                     data : tagarr
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     name:'数量',
+                     type:'line',
+                     data:now
+                 }
+             ]
+         };
+
+         // 为echarts对象加载数据
+         myChart.setOption(option);
+     })
 
 
-    TopicApi.searchkeyData(tag, function (result) {
-        var obj = result.obj;
-
-        var tagarr = [];
-        var now = [];
-        for (var i in obj) {
-            var word = obj[i];
-            tagarr.push(word.key_as_string);
-            now.push(word.doc_count);
-        }
-        ;
-
-        var myChart = echarts.init(id[0], 'macarons');
-        option = {
-            title: {
-                text: '未来一周气温变化'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: tagarr
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value'
-                }
-            ],
-            series: [
-                {
-                    name: '最高气温',
-                    type: 'line',
-                    data: now
-                }
-            ]
-        };
-
-        // 为echarts对象加载数据
-        myChart.setOption(option);
-    })
-
-
-}
+ }
 
 
