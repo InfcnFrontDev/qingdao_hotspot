@@ -330,7 +330,7 @@ var fenye = function (qishi, size) {
                 + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-3 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -412,7 +412,7 @@ var fenyeTag = function (qishi, size, tag) {
                 + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-3 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -464,6 +464,24 @@ var wenZhangShowTag = function (tag) {
         }
     })
 }
+
+var isoDateStrToDate = function(isoDateStr){
+
+    var dateStr1 = isoDateStr.replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+
+    var date1 = new Date(
+        dateStr1.substr(0,4),
+        dateStr1.substr(5,2) - 1,
+        dateStr1.substr(8,2),
+        dateStr1.substr(11,2),
+        dateStr1.substr(14,2),
+        dateStr1.substr(17,2)
+    );
+    var date2 = new Date(date1.getTime() + (8*3600*1000));
+
+    return date2;
+
+};
 
 //加载echarts对比图
 var redianCycle = function (element, num, tags, startDate, endDate) {
