@@ -18,7 +18,7 @@ var update = function () {
                 wenZhangShowTag($this.word);
             } else {
                 yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
-                wenZhangShow();
+                wenZhangShowTag(words[0]);
             }
         }else{
             $('.words-list').html('');

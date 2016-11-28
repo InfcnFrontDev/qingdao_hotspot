@@ -17,7 +17,7 @@ var update = function () {
                 wenZhangShowTag($this.word);
             } else {
                 redianCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
-                wenZhangShow();
+                wenZhangShowTag(words[0]);
             }
         }
         else {
