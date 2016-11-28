@@ -336,6 +336,7 @@ var fenye = function (qishi, size) {
                 "</a>" +
                 "</div>"
         }
+
         $('.wenzhang-list').html(li);
         $('.wenzhang-list').children().on('mouseover', function () {
             showSummary($(this).attr("id"))
