@@ -7,16 +7,23 @@ var update = function () {
 
     updateWords('changeWord','zuida1',$this.zuidaSize, function (words) {
 
-        if($this.word){
+        if (words.length > 0) {
+            if ($this.word) {
 
-            // 滚动条定位
-            $('.theme-words').scrollTop($('.words-list .selected').position().top);
+                // 滚动条定位
+                $('.theme-words').scrollTop($('.words-list .selected').position().top);
 
-            zhexianData($('#zuidatu'), $this.word);
-            wenZhangShowTag($this.word);
+                zhexianData($('#zuidatu'), $this.word);
+                wenZhangShowTag($this.word);
+            } else {
+                zuidaCycle($('#zuidatu'), 2, words.join(','), $this.startDate, $this.endDate);
+                wenZhangShow();
+            }
         }else{
-            zuidaCycle($('#zuidatu'),2,words.join(','),$this.startDate,$this.endDate);
-            wenZhangShow();
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
+            $('.nodata').removeClass('hidden');
+            $('#ztcbox').addClass('hidden');
         }
 
     });

@@ -47,7 +47,7 @@ var TopicApi = {
     searchByQueryTag: function(onset,size,tag,startTime,endTime, success, error){
 
         var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']';
-        //var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=title:"'+ tag +'"^20 or tags:"'+tag+'"&filter=question_time:['+startTime+' TO '+endTime+']';
+        // var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=title:"'+ tag +'"^20 or tags:"'+tag+'"&filter=question_time:['+startTime+' TO '+endTime+']';
 
         return $ajax(url, success, error);
     },

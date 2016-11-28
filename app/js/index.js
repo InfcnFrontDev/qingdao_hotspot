@@ -246,16 +246,18 @@ var updateWords = function (keywords, id, size,successCallback) {
     // $('.loading').removeClass('hidden')
     // $('.nodata').addClass('hidden');
     // $('.error').addClass('hidden');
-    var $ztcbox = $('#ztcbox')
+    var $ztcbox = $('#ztcbox');
 
+    $('#' + id + '').find('.words-list').html('');
     TopicApi.topic(keywords, $this.startDate, $this.endDate, size, function (result) {
         $('.nodata').addClass('hidden');
         $('#ztcbox').removeClass('hidden');
+
+        var words = [];
         if (result.obj.length > 0) {
             $this.topicData = result.obj;
 
             var li = '';
-            var words = [];
             for (var i = 0; i < $this.topicData.length; i++) {
                 var selected = $this.word == $this.topicData[i].key ? ' selected' : '';
                 li += "<li class=\"cc"+ selected +"\">" +
@@ -282,19 +284,11 @@ var updateWords = function (keywords, id, size,successCallback) {
             for (var i = 0; i < 3; i++) {
                 $('#' + id + '').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
             }
-
-
-            if (successCallback)
-                successCallback(words);
-
-
-            /*searchWord($this.topicData[0].name);*/
-        } else {
-            $('.words-list').html('');
-            $('.wenzhang-list').html('');
-            $('.nodata').removeClass('hidden');
-            $('#ztcbox').addClass('hidden');
         }
+
+        if (successCallback)
+            successCallback(words);
+
     }, function (error) {
         $('.loading').addClass('hidden');
         $('.error').removeClass('hidden');
@@ -753,7 +747,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
             },
             legend: {
-                data:['本周期', '上周期']
+                data:['上周期', '本周期']
             },
             xAxis : [
                 {
@@ -768,16 +762,16 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
             ],
             series : [
                 {
-                    name:'本周期',
-                    type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
-                    data:now
-                },
-                {
                     name:'上周期',
                     type:'bar',
                     itemStyle : { normal: {label : {show: true, position: 'right'}}},
                     data:pre
+                },
+                {
+                    name:'本周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
+                    data:now
                 }
             ]
         };
