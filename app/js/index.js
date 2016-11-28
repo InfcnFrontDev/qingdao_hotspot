@@ -520,7 +520,7 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
 
             },
             legend: {
-                data:['本周期','上周期','上上周期']
+                data:['上上周期','上周期', '本周期']
             },
             xAxis : [
                 {
@@ -725,9 +725,9 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
         var pre=[];
         for(var i in obj){
             var word = obj[i];
-            tagarr.push(word.tag);
-            pre.push(word.buckets[0].doc_count);
-            now.push(word.buckets[1].doc_count);
+            tagarr.unshift(word.tag);
+            pre.unshift(word.buckets[0].doc_count);
+            now.unshift(word.buckets[1].doc_count);
         };
 
         var myChart = echarts.init(id[0], chart_theme);
@@ -739,6 +739,11 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter:function(params,ticket,callback){
+                    return params[0].name + '<br>'
+                        + params[1].seriesName +' : '+ params[1].value +'<br>'
+                        + params[0].seriesName +' : '+ params[0].value;
                 }
             },
             grid:{
@@ -747,7 +752,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
             },
             legend: {
-                data:['上周期', '本周期']
+                data:['本周期', '上周期']
             },
             xAxis : [
                 {
