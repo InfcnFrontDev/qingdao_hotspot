@@ -624,7 +624,6 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                 y2:30
 
             },
-            calculable : true,
             xAxis : [
                 {
                     type : 'category',
