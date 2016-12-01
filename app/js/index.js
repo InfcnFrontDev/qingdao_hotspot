@@ -806,7 +806,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              var word = obj[i];
             var year= word.key_as_string.substr(0,4);
              var month= word.key_as_string.substr(4,2);
-            var item=year+"年"+month+"月"
+            var item=year+"/"+month
              tagarr.push(item);
              now.push(word.doc_count);
          };
@@ -821,7 +821,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              },
              grid:{
                  x:40,
-                 x2:10,
+                 x2:30,
                  y2:30
              },
              xAxis : [
@@ -829,6 +829,9 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                      type : 'category',
                      boundaryGap : false,
                      itemStyle : { normal: {label : {show: true}}},
+                     axisLabel:{
+                         interval:11
+                     },
                      data : tagarr,
                  }
              ],
