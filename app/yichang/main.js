@@ -8,16 +8,23 @@ var update = function () {
 
     updateWords('abnormalWord', 'yichang1',$this.yichangSize, function (words) {
 
-        if($this.word){
+        if (words.length > 0) {
+            if ($this.word) {
 
-            // 滚动条定位
-            $('.theme-words').scrollTop($('.words-list .selected').position().top);
+                // 滚动条定位
+                $('.theme-words').scrollTop($('.words-list .selected').position().top);
 
-            zhexianData($('#yichangtu'), $this.word);
-            wenZhangShowTag($this.word);
+                zhexianData($('#yichangtu'), $this.word);
+                wenZhangShowTag($this.word);
+            } else {
+                yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
+                wenZhangShowTag(words[0]);
+            }
         }else{
-            yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
-            wenZhangShow();
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
+            $('.nodata').removeClass('hidden');
+            $('#ztcbox').addClass('hidden');
         }
 
     });

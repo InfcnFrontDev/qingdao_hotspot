@@ -247,16 +247,18 @@ var updateWords = function (keywords, id, size,successCallback) {
     // $('.loading').removeClass('hidden')
     // $('.nodata').addClass('hidden');
     // $('.error').addClass('hidden');
-    var $ztcbox = $('#ztcbox')
+    var $ztcbox = $('#ztcbox');
 
+    $('#' + id + '').find('.words-list').html('');
     TopicApi.topic(keywords, $this.startDate, $this.endDate, size, function (result) {
         $('.nodata').addClass('hidden');
         $('#ztcbox').removeClass('hidden');
+
+        var words = [];
         if (result.obj.length > 0) {
             $this.topicData = result.obj;
 
             var li = '';
-            var words = [];
             for (var i = 0; i < $this.topicData.length; i++) {
                 var selected = $this.word == $this.topicData[i].key ? ' selected' : '';
                 li += "<li class=\"cc"+ selected +"\">" +
@@ -283,19 +285,11 @@ var updateWords = function (keywords, id, size,successCallback) {
             for (var i = 0; i < 3; i++) {
                 $('#' + id + '').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
             }
-
-
-            if (successCallback)
-                successCallback(words);
-
-
-            /*searchWord($this.topicData[0].name);*/
-        } else {
-            $('.words-list').html('');
-            $('.wenzhang-list').html('');
-            $('.nodata').removeClass('hidden');
-            $('#ztcbox').addClass('hidden');
         }
+
+        if (successCallback)
+            successCallback(words);
+
     }, function (error) {
         $('.loading').addClass('hidden');
         $('.error').removeClass('hidden');
@@ -331,12 +325,13 @@ var fenye = function (qishi, size) {
                 + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-3 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
                 "</div>"
         }
+
         $('.wenzhang-list').html(li);
         $('.wenzhang-list').children().on('mouseover', function () {
             showSummary($(this).attr("id"))
@@ -413,7 +408,7 @@ var fenyeTag = function (qishi, size, tag) {
                 + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-3 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(new Date(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -466,6 +461,24 @@ var wenZhangShowTag = function (tag) {
     })
 }
 
+var isoDateStrToDate = function(isoDateStr){
+
+    var dateStr1 = isoDateStr.replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+
+    var date1 = new Date(
+        dateStr1.substr(0,4),
+        dateStr1.substr(5,2) - 1,
+        dateStr1.substr(8,2),
+        dateStr1.substr(11,2),
+        dateStr1.substr(14,2),
+        dateStr1.substr(17,2)
+    );
+    var date2 = new Date(date1.getTime() + (8*3600*1000));
+
+    return date2;
+
+};
+
 //加载echarts对比图
 var redianCycle = function (element, num, tags, startDate, endDate) {
     var id = element;
@@ -509,7 +522,7 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
 
             },
             legend: {
-                data:['本周期','上周期','上上周期']
+                data:['上上周期','上周期', '本周期']
             },
             xAxis : [
                 {
@@ -613,7 +626,6 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                 y2:30
 
             },
-            calculable : true,
             xAxis : [
                 {
                     type : 'category',
@@ -714,9 +726,9 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
         var pre=[];
         for(var i in obj){
             var word = obj[i];
-            tagarr.push(word.tag);
-            pre.push(word.buckets[0].doc_count);
-            now.push(word.buckets[1].doc_count);
+            tagarr.unshift(word.tag);
+            pre.unshift(word.buckets[0].doc_count);
+            now.unshift(word.buckets[1].doc_count);
         };
 
         var myChart = echarts.init(id[0], chart_theme);
@@ -728,6 +740,11 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                     type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter:function(params,ticket,callback){
+                    return params[0].name + '<br>'
+                        + params[1].seriesName +' : '+ params[1].value +'<br>'
+                        + params[0].seriesName +' : '+ params[0].value;
                 }
             },
             grid:{
@@ -751,16 +768,16 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
             ],
             series : [
                 {
-                    name:'本周期',
-                    type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
-                    data:now
-                },
-                {
                     name:'上周期',
                     type:'bar',
                     itemStyle : { normal: {label : {show: true, position: 'right'}}},
                     data:pre
+                },
+                {
+                    name:'本周期',
+                    type:'bar',
+                    itemStyle : { normal: {label : {show: true, position: 'right'}}},
+                    data:now
                 }
             ]
         };
@@ -790,7 +807,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              var word = obj[i];
             var year= word.key_as_string.substr(0,4);
              var month= word.key_as_string.substr(4,2);
-            var item=year+"年"+month+"月"
+            var item=year+"/"+month
              tagarr.push(item);
              now.push(word.doc_count);
          };
@@ -805,7 +822,7 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
              },
              grid:{
                  x:40,
-                 x2:10,
+                 x2:30,
                  y2:30
              },
              xAxis : [
@@ -813,6 +830,9 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
                      type : 'category',
                      boundaryGap : false,
                      itemStyle : { normal: {label : {show: true}}},
+                     axisLabel:{
+                         interval:11
+                     },
                      data : tagarr,
                  }
              ],
