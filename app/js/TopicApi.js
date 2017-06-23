@@ -35,6 +35,14 @@ var TopicApi = {
         return $ajax(url, success, error);
     },
     /**
+     * 获取地图数据
+     */
+    area: function(krywords,startDate, endDate, size, success, error) {
+        var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate;
+        return $ajax(url, success, error);
+    },
+
+    /**
      * 获取全部文章
      */
     searchByQuery: function(onset,size,startTime,endTime, success, error){
@@ -63,12 +71,21 @@ var TopicApi = {
         return $ajax(url, success, error);
     },
     /**
+     * 获取部门周期对比
+     */
+    searchBMCycleData: function(tags,num,begin ,end,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?depts=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
+        return $ajax(url, success, error);
+    },
+
+    /**
      * 获取关键词变化数据
      */
     searchkeyData: function(tag,success, error){
         var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?tag=' + tag;
         return $ajax(url, success, error);
-    }
+    },
+
 };
 
 /*

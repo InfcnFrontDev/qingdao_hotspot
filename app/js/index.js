@@ -5,7 +5,6 @@ $(window).on('hashchange', function () {
     checkURL();
 });
 
-
 // ready
 $(function () {
 
@@ -24,31 +23,31 @@ $(function () {
 
     $('#sybtn').on('click', function () {
         $('#sybtn').addClass('navth-click')
-        $('#sybtn').siblings().removeClass('navth-click')
+        $('#sybtn').siblings().removeClass('navth-click');
 
         $this.word = null;
         window.location.hash = 'home'
     });
     $('#rdbtn').on('click', function () {
-        $('#rdbtn').addClass('navth-click')
+        $('#rdbtn').addClass('navth-click');
         $('#rdbtn').siblings().removeClass('navth-click');
 
         $this.word = null;
         window.location.hash = 'redian'
     });
-    $('#zdbtn').on('click', function () {
-        $('#zdbtn').addClass('navth-click')
-        $('#zdbtn').siblings().removeClass('navth-click')
+    $('#bmbtn').on('click', function () {
+        $('#bmbtn').addClass('navth-click')
+        $('#bmbtn').siblings().removeClass('navth-click')
 
         $this.word = null;
-        window.location.hash = 'zuida'
+        window.location.hash = 'bumen'
     });
-    $('#ycbtn').on('click', function () {
-        $('#ycbtn').addClass('navth-click')
-        $('#ycbtn').siblings().removeClass('navth-click')
+    $('#bdbtn').on('click', function () {
+        $('#bdbtn').addClass('navth-click')
+        $('#bdbtn').siblings().removeClass('navth-click')
 
         $this.word = null;
-        window.location.hash = 'yichang'
+        window.location.hash = 'biandong'
     });
 
 
@@ -102,11 +101,7 @@ $(function () {
         update();
 
     });
-
-
 });
-
-
 function GetQueryString(name)
 {
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -159,6 +154,8 @@ var $this = {
     redianSize: 10,
     zuidaSize: 10,
     yichangSize: 10,
+    bumenSize:10,
+    bumenBDSize:10,
     sortByFreq: true,
     pageSize: Config.pageSize,
     word: undefined,
@@ -196,7 +193,17 @@ var $this = {
     yichangSetSize: function (val, fn) {
         $this.yichangSize = val;
         if(fn) fn();
+    },
+//================================
+   bumenSetSize: function (val, fn) {
+        $this.bumenSize = val;
+        if(fn) fn();
+    },
+    bumenBDSetSize: function (val, fn) {
+        $this.bumenBDSize = val;
+        if(fn) fn();
     }
+//================================
 };
 //时间间隔
 var dateInterval = function (val) {
@@ -240,7 +247,18 @@ var updateDate = function (val) {
         /*update();*/
     }
 };
+/*var areaData = function (element, size,startDate,endDate,successCallback) {
+    var id=element;
+    var num =size ;
+    var startDate=startDate;
+    var endDate=endDate;
+    TopicApi.area('area', num,startDate,endDate, function (result) {
 
+    }, function (error) {
+
+    })
+
+}*/
 
 var updateWords = function (keywords, id, size,successCallback) {
     // $('#ztcbox').addClass('hidden');
@@ -261,10 +279,11 @@ var updateWords = function (keywords, id, size,successCallback) {
             var li = '';
             for (var i = 0; i < $this.topicData.length; i++) {
                 var selected = $this.word == $this.topicData[i].key ? ' selected' : '';
+                var num=keywords=="changeDepart"?$this.topicData[i].upNum:$this.topicData[i].doc_count
                 li += "<li class=\"cc"+ selected +"\">" +
                     "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >" + parseInt(i + 1) + "</span></div>" +
                     "<div class=\"col-xs-8 height-word\"><span class=\"s-cente guanjianci\">" + $this.topicData[i].key + "</span></div>" +
-                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">" + $this.topicData[i].doc_count + "</span></div>" +
+                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">" +num + "</span></div>" +
                     "</li>"
 
                 if (i < 5) {
@@ -486,8 +505,7 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
     var tags = tags;
     var startDate = startDate;
     var endDate = endDate;
-    tags=encodeURI(tags)
-
+    tags = encodeURI(tags)
     TopicApi.searchCycleData(tags, num, startDate, endDate, function (result) {
         var obj = result.obj;
 
@@ -506,60 +524,59 @@ var redianCycle = function (element, num, tags, startDate, endDate) {
 
         var myChart = echarts.init(id[0], chart_theme);
         option = {
-            title : {
+            title: {
                 text: '最近三个周期对比'
             },
-            tooltip : {
+            tooltip: {
                 trigger: 'axis',
-                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                 }
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
             },
-            grid:{
-                x:40,
-                x2:10,
-                y2:30
+            grid: {
+                x: 40,
+                x2: 10,
+                y2: 30
 
             },
             legend: {
-                data:['上上周期','上周期', '本周期']
+                data: ['上上周期', '上周期', '本周期']
             },
-            xAxis : [
+            xAxis: [
                 {
-                    type : 'category',
-                    data : tagarr
+                    type: 'category',
+                    data: tagarr
                 }
             ],
-            yAxis : [
+            yAxis: [
                 {
-                    type : 'value'
+                    type: 'value'
                 }
             ],
-            series : [
+            series: [
                 {
-                    name:'上上周期',
-                    type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                    data:prepre
+                    name: '上上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: prepre
                 },
                 {
-                    name:'上周期',
-                    type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                    data:pre
+                    name: '上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: pre
                 },
                 {
-                    name:'本周期',
-                    type:'bar',
-                    itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                    data:now
+                    name: '本周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: now
                 }
             ]
         };
 
         // 为echarts对象加载数据
         myChart.setOption(option);
-
 
 
     }, function (error) {
@@ -791,6 +808,179 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
 
 
 }
+var bumenCycle=function(element,num,tags,startDate,endDate){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
+    tags=encodeURI(tags)
+    TopicApi.searchBMCycleData(tags, num, startDate, endDate, function (result) {
+        var obj = result.obj;
+
+        var tagarr = [];
+        var now = [];
+        var pre = [];
+        var prepre = [];
+        for (var i in obj) {
+            var word = obj[i];
+            tagarr.push(word.tag);
+            prepre.push(word.buckets[0].doc_count);
+            pre.push(word.buckets[1].doc_count);
+            now.push(word.buckets[2].doc_count);
+        }
+        ;
+
+        var myChart = echarts.init(id[0], chart_theme);
+        option = {
+            title: {
+                text: '最近三个周期对比'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                x: 40,
+                x2: 10,
+                y2: 30
+
+            },
+            legend: {
+                data: ['上上周期', '上周期', '本周期']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: tagarr
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '上上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: prepre
+                },
+                {
+                    name: '上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: pre
+                },
+                {
+                    name: '本周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: now
+                }
+            ]
+        };
+
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+    }, function (error) {
+
+    })
+
+
+}
+
+var bumenBDCycle=function(element,keywords,startDate,endDate){
+    var id=element;
+    var startDate=startDate;
+    var endDate=endDate;
+    TopicApi.topic(keywords,startDate, endDate,10,function (result) {
+        var obj=result.obj;
+        var tagarr=[];
+        var now=[];
+        for(var i in obj){
+            var word = obj[i];
+            tagarr.push(word.key);
+            now.push(word.upNum);
+        };
+        var myChart = echarts.init(id[0], chart_theme);
+        option = {
+            title : {
+                text: '本周期与上周期对比增量',
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter: function (params){
+                    return params[0].name + '<br/>'
+                        + params[2].seriesName + ' : ' + params[2].value + '<br/>'
+                        + params[0].seriesName + ' : ' + (params[1].value + params[2].value) + '<br/>'
+                        + params[1].seriesName + ' : ' + params[1].value;
+                }
+            },
+            legend: {
+                selectedMode:false,
+                data:['增量']
+            },
+            toolbox: {
+                show : true,
+            },
+            grid:{
+                x:40,
+                x2:40,
+                y2:70
+
+            },
+            xAxis : [
+                {
+                    data :tagarr,
+                    axisLabel:{
+                        rotate: -30,
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    boundaryGap: [0, 0.1]
+                }
+            ],
+            series : [
+                {
+                    name:'增量',
+                    type:'bar',
+                    stack: 'sum',
+                    itemStyle: {
+                        normal: {
+                            label : {
+                                show: true,
+                                position: 'inside'
+                            }
+                        }
+                    },
+                    data:now
+                },
+            ]
+
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+
+    }, function (error) {
+
+    })
+
+
+}
 
 //加载echarts折线图
  var zhexianData=function(element,tag){
@@ -856,6 +1046,76 @@ var yichangCycle=function(element,num,tags,startDate,endDate){
      })
 
 
- }
+ };
 
 
+//=================================
+/*var zhexianData=function(element,tag){
+    var id=element;
+    var tag=tag;
+    tag=encodeURI(tag)
+    var key=id.parents(".zhuanti").find('.guanjianci').text();
+    TopicApi.searchkeyData(tag, function (result){
+        var obj=result.obj;
+        tag= decodeURI(tag)
+        var tagarr=[];
+        var now=[];
+        for(var i in obj){
+            var word = obj[i];
+            var year= word.key_as_string.substr(0,4);
+            var month= word.key_as_string.substr(4,2);
+            var item=year+"/"+month
+            tagarr.push(item);
+            now.push(word.doc_count);
+        };
+
+        var myChart = echarts.init(id[0], chart_theme);
+        option = {
+            title : {
+                text:tag
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            grid:{
+                x:40,
+                x2:30,
+                y2:30
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    itemStyle : { normal: {label : {show: true}}},
+                    axisLabel:{
+                        interval:11
+                    },
+                    data : tagarr,
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'数量',
+                    type:'line',
+                    itemStyle : { normal: {label : {show: true}}},
+                    data:now
+                }
+            ]
+        };
+
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+    })
+
+
+}*/
+ //加载地图
+/*
+
+
+*/
