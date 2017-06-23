@@ -5,6 +5,7 @@ $(window).on('hashchange', function () {
     checkURL();
 });
 
+
 // ready
 $(function () {
 
