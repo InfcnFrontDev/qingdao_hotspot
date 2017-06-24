@@ -15,11 +15,11 @@ var update = function () {
     //首页最大变动，图
     update2();
     //首页异常，图
-    update3();
+    //update3();
     //首页异常，图
     update4();
 //地图
-    areaData($('#area'),10,$this.startDate, $this.endDate);
+    //areaData($('#area'),10,$this.startDate, $this.endDate);
 };
 
 var update1 = function () {
@@ -39,8 +39,8 @@ var update1 = function () {
 };
 
 var update2 = function () {
-    updateWords('changeWord', 'zuida1', $this.zuidaSize, function (words) {
-        zuidaCycle($('#zuidatu'), 2, words.join(','), $this.startDate, $this.endDate);
+    updateWords('changeWord', 'biandong1', $this.zuidaSize, function (words) {
+        zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
             tc++;
         }
@@ -53,7 +53,7 @@ var update2 = function () {
     });
 };
 
-var update3 = function () {
+/*var update3 = function () {
     updateWords('abnormalWord', 'yichang1', $this.yichangSize, function (words) {
         yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
@@ -66,12 +66,12 @@ var update3 = function () {
             $('#ztcbox').addClass('hidden');
         }
     });
-};
+};*/
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
 
-        bumenCycle($('#bumen-tu'), 3, words.join(','), $this.startDate, $this.endDate);
+        bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
             tc++;
         }

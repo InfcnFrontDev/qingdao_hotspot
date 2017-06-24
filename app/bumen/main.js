@@ -30,10 +30,14 @@ var update = function () {
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
+        //bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
         bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
+
+
 
         if (words.length > 0) {
             tc++;
+
         }
         if(tc == 0){
             $('.words-list').html('');
@@ -42,11 +46,13 @@ var update4 = function () {
             $('#ztcbox').addClass('hidden');
         }
     });
+
 };
 
 var update5 = function () {
     updateWords('changeDepart', 'zuidabumen1', $this.bumenBDSize, function (words) {
         bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
+
         if (words.length > 0) {
             tc++;
         }
@@ -66,7 +72,6 @@ var enterWord = function (word, id) {
     var id = id.substring(0, id.length - 1);
     window.location.hash = 'bumenDetail';
     $this.bumenWord=word
-
 
 };
 

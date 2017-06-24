@@ -7,6 +7,7 @@ $('#biandongD1').find('.topn').children().val($this.redianSize);
 var update = function () {
     if($this.biandongzhuti=="最大变动主题词"){
         updateWords('changeWord', 'biandongD1', $this.redianSize,function (words) {
+            $('.text-left').html("最大变动主题词")
 
             if (words.length > 0) {
                 if ($this.word) {
@@ -30,8 +31,8 @@ var update = function () {
         });
     }
     if($this.biandongzhuti=="异常变动主题词"){
-        updateWords('changeWord', 'biandongD1', $this.redianSize,function (words) {
-
+        updateWords('abnormalWord', 'biandongD1', $this.redianSize,function (words) {
+            $('.text-left').html("异常变动主题词")
             if (words.length > 0) {
                 if ($this.word) {
 

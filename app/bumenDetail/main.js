@@ -7,19 +7,18 @@ $('#bumenD1').find('.topn').children().val($this.redianSize);
 var update = function () {
 
     bumenupdateWords('hotWord', 'bumenD1', $this.redianSize,$this.bumenWord ,function (words) {
+        console.log(words);
+
+        //bumenCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
+
+
         $('.text-left').html($this.bumenWord+'-热点主题词');
         if (words.length > 0) {
-            if ($this.word) {
+            console.log(this.word);
 
-                // 滚动条定位
-                $('.theme-words').scrollTop($('.words-list .selected').position().top);
-
-                zhexianData($('#rediantu'), $this.word);
-                wenZhangShowTag($this.word);
-            } else {
-                redianCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
+                bumenDetailCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate,$this.bumenWord);
                 wenZhangShowTag(words[0]);
-            }
+
         }
         else {
             $('.words-list').html('');

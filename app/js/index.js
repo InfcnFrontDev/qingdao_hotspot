@@ -882,6 +882,94 @@ var bumenCycle=function(element,num,tags,startDate,endDate){
     tags=encodeURI(tags)
     TopicApi.searchBMCycleData(tags, num, startDate, endDate, function (result) {
         var obj = result.obj;
+        console.log(obj);
+
+        var tagarr = [];
+        var now = [];
+        var pre = [];
+        var prepre = [];
+        for (var i in obj) {
+            var word = obj[i];
+            tagarr.push(word.tag);
+            prepre.push(word.buckets[0].doc_count);
+            pre.push(word.buckets[1].doc_count);
+            now.push(word.buckets[2].doc_count);
+        }
+        ;
+
+        var myChart = echarts.init(id[0], chart_theme);
+        option = {
+            title: {
+                text: '最近三个周期对比'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                x: 40,
+                x2: 10,
+                y2: 30
+
+            },
+            legend: {
+                data: ['上上周期', '上周期', '本周期']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: tagarr
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '上上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: prepre
+                },
+                {
+                    name: '上周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: pre
+                },
+                {
+                    name: '本周期',
+                    type: 'bar',
+                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
+                    data: now
+                }
+            ]
+        };
+
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+
+    }, function (error) {
+
+    })
+
+
+}
+var bumenDetailCycle=function(element,num,tags,startDate,endDate,depts){
+    var id=element;
+    var num =num ;
+    var tags=tags;
+    var startDate=startDate;
+    var endDate=endDate;
+    tags=encodeURI(tags)
+    TopicApi.bumensearchCycleData(tags, num, startDate, endDate,depts, function (result) {
+        var obj = result.obj;
+        console.log(obj);
 
         var tagarr = [];
         var now = [];

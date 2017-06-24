@@ -74,6 +74,10 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
         return $ajax(url, success, error);
     },
+    bumensearchCycleData: function(tags,num,begin ,end,depts,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end +'&depts='+depts;
+        return $ajax(url, success, error);
+    },
     /**
      * 获取部门周期对比
      */
