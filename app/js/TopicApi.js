@@ -34,6 +34,10 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate + '&size=' + size ;
         return $ajax(url, success, error);
     },
+    bumentopic: function(krywords,startDate, endDate, size, dept, success, error) {
+        var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate + '&size=' + size+'&dept='+ dept ;
+        return $ajax(url, success, error);
+    },
     /**
      * 获取地图数据
      */

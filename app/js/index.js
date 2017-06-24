@@ -71,7 +71,7 @@ $(function () {
         }
     });
 
-    updateDate(dateInterval(3));
+    updateDate(dateInterval(12));
     $('.layui-btn').on('click', function () {
         $('.btn-qiehuan').removeClass('selected');
         update();
@@ -146,6 +146,8 @@ function loadURL(url, container) {
 var $this = {
     countData: {total: 0, newTotal: 0},// 接口count数据
     topicData: [],  // 接口topic数据
+    bumenWord:'',
+    biandongzhuti:'',
     //
     allPageSize: 0,
     lastDay: '30',
@@ -260,7 +262,8 @@ var updateDate = function (val) {
 
 }*/
 
-var updateWords = function (keywords, id, size,successCallback) {
+var updateWords = function (keywords, id, size, successCallback) {
+    console.log(keywords);
     // $('#ztcbox').addClass('hidden');
     // $('.loading').removeClass('hidden')
     // $('.nodata').addClass('hidden');
@@ -292,8 +295,69 @@ var updateWords = function (keywords, id, size,successCallback) {
             }
             $('#' + id + '').find('.words-list').html(li);
             $('#' + id + '').find('.words-list').children().on('click', function () {
+                $this.biandongzhuti=$(this).parent().parent().parent().find('.text-left').text();
+
                 var guanjianci = $(this).find('.guanjianci').text();
 
+                console.log(guanjianci);
+                $(this).addClass('selected');
+                $(this).siblings().removeClass('selected');
+
+                enterWord(guanjianci, id);
+
+            });
+            // $('#' + id + '').find('.words-list').children().eq(0).addClass("selected");
+            for (var i = 0; i < 3; i++) {
+                $('#' + id + '').find('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
+            }
+        }
+
+        if (successCallback)
+            successCallback(words);
+
+    }, function (error) {
+        $('.loading').addClass('hidden');
+        $('.error').removeClass('hidden');
+        $('#ztcbox').addClass('hidden');
+        if (error.status == 500) {
+            var obj = JSON.parse(error.responseText)
+            $('.error').text(obj.message);
+        } else {
+            $('.error').text("服务器出现异常！“" + error.status + "，" + error.statusText + "”");
+        }
+    });
+};
+
+var bumenupdateWords = function (keywords, id, size, dept, successCallback) {
+    var $ztcbox = $('#ztcbox');
+    $('#' + id + '').find('.words-list').html('');
+    TopicApi.bumentopic(keywords, $this.startDate, $this.endDate, size, dept, function (result) {
+        $('.nodata').addClass('hidden');
+        $('#ztcbox').removeClass('hidden');
+
+        var words = [];
+        if (result.obj.length > 0) {
+            $this.topicData = result.obj;
+
+            var li = '';
+            for (var i = 0; i < $this.topicData.length; i++) {
+                var selected = $this.word == $this.topicData[i].key ? ' selected' : '';
+                var num=keywords=="changeDepart"?$this.topicData[i].upNum:$this.topicData[i].doc_count
+                li += "<li class=\"cc"+ selected +"\">" +
+                    "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >" + parseInt(i + 1) + "</span></div>" +
+                    "<div class=\"col-xs-8 height-word\"><span class=\"s-cente guanjianci\">" + $this.topicData[i].key + "</span></div>" +
+                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">" +num + "</span></div>" +
+                    "</li>"
+
+                if (i < 5) {
+                    words.push($this.topicData[i].key);
+                }
+            }
+            $('#' + id + '').find('.words-list').html(li);
+            $('#' + id + '').find('.words-list').children().on('click', function () {
+                var guanjianci = $(this).find('.guanjianci').text();
+
+                console.log(guanjianci);
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
 
@@ -364,6 +428,7 @@ var fenye = function (qishi, size) {
 var wenZhangShow = function () {
     fenye(0, Config.pageSize);
     TopicApi.searchByQuery(0, Config.pageSize,$this.startDate,$this.endDate, function (result) {
+        console.log(result)
         var numm = result.obj.hits.total
         if (Math.ceil(numm / Config.pageSize) > 1) {
             $('#page').removeClass('hidden')

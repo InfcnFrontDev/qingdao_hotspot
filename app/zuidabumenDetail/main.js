@@ -1,13 +1,12 @@
-$('#bumenD1').find('.topn').children().change(function () {
+$('#zuidabumenD1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update);
 });
-$('#bumenD1').find('.topn').children().val($this.redianSize);
+$('#zuidabumenD1').find('.topn').children().val($this.redianSize);
 
 
 var update = function () {
 
-    bumenupdateWords('hotWord', 'bumenD1', $this.redianSize,$this.bumenWord ,function (words) {
-        $('.text-left').html($this.bumenWord+'-热点主题词');
+    updateWords('changeDepart', 'zuidabumenD1', $this.redianSize, function (words) {
         if (words.length > 0) {
             if ($this.word) {
 
@@ -33,6 +32,7 @@ var update = function () {
 
 
 var enterWord = function (word) {
+
     zhexianData($('#rediantu'), word);
     wenZhangShowTag(word);
 };
