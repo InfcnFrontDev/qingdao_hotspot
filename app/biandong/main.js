@@ -63,6 +63,7 @@ var update = function () {
 var update2 = function () {
     updateWords('changeWord', 'zuida1', $this.zuidaSize, function (words) {
         zuidaCycle($('#zuidatu'), 2, words.join(','), $this.startDate, $this.endDate);
+        console.log(words.length )
         if (words.length > 0) {
             tc++;
         }
@@ -94,7 +95,7 @@ var update3 = function () {
 var enterWord = function (word, id) {
     var id = id.substring(0, id.length - 1);
     $this.word = word;
-    window.location.hash = id;
+    window.location.hash = 'biandongDetail';
 };
 
 update();

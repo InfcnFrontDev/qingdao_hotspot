@@ -30,10 +30,14 @@ var update = function () {
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
-        bumenCycle($('#bumen-tu'), 3, words.join(','), $this.startDate, $this.endDate);
+        //bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
+        bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
+
+
 
         if (words.length > 0) {
             tc++;
+
         }
         if(tc == 0){
             $('.words-list').html('');
@@ -42,11 +46,13 @@ var update4 = function () {
             $('#ztcbox').addClass('hidden');
         }
     });
+
 };
 
 var update5 = function () {
-    updateWords('changeDepart', 'bd-bumen1', $this.bumenBDSize, function (words) {
-        bumenBDCycle($('#bd-bumen-tu'),'changeDepart', $this.startDate, $this.endDate);
+    updateWords('changeDepart', 'zuidabumen1', $this.bumenBDSize, function (words) {
+        bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
+
         if (words.length > 0) {
             tc++;
         }
@@ -60,9 +66,13 @@ var update5 = function () {
 };
 
 var enterWord = function (word, id) {
+    console.log(word);
+    zhexianData($('#bumentu'), word);
+    wenZhangShowTag(word);
     var id = id.substring(0, id.length - 1);
-    $this.word = word;
-    window.location.hash = id;
+    window.location.hash = 'bumenDetail';
+    $this.bumenWord=word
+
 };
 
 update();

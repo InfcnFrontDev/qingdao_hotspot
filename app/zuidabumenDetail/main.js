@@ -1,13 +1,12 @@
-$('#redian1').find('.topn').children().change(function () {
+$('#zuidabumenD1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update);
 });
-$('#redian1').find('.topn').children().val($this.redianSize);
+$('#zuidabumenD1').find('.topn').children().val($this.redianSize);
 
 
 var update = function () {
 
-    updateWords('hotWord', 'redian1', $this.redianSize, function (words) {
-        console.log(words);
+    updateWords('changeDepart', 'zuidabumenD1', $this.redianSize, function (words) {
         if (words.length > 0) {
             if ($this.word) {
 
@@ -39,5 +38,3 @@ var enterWord = function (word) {
 };
 
 update();
-
-

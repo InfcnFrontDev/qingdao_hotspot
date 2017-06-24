@@ -34,6 +34,10 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate + '&size=' + size ;
         return $ajax(url, success, error);
     },
+    bumentopic: function(krywords,startDate, endDate, size, dept, success, error) {
+        var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate + '&size=' + size+'&dept='+ dept ;
+        return $ajax(url, success, error);
+    },
     /**
      * 获取地图数据
      */
@@ -68,6 +72,10 @@ var TopicApi = {
      */
     searchCycleData: function(tags,num,begin ,end,success, error){
         var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
+        return $ajax(url, success, error);
+    },
+    bumensearchCycleData: function(tags,num,begin ,end,depts,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end +'&depts='+depts;
         return $ajax(url, success, error);
     },
     /**
