@@ -33,7 +33,10 @@ var update = function () {
 
 
 var enterWord = function (word) {
-
+//热点主题-热点导力图
+    relevantWordTu_RD($('#relevantWord'),word,$this.startDate, $this.endDate,10);
+    //热点主题-词云
+    keyWordTu_RD($('#keywordClound'),word,10)
     zhexianData($('#rediantu'), word);
     wenZhangShowTag(word);
 };

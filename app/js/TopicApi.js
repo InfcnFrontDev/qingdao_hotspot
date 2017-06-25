@@ -41,8 +41,8 @@ var TopicApi = {
     /**
      * 获取地图数据
      */
-    area: function(krywords,startDate, endDate, size, success, error) {
-        var url = apiPath() + '/QingDaoDataInfoApi/'+krywords+'?begin=' + startDate + '&end=' + endDate;
+    area: function(startDate, endDate,success, error) {
+        var url = apiPath() + '/QingDaoDataInfoApi/area?begin=' + startDate + '&end=' + endDate;
         return $ajax(url, success, error);
     },
 
@@ -93,6 +93,37 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?tag=' + tag;
         return $ajax(url, success, error);
     },
+
+    /**
+     * 力导向图
+     */
+    //热点词
+    relevantWord: function(tag,begin,end,size,success, error){
+        console.log
+        var url = apiPath() + '/QingDaoDataInfoApi/relevantWord?tag=' + tag+'&begin=' + begin+ '&end=' + end+ '&size=' + size;
+        return $ajax(url, success, error);
+    },
+    //部门-热点词
+    relevantWord_BM: function(tag,dept,begin,end,size,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/relevantWord?dept='+dept+'tag'+tag+'&begin=' + begin+ '&end=' + end+ '&size=' + size;
+        return $ajax(url, success, error);
+    },
+
+
+    /**
+     * 关键词云
+     */
+    //热点词云
+    keyWord: function(tag,size,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/keyword?tag=' + tag+ '&size=' + size;
+        return $ajax(url, success, error);
+    },
+    //部门-词云
+    keyWord_BM: function(tag,dept,size,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/keyword?dept='+dept+'tag'+tag+ '&size=' + size;
+        return $ajax(url, success, error);
+    },
+
 
 };
 

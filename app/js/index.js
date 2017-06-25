@@ -1267,8 +1267,140 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
 
 
 }*/
- //加载地图
+
 /*
+ 关键词-词云
+ */
+//部门-词云
+var keyWordTu_BM=function(element,tag,dept,size) {
+    TopicApi.keyWord_BM(tag, dept,size,function (result) {
+
+    }, function (error) {
+
+    })
+}
+//-词云
+var keyWordTu_RD=function(element,tag,size) {
+    TopicApi.keyWord(tag,size,function (result){
+        keyWord_cloud(result.obj,element)
+    }, function (error) {
+
+    })
+}
+
+//画词云
+function keyWord_cloud(Data,element) {
+    element.html('')
+
+    var string_ = "";
+    for (var i = 0; i < Data.length; i++) {
+        var string_f = Data[i].key;
+        var string_n = Data[i].value;
+        string_ += "{text: '" + string_f + "', weight: '" + string_n + "',html: {'class': 'span_list'}},";
+    }
+    var string_list = string_;
+    var word_list = eval("[" + string_list + "]");
+    $(function () {
+        element.jQCloud(word_list);
+    });
+}
+//部门-热力导向图
+var relevantWordTu_BM=function(element,tag,dept,startDate,endDate,size) {
+    TopicApi.relevantWord_BM(tag, dept, startDate, endDate,size, function (result) {
+        var myChart = echarts.init(element[0], chart_theme);
+        showPie(result.obj)
+        myChart.setOption(option);
+    }, function (error) {
+
+    })
+}
+//热力导向图
+var relevantWordTu_RD=function(element,tag,startDate,endDate,size) {
+    TopicApi.relevantWord(tag,startDate,endDate,size,function (result){
+        var myChart = echarts.init(element[0], chart_theme);
+        showPie(result.obj)
+        myChart.setOption(option);
+    }, function (error) {
+
+    })
+}
 
 
-*/
+
+
+
+function showPie(Data) {
+
+
+    var nodes = [{
+        name: '乔布斯',
+        value: 10,
+
+    }]
+    $.each(Data, function() {
+        nodes.push({
+                "name": this.key,
+                "value": this.doc_count
+            }
+
+        )
+    })
+
+    var links=[];
+    $.each(Data, function() {
+        links.push({
+                "source": this.key,
+                "target": '乔布斯',
+                weight:1
+            }
+
+        )
+    })
+    //===================
+    option = {
+        tooltip : {
+            trigger: 'item',
+            formatter: '{a} : {b}'
+        },
+        series : [
+            {
+                type:'force',
+                name : "人物关系",
+                ribbonType: false,
+
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#333'
+                            }
+                        },
+                        nodeStyle : {
+                            brushType : 'both',
+                            borderColor : 'rgba(255,215,0,0.4)',
+                            borderWidth : 1
+                        }
+                    },
+
+                },
+                minRadius : 15,
+                maxRadius : 25,
+                gravity: 1.1,
+
+                draggable: false,
+                linkSymbol: 'arrow',
+                steps: 10,
+                coolDown: 0.9,
+                //preventOverlap: true,
+                initial:[150,150],
+                fixX:true,
+                fixY:true,
+                nodes:nodes,
+                links:links
+            }
+        ]
+    };
+    return option;
+}
+

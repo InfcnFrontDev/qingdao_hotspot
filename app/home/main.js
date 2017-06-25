@@ -19,9 +19,31 @@ var update = function () {
     //首页异常，图
     update4();
 //地图
-    //areaData($('#area'),10,$this.startDate, $this.endDate);
+    areaData($this.startDate, $this.endDate);
 };
+function areaData(start,end){
+    TopicApi.area(start,end ,function (result) {
+        console.log(result.obj);
+        var html='';
+        for(var i=0;i<result.obj.length;i++){
+            html+= "<li>"+ result.obj[i].key+"<span>"+result.obj[i].doc_count+"</span></li>"
+        }
+        $.each(result.obj,function(){
+            var self=this;
+            $('.map .div').each(function(){
+               if($(this).find("h1").text()==self.key){
+                   $(this).find("span").html(self.doc_count)
+               }
+            })
+            console.log( $('.map .div').find("h1").text())
+        })
+        $('#shiqu_num').html(html)
 
+    }, function (error) {
+
+    })
+
+}
 var update1 = function () {
     updateWords('hotWord', 'redian1', $this.redianSize, function (words) {
        /* redianCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);*/

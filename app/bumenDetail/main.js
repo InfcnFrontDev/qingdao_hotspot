@@ -32,6 +32,11 @@ var update = function () {
 
 
 var enterWord = function (word) {
+    //部门-热点导力图
+    relevantWordTu_BM($('#relevantWord'),word,'部门',$this.startDate, $this.endDate,10);
+    //部门-词云
+    keyWordTu_BM($('#keywordClound'),word,'部门',10)
+
     zhexianData($('#rediantu'), word);
     wenZhangShowTag(word);
 };
