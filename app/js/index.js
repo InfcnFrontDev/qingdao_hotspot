@@ -1073,9 +1073,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
                 },
                 formatter: function (params){
                     return params[0].name + '<br/>'
-                        + params[2].seriesName + ' : ' + params[2].value + '<br/>'
-                        + params[0].seriesName + ' : ' + (params[1].value + params[2].value) + '<br/>'
-                        + params[1].seriesName + ' : ' + params[1].value;
+                        + params[0].seriesName + ' : ' + params[0].value + '<br/>'
                 }
             },
             legend: {
@@ -1272,17 +1270,17 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
  关键词-词云
  */
 //部门-词云
-var keyWordTu_BM=function(element,tag,dept,size) {
+var keyWordTu_BM=function(tag,dept,size) {
     TopicApi.keyWord_BM(tag, dept,size,function (result) {
-
+        keyWord_cloud(result.obj,$('#keywordClound'))
     }, function (error) {
 
     })
 }
 //-词云
-var keyWordTu_RD=function(element,tag,size) {
+var keyWordTu_RD=function(tag,size) {
     TopicApi.keyWord(tag,size,function (result){
-        keyWord_cloud(result.obj,element)
+        keyWord_cloud(result.obj,$('#keywordClound'))
     }, function (error) {
 
     })
@@ -1305,20 +1303,34 @@ function keyWord_cloud(Data,element) {
     });
 }
 //部门-热力导向图
-var relevantWordTu_BM=function(element,tag,dept,startDate,endDate,size) {
+var relevantWordTu_BM=function(tag,dept,startDate,endDate,size) {
     TopicApi.relevantWord_BM(tag, dept, startDate, endDate,size, function (result) {
-        var myChart = echarts.init(element[0], chart_theme);
-        showPie(result.obj)
+        var html="<div class=\"row\" style='height:250px'>"
+        +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
+            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
+            +"</div>"
+            +"</div> "
+
+        $('#box-tu').html(html)
+        var myChart = echarts.init($("#relevantWord")[0], chart_theme);
+        showPie(result.obj,tag)
         myChart.setOption(option);
     }, function (error) {
 
     })
 }
 //热力导向图
-var relevantWordTu_RD=function(element,tag,startDate,endDate,size) {
+var relevantWordTu_RD=function(tag,startDate,endDate,size) {
     TopicApi.relevantWord(tag,startDate,endDate,size,function (result){
-        var myChart = echarts.init(element[0], chart_theme);
-        showPie(result.obj)
+        var html="<div class=\"row\" style='height:250px'>"
+            +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
+            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
+            +"</div>"
+            +"</div> "
+
+        $('#box-tu').html(html)
+        var myChart = echarts.init($("#relevantWord")[0], chart_theme);
+        showPie(result.obj,tag)
         myChart.setOption(option);
     }, function (error) {
 
@@ -1329,11 +1341,11 @@ var relevantWordTu_RD=function(element,tag,startDate,endDate,size) {
 
 
 
-function showPie(Data) {
+function showPie(Data,word) {
 
 
     var nodes = [{
-        name: '乔布斯',
+        name: word,
         value: 10,
 
     }]
@@ -1350,7 +1362,7 @@ function showPie(Data) {
     $.each(Data, function() {
         links.push({
                 "source": this.key,
-                "target": '乔布斯',
+                "target":word,
                 weight:1
             }
 

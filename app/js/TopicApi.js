@@ -105,7 +105,7 @@ var TopicApi = {
     },
     //部门-热点词
     relevantWord_BM: function(tag,dept,begin,end,size,success, error){
-        var url = apiPath() + '/QingDaoDataInfoApi/relevantWord?dept='+dept+'tag'+tag+'&begin=' + begin+ '&end=' + end+ '&size=' + size;
+        var url = apiPath() + '/QingDaoDataInfoApi/relevantWord?dept='+dept+'&tag='+tag+'&begin=' + begin+ '&end=' + end+ '&size=' + size;
         return $ajax(url, success, error);
     },
 
@@ -120,7 +120,7 @@ var TopicApi = {
     },
     //部门-词云
     keyWord_BM: function(tag,dept,size,success, error){
-        var url = apiPath() + '/QingDaoDataInfoApi/keyword?dept='+dept+'tag'+tag+ '&size=' + size;
+        var url = apiPath() + '/QingDaoDataInfoApi/keyword?dept='+dept+'&tag='+tag+ '&size=' + size;
         return $ajax(url, success, error);
     },
 
