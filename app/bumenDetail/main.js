@@ -34,6 +34,7 @@ var enterWord = function (word) {
     keyWordTu_BM(word,$this.bumenWord,10)
 
     zhexianData($('#rediantu'), word);
+    console.log(word+"00000000000000000000")
     wenZhangShowTag(word);
 };
 

@@ -8,6 +8,7 @@ console.log($this.mapName)
 areaData($this.startDate, $this.endDate);
 zhexianData_map($('#rediantu'), $this.mapName);
 keyWordTu_MAP($this.mapName,10)
+wenZhangShowTag_SQ($this.mapName);
 $('.map_quname').html($this.mapName);
 
 
@@ -15,7 +16,7 @@ $('.map_quname').html($this.mapName);
 function keyWordTu_MAP(area,size) {
     TopicApi.keyWord_map(area,size,function (result){
         var html="<div class=\"row\" style='height:250px'>"
-            +"<div  class=\"col-xs-12\" id=\"keywordClound\"  style=\"height:300px;\" >"
+            +"<div  class=\"col-xs-12\" id=\"keywordClound\"  style=\"height:250px;\" >"
             +"</div>"
             +"</div> "
 
@@ -208,8 +209,10 @@ function  zhexianData_map(element,area) {
 }
 
 var enter = function (word) {
+    console.log(word+"]]]]")
     keyWordTu_MAP($this.mapName,10)
     zhexianData_map($('#rediantu'), word);
+    wenZhangShowTag_SQ(word);
 };
 
 /*update();*/
