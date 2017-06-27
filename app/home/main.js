@@ -5,6 +5,9 @@ $('#redian1').find('.topn').children().change(function () {
 $('#bumen1').find('.topn').children().change(function () {
     $this.bumenSetSize(this.value, update4);
 });
+$('#biandong1').find('.topn').children().change(function () {
+    $this.zuidaSetSize(this.value, update2);
+});
 
 $('.qu_img').on('click', function () {
     $this.mapName=$(this).find("h1").text()
@@ -60,6 +63,7 @@ var update1 = function () {
             $('.wenzhang-list').html('');
             $('.nodata').removeClass('hidden');
             $('#ztcbox').addClass('hidden');
+
         }
     });8
 };
