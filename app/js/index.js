@@ -1,5 +1,10 @@
 var chart_theme = 'macarons';
-
+$(window).load(function(){
+    console.log(window.location.hash);
+    if(window.location.hash=="#mapDetail"){
+        window.location.hash="home";
+    }
+})
 
 $(window).on('hashchange', function () {
     checkURL();

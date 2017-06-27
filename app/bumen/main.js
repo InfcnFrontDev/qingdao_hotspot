@@ -4,10 +4,10 @@ $('#bumen1').find('.topn').children().change(function(){
 });
 $('#bumen1').find('.topn').children().val($this.bumenSize);
 
-$('#bd-bumen1').find('.topn').children().change(function(){
+$('#zuidabumen1').find('.topn').children().change(function(){
     $this.bumenBDSetSize(this.value, update5);
 });
-$('#bd-bumen1').find('.topn').children().val($this.bumenBDSize);
+$('#zuidabumen1').find('.topn').children().val($this.bumenBDSize);
 /*
 $('#zuida1').find('.topn').children().change(function () {
     $this.zuidaSetSize(this.value, update2);
