@@ -34,6 +34,7 @@ var update1 = function () {
             $('.wenzhang-list').html('');
             $('.nodata').removeClass('hidden');
             $('#ztcbox').addClass('hidden');
+
         }
     });
 };
