@@ -35,7 +35,60 @@
   </div >
   <div class="col-xs-9 tubiao">
     <div class="tubiao-content">
-      <div id="area" style="height:428px;"></div>
+      <div id="area" style="height:428px;">
+        <div class="wid1000 clearfloat">
+          <div class="map">
+              <div class="pingdu qu_img">
+                <div class="div"><h1>平度市</h1> <span class> 800</span></div>
+              </div>
+            <div class="laixi qu_img">
+              <div class="div"><h1>莱西市</h1> <span> 800</span></div>
+            </div>
+
+            <div class="jimo qu_img">
+              <div class="div"><h1>即墨市</h1> <span> 800</span></div>
+            </div>
+
+            <div class="jiaozhou qu_img">
+              <div class="div"><h1>胶州市</h1> <span> 800</span></div>
+            </div>
+
+            <div class="chengyang qu_img">
+              <div class="div"><h1>城阳区</h1> <span> 800</span></div>
+            </div>
+            <div class="laoshan qu_img">
+              <div class="div"><h1>崂山区</h1> <span> 800</span></div>
+            </div>
+            <div class="licang qu_img">
+              <div class="hov div">
+                <h1 >李沧区</h1> <span> 800</span></div>
+              <img src="../images/licangshu.png" alt=""/>
+            </div>
+
+            <div class="shibei qu_img">
+              <div class="hov div"><h1>市北区</h1> <span> 800</span></div>
+              <img src="../images/changbeishu.png" alt=""/>
+            </div>
+
+            <div class="shinan qu_img">
+              <div class="hov div">
+                <h1>市南区</h1> <span> 800</span>
+              </div>
+              <img src="../images/chengnanshu.png" alt=""/>
+            </div>
+
+            <div class="huangdao qu_img">
+              <div   class="div">
+                <h1>黄岛区</h1> <span>800</span>
+              </div>
+            </div>
+
+          </div>
+          <ul id="shiqu_num" class="lieb">
+          </ul>
+        </div>
+      </div>
+      </div>
     </div>
 
   </div>
@@ -175,4 +228,14 @@
 <div class="row loading hidden"></div>
 <div class="row nodata hidden">暂无相关数据！</div>
 <div class="row error hidden"></div>
+<script>
+  $(".map div").mouseover(function(){
+    $(this).children("div").children("h1").css("color","#8d0885");
+  })
+  $(".map div").mouseout(function(){
+    $(this).children("div").children("h1").css("color","#000000");
+  })
+
+</script>
+<script src="../js/map.js"></script>
 <script src="home/main.js"></script>

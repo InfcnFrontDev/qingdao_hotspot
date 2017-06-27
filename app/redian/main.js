@@ -7,7 +7,7 @@ $('#redian1').find('.topn').children().val($this.redianSize);
 var update = function () {
 
     updateWords('hotWord', 'redian1', $this.redianSize, function (words) {
-        console.log(words);
+
         if (words.length > 0) {
             if ($this.word) {
 
@@ -33,7 +33,10 @@ var update = function () {
 
 
 var enterWord = function (word) {
-
+//热点主题-热点导力图
+    relevantWordTu_RD(word,$this.startDate, $this.endDate,10);
+    //热点主题-词云
+    keyWordTu_RD(word,10)
     zhexianData($('#rediantu'), word);
     wenZhangShowTag(word);
 };
