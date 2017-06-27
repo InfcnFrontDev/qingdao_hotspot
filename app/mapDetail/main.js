@@ -212,5 +212,5 @@ var enter = function (word) {
     zhexianData_map($('#rediantu'), word);
 };
 
-update();
+/*update();*/
 
