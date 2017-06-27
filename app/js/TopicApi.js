@@ -45,7 +45,13 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/area?begin=' + startDate + '&end=' + endDate;
         return $ajax(url, success, error);
     },
-
+    /**
+     * 获取区域变化数据
+     */
+    mapChangeData: function(area,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?area=' + area;
+        return $ajax(url, success, error);
+    },
     /**
      * 获取全部文章
      */
@@ -74,8 +80,11 @@ var TopicApi = {
         var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end ;
         return $ajax(url, success, error);
     },
-    bumensearchCycleData: function(tags,num,begin ,end,depts,success, error){
-        var url = apiPath() + '/QingDaoDataInfoApi/tagsGraph?tags=' + tags + '&num=' + num + '&begin=' + begin+ '&end=' + end +'&depts='+depts;
+    /**
+     * 获取部门变化折线
+     */
+    bumensearchCycleData: function(dept,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/monthGraph?dept=' + dept
         return $ajax(url, success, error);
     },
     /**
@@ -99,7 +108,6 @@ var TopicApi = {
      */
     //热点词
     relevantWord: function(tag,begin,end,size,success, error){
-        console.log
         var url = apiPath() + '/QingDaoDataInfoApi/relevantWord?tag=' + tag+'&begin=' + begin+ '&end=' + end+ '&size=' + size;
         return $ajax(url, success, error);
     },
@@ -116,6 +124,11 @@ var TopicApi = {
     //热点词云
     keyWord: function(tag,size,success, error){
         var url = apiPath() + '/QingDaoDataInfoApi/keyword?tag=' + tag+ '&size=' + size;
+        return $ajax(url, success, error);
+    },
+    //市区词云
+    keyWord_map: function(area,size,success, error){
+        var url = apiPath() + '/QingDaoDataInfoApi/keyword?area=' + area+ '&size=' + size;
         return $ajax(url, success, error);
     },
     //部门-词云

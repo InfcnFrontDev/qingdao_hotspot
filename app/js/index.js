@@ -7,10 +7,7 @@ $(window).on('hashchange', function () {
 
 // ready
 $(function () {
-
     checkURL();
-
-
     TopicApi.statistical(function (result) {
         $('.nav-text:first').html(result.obj.all + "条");
         $('.nav-text').eq(1).html(result.obj.month + "条");
@@ -71,7 +68,7 @@ $(function () {
         }
     });
 
-    updateDate(dateInterval(12));
+    updateDate(dateInterval(3));
     $('.layui-btn').on('click', function () {
         $('.btn-qiehuan').removeClass('selected');
         update();
@@ -246,24 +243,12 @@ var updateDate = function (val) {
 
         $('#startDate').val($this.startDate);
         $('#endDate').val($this.endDate);
-        /*update();*/
+       /* update();*/
     }
 };
-/*var areaData = function (element, size,startDate,endDate,successCallback) {
-    var id=element;
-    var num =size ;
-    var startDate=startDate;
-    var endDate=endDate;
-    TopicApi.area('area', num,startDate,endDate, function (result) {
 
-    }, function (error) {
-
-    })
-
-}*/
 
 var updateWords = function (keywords, id, size, successCallback) {
-    console.log(keywords);
     // $('#ztcbox').addClass('hidden');
     // $('.loading').removeClass('hidden')
     // $('.nodata').addClass('hidden');
@@ -298,8 +283,6 @@ var updateWords = function (keywords, id, size, successCallback) {
                 $this.biandongzhuti=$(this).parent().parent().parent().find('.text-left').text();
 
                 var guanjianci = $(this).find('.guanjianci').text();
-
-                console.log(guanjianci);
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
 
@@ -356,8 +339,6 @@ var bumenupdateWords = function (keywords, id, size, dept, successCallback) {
             $('#' + id + '').find('.words-list').html(li);
             $('#' + id + '').find('.words-list').children().on('click', function () {
                 var guanjianci = $(this).find('.guanjianci').text();
-
-                console.log(guanjianci);
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
 
@@ -428,7 +409,6 @@ var fenye = function (qishi, size) {
 var wenZhangShow = function () {
     fenye(0, Config.pageSize);
     TopicApi.searchByQuery(0, Config.pageSize,$this.startDate,$this.endDate, function (result) {
-        console.log(result)
         var numm = result.obj.hits.total
         if (Math.ceil(numm / Config.pageSize) > 1) {
             $('#page').removeClass('hidden')
@@ -457,15 +437,18 @@ var showSummary = function (id) {
         TopicApi.findById(id, function (result) {
             if (result.ok) {
 
-                var question = result.obj.question;
-                if (question.length > 120) {
-                    question = question.substring(0, 120) + '...';
-                }
+               if(result.obj!=undefined){
+                   var question = result.obj.question;
+                   if (question.length > 120) {
+                       question = question.substring(0, 120) + '...';
+                   }
 
-                var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
-                    '<p>' + question + '</p>' +
-                    '</div>';
-                $('#' + id).find('.col-title').append(div);
+                   var div = '<div class="w-jianjie cc"><img src="images/lan-jiantou.png" />' +
+                       '<p>' + question + '</p>' +
+                       '</div>';
+                   $('#' + id).find('.col-title').append(div);
+               }
+
             }
         }, function (error) {
         });
@@ -658,6 +641,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
     var startDate=startDate;
     var endDate=endDate;
     tags=encodeURI(tags)
+
     TopicApi.searchCycleData(tags,num, startDate,endDate, function (result){
         var obj=result.obj;
 
@@ -882,7 +866,7 @@ var bumenCycle=function(element,num,tags,startDate,endDate){
     tags=encodeURI(tags)
     TopicApi.searchBMCycleData(tags, num, startDate, endDate, function (result) {
         var obj = result.obj;
-        console.log(obj);
+
 
         var tagarr = [];
         var now = [];
@@ -960,90 +944,67 @@ var bumenCycle=function(element,num,tags,startDate,endDate){
 
 
 }
-var bumenDetailCycle=function(element,num,tags,startDate,endDate,depts){
+var bumenDetailCycle=function(element,dept){
     var id=element;
-    var num =num ;
-    var tags=tags;
-    var startDate=startDate;
-    var endDate=endDate;
-    tags=encodeURI(tags)
-    TopicApi.bumensearchCycleData(tags, num, startDate, endDate,depts, function (result) {
-        var obj = result.obj;
-        console.log(obj);
-
-        var tagarr = [];
-        var now = [];
-        var pre = [];
-        var prepre = [];
-        for (var i in obj) {
+    TopicApi.bumensearchCycleData(dept, function (result){
+        var obj=result.obj;
+        console.log(obj)
+        var tagarr=[];
+        var now=[];
+        for(var i in obj){
             var word = obj[i];
-            tagarr.push(word.tag);
-            prepre.push(word.buckets[0].doc_count);
-            pre.push(word.buckets[1].doc_count);
-            now.push(word.buckets[2].doc_count);
-        }
-        ;
+            var year= word.key_as_string.substr(0,4);
+            var month= word.key_as_string.substr(4,2);
+            var item=year+"/"+month
+            tagarr.push(item);
+            now.push(word.doc_count);
+        };
 
         var myChart = echarts.init(id[0], chart_theme);
         option = {
-            title: {
-                text: '最近三个周期对比'
+            title : {
+                text:dept
             },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                }
+            tooltip : {
+                trigger: 'axis'
             },
-            grid: {
-                x: 40,
-                x2: 10,
-                y2: 30
-
+            grid:{
+                x:40,
+                x2:30,
+                y2:30
             },
-            legend: {
-                data: ['上上周期', '上周期', '本周期']
-            },
-            xAxis: [
+            xAxis : [
                 {
-                    type: 'category',
-                    data: tagarr
+                    type : 'category',
+                    boundaryGap : false,
+                    itemStyle : { normal: {label : {show: true}}},
+                    axisLabel:{
+                        interval:11
+                    },
+                    data : tagarr,
                 }
             ],
-            yAxis: [
+            yAxis : [
                 {
-                    type: 'value'
+                    type : 'value'
                 }
             ],
-            series: [
+            series : [
                 {
-                    name: '上上周期',
-                    type: 'bar',
-                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
-                    data: prepre
-                },
-                {
-                    name: '上周期',
-                    type: 'bar',
-                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
-                    data: pre
-                },
-                {
-                    name: '本周期',
-                    type: 'bar',
-                    itemStyle: {normal: {label: {show: true, position: 'top'}}},
-                    data: now
+                    name:'数量',
+                    type:'line',
+                    itemStyle : { normal: {label : {show: true}}},
+                    data:now
                 }
             ]
         };
 
         // 为echarts对象加载数据
         myChart.setOption(option);
-
-
-    }, function (error) {
-
     })
+
+
+
 
 
 }

@@ -6,6 +6,11 @@ $('#bumen1').find('.topn').children().change(function () {
     $this.bumenSetSize(this.value, update4);
 });
 
+$('.qu_img').on('click', function () {
+    $this.mapName=$(this).find("h1").text()
+    window.location.hash = 'mapDetail';
+});
+
 var tc = 0;
 
 var update = function () {
@@ -19,11 +24,10 @@ var update = function () {
     //首页异常，图
     update4();
 //地图
-    areaData($this.startDate, $this.endDate);
+  areaData($this.startDate, $this.endDate);
 };
 function areaData(start,end){
     TopicApi.area(start,end ,function (result) {
-        console.log(result.obj);
         var html='';
         for(var i=0;i<result.obj.length;i++){
             html+= "<li>"+ result.obj[i].key+"<span>"+result.obj[i].doc_count+"</span></li>"
@@ -35,7 +39,7 @@ function areaData(start,end){
                    $(this).find("span").html(self.doc_count)
                }
             })
-            console.log( $('.map .div').find("h1").text())
+
         })
         $('#shiqu_num').html(html)
 
@@ -57,12 +61,12 @@ var update1 = function () {
             $('.nodata').removeClass('hidden');
             $('#ztcbox').addClass('hidden');
         }
-    });
+    });8
 };
 
 var update2 = function () {
     updateWords('changeWord', 'biandong1', $this.zuidaSize, function (words) {
-        zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
+       zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
             tc++;
         }

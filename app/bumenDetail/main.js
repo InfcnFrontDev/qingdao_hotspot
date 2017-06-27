@@ -11,8 +11,8 @@ var update = function () {
 
         $('.text-left').html($this.bumenWord+'-热点主题词');
         if (words.length > 0) {
-
-                bumenDetailCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate,$this.bumenWord);
+//折
+                bumenDetailCycle($('#rediantu'),$this.bumenWord);
                 wenZhangShowTag(words[0]);
 
         }
