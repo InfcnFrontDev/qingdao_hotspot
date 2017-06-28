@@ -20,8 +20,7 @@ $('#yichang1').find('.topn').children().val($this.yichangSize);*/
 
 
 var tc = 0;
-
-var update = function () {
+window.update = function () {
     tc = 0;
     update4();
     update5();

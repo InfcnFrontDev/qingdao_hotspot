@@ -4,7 +4,7 @@ $('#biandongD1').find('.topn').children().change(function () {
 $('#biandongD1').find('.topn').children().val($this.redianSize);
 
 
-var update = function () {
+window.update = function () {
     if($this.biandongzhuti=="最大变动主题词"){
         updateWords('changeWord', 'biandongD1', $this.redianSize,function (words) {
             $('.text-left').html("最大变动主题词")
@@ -14,10 +14,15 @@ var update = function () {
 
                     // 滚动条定位
                     $('.theme-words').scrollTop($('.words-list .selected').position().top);
-
+                    relevantWordTu_RD($this.word,$this.startDate, $this.endDate,10);
+                    //热点主题-词云
+                    keyWordTu_RD($this.word,10)
                     zhexianData($('#rediantu'), $this.word);
                     wenZhangShowTag($this.word);
                 } else {
+                    relevantWordTu_RD($this.word,$this.startDate, $this.endDate,10);
+                    //热点主题-词云
+                    keyWordTu_RD($this.word,10)
                     redianCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
                     wenZhangShowTag(words[0]);
                 }

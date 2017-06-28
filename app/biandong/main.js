@@ -62,8 +62,9 @@ var update = function () {
 
 var update2 = function () {
     updateWords('changeWord', 'zuida1', $this.zuidaSize, function (words) {
-        zuidaCycle($('#zuidatu'), 2, words.join(','), $this.startDate, $this.endDate);
-        console.log(words.length )
+        if(words.length!=0){
+            zuidaCycle($('#zuidatu'), 2, words.join(','), $this.startDate, $this.endDate);
+        }
         if (words.length > 0) {
             tc++;
         }
@@ -78,7 +79,10 @@ var update2 = function () {
 
 var update3 = function () {
     updateWords('abnormalWord', 'yichang1', $this.yichangSize, function (words) {
-        yichangCycle($('#yichangtu'), 2, words.join(','), $this.startDate, $this.endDate);
+        if(words.length !=0){
+            yichangCycle($('#yichangtu'), 3, words.join(','), $this.startDate, $this.endDate);
+        }
+
         if (words.length > 0) {
             tc++;
         }

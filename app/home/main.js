@@ -16,19 +16,6 @@ $('.qu_img').on('click', function () {
 
 var tc = 0;
 
-var update = function () {
-    tc = 0;
-    //首页热点，图
-    update1();
-    //首页最大变动，图
-    update2();
-    //首页异常，图
-    //update3();
-    //首页异常，图
-    update4();
-//地图
-  areaData($this.startDate, $this.endDate);
-};
 function areaData(start,end){
     TopicApi.area(start,end ,function (result) {
         var html='';
@@ -65,12 +52,14 @@ var update1 = function () {
             $('#ztcbox').addClass('hidden');
 
         }
-    });8
+    });
 };
 
 var update2 = function () {
     updateWords('changeWord', 'biandong1', $this.zuidaSize, function (words) {
-       zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
+        if(words.length!=0){
+            zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
+        }
         if (words.length > 0) {
             tc++;
         }
@@ -100,7 +89,6 @@ var update2 = function () {
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
-
         bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
             tc++;
@@ -120,7 +108,19 @@ var enterWord = function (word, id) {
     window.location.hash = id;
 };
 
-update();
+(window.update = function () {
+    tc = 0;
+    //首页热点，图
+    update1();
+    //首页最大变动，图
+    update2();
+    //首页异常，图
+    //update3();
+    //首页异常，图
+    update4();
+    //地图
+    areaData($this.startDate, $this.endDate);
+})();
 
 
 

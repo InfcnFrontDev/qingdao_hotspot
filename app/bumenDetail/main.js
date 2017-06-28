@@ -4,14 +4,13 @@ $('#bumenD1').find('.topn').children().change(function () {
 $('#bumenD1').find('.topn').children().val($this.redianSize);
 
 
-var update = function () {
+window.update = function () {
 
     bumenupdateWords('hotWord', 'bumenD1', $this.redianSize,$this.bumenWord ,function (words) {
         //bumenCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
 
         $('.text-left').html($this.bumenWord+'-热点主题词');
         if (words.length > 0) {
-//折
                 bumenDetailCycle($('#rediantu'),$this.bumenWord);
                 wenZhangShowTag(words[0]);
 
@@ -34,7 +33,6 @@ var enterWord = function (word) {
     keyWordTu_BM(word,$this.bumenWord,10)
 
     zhexianData($('#rediantu'), word);
-    console.log(word+"00000000000000000000")
     wenZhangShowTag(word);
 };
 

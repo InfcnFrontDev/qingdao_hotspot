@@ -1,6 +1,5 @@
 var chart_theme = 'macarons';
 $(window).load(function(){
-    console.log(window.location.hash);
     if(window.location.hash=="#mapDetail"){
         window.location.hash="home";
     }
@@ -99,9 +98,7 @@ $(function () {
         if ($(this).text() == "一年内") {
             updateDate(dateInterval(12));
         }
-
-        update();
-
+       window.update && window.update();
     });
 });
 function GetQueryString(name)
@@ -170,6 +167,7 @@ var $this = {
      nodata: false,
      error: true,*/
     errorMessage: '',
+    guanjianci:'',
     sortByFreqText: '热点主题词',
     setSortByFreq: function (val) {
         $this.sortByFreq = val;
@@ -316,10 +314,13 @@ var updateWords = function (keywords, id, size, successCallback) {
     });
 };
 
+
+// 'hotWord', 'bumenD1', , ,
 var bumenupdateWords = function (keywords, id, size, dept, successCallback) {
     var $ztcbox = $('#ztcbox');
+
     $('#' + id + '').find('.words-list').html('');
-    TopicApi.bumentopic(keywords, $this.startDate, $this.endDate, size, dept, function (result) {
+    TopicApi.bumentopic(keywords, $this.startDate, $this.endDate, size, encodeURI(dept), function (result) {
         $('.nodata').addClass('hidden');
         $('#ztcbox').removeClass('hidden');
 
@@ -344,6 +345,7 @@ var bumenupdateWords = function (keywords, id, size, dept, successCallback) {
             $('#' + id + '').find('.words-list').html(li);
             $('#' + id + '').find('.words-list').children().on('click', function () {
                 var guanjianci = $(this).find('.guanjianci').text();
+                $this.guanjianci=guanjianci;
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
 
@@ -461,7 +463,6 @@ var showSummary = function (id) {
 };
 //文章详情分页
 var fenyeTag = function (qishi, size, tag) {
-    console.log(qishi,size,tag)
     TopicApi.searchByQueryTag(qishi, size, tag, $this.startDate, $this.endDate, function (result) {
         var arr = result.obj.hits.hits;
         var zongshu = result.obj.hits.total;
@@ -1027,9 +1028,9 @@ var bumenCycle=function(element,num,tags,startDate,endDate){
 }
 var bumenDetailCycle=function(element,dept){
     var id=element;
-    TopicApi.bumensearchCycleData(dept, function (result){
+    TopicApi.bumensearchCycleData(encodeURI(dept), function (result){
         var obj=result.obj;
-        console.log(obj)
+
         var tagarr=[];
         var now=[];
         for(var i in obj){
@@ -1094,6 +1095,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
     var id=element;
     var startDate=startDate;
     var endDate=endDate;
+
     TopicApi.topic(keywords,startDate, endDate,10,function (result) {
         var obj=result.obj;
         var tagarr=[];
@@ -1102,11 +1104,11 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
             var word = obj[i];
             tagarr.push(word.key);
             now.push(word.upNum);
-        };
-        var myChart = echarts.init(id[0], chart_theme);
-        option = {
+        }
+
+        var myChart = echarts.init(id[0], chart_theme), option = {
             title : {
-                text: '本周期与上周期对比增量',
+                text: '本周期与上周期对比增量'
             },
             tooltip : {
                 trigger: 'axis',
@@ -1123,7 +1125,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
                 data:['增量']
             },
             toolbox: {
-                show : true,
+                show : true
             },
             grid:{
                 x:40,
@@ -1135,7 +1137,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
                 {
                     data :tagarr,
                     axisLabel:{
-                        rotate: -30,
+                        rotate: -30
                     }
                 }
             ],
@@ -1159,7 +1161,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
                         }
                     },
                     data:now
-                },
+                }
             ]
 
         };
@@ -1313,7 +1315,8 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
  */
 //部门-词云
 var keyWordTu_BM=function(tag,dept,size) {
-    TopicApi.keyWord_BM(tag, dept,size,function (result) {
+    console.log(tag,dept)
+    TopicApi.keyWord_BM(encodeURI(tag), encodeURI(dept),size,function (result) {
         keyWord_cloud(result.obj,$('#keywordClound'))
     }, function (error) {
 
@@ -1321,7 +1324,7 @@ var keyWordTu_BM=function(tag,dept,size) {
 }
 //-词云
 var keyWordTu_RD=function(tag,size) {
-    TopicApi.keyWord(tag,size,function (result){
+    TopicApi.keyWord(encodeURI(tag),size,function (result){
         keyWord_cloud(result.obj,$('#keywordClound'))
     }, function (error) {
 
@@ -1330,23 +1333,22 @@ var keyWordTu_RD=function(tag,size) {
 
 //画词云
 function keyWord_cloud(Data,element) {
-    element.html('')
-
-    var string_ = "";
+    element.html('');
+    var word_list = [];
     for (var i = 0; i < Data.length; i++) {
-        var string_f = Data[i].key;
-        var string_n = Data[i].value;
-        string_ += "{text: '" + string_f + "', weight: '" + string_n + "',html: {'class': 'span_list'}},";
+        word_list.push({
+            text:Data[i].key,
+            weight:Data[i].value,
+            html: {'class': 'span_list'}
+        });
     }
-    var string_list = string_;
-    var word_list = eval("[" + string_list + "]");
     $(function () {
         element.jQCloud(word_list);
     });
 }
 //部门-热力导向图
 var relevantWordTu_BM=function(tag,dept,startDate,endDate,size) {
-    TopicApi.relevantWord_BM(tag, dept, startDate, endDate,size, function (result) {
+    TopicApi.relevantWord_BM(encodeURI(tag), encodeURI(dept), startDate, endDate,size, function (result) {
         var html="<div class=\"row\" style='height:250px'>"
         +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
             +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
@@ -1363,7 +1365,7 @@ var relevantWordTu_BM=function(tag,dept,startDate,endDate,size) {
 }
 //热力导向图
 var relevantWordTu_RD=function(tag,startDate,endDate,size) {
-    TopicApi.relevantWord(tag,startDate,endDate,size,function (result){
+    TopicApi.relevantWord(encodeURI(tag),startDate,endDate,size,function (result){
         var html="<div class=\"row\" style='height:250px'>"
             +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
             +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"

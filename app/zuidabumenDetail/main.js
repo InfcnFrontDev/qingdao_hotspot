@@ -4,7 +4,7 @@ $('#zuidabumenD1').find('.topn').children().change(function () {
 $('#zuidabumenD1').find('.topn').children().val($this.redianSize);
 
 
-var update = function () {
+window.update  = function () {
 
     updateWords('changeDepart', 'zuidabumenD1', $this.redianSize, function (words) {
         if (words.length > 0) {
