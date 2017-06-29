@@ -1,14 +1,18 @@
+$this.size=10;
 $('#bumenD1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update);
 });
 $('#bumenD1').find('.topn').children().val($this.redianSize);
 
 //地图
-areaData($this.startDate, $this.endDate);
-zhexianData_map($('#rediantu'), $this.mapName);
-keyWordTu_MAP($this.mapName,10)
-wenZhangShowTag_SQ($this.mapName);
-$('.map_quname').html($this.mapName);
+window.update=function(){
+    areaData($this.startDate, $this.endDate);
+    zhexianData_map($('#rediantu'), $this.mapName);
+    keyWordTu_MAP($this.mapName,10)
+    wenZhangShowTag_SQ($this.mapName);
+    $('.map_quname').html($this.mapName);
+}
+
 
 
 //词云
@@ -102,7 +106,7 @@ function  zhexianData_map(element,area) {
                     axisLabel: {
                         interval: 11
                     },
-                    data: tagarr,
+                    data: tagarr
                 }
             ],
             yAxis: [
@@ -134,5 +138,5 @@ var enter = function (word) {
     wenZhangShowTag_SQ(word);
 };
 
-/*update();*/
+update();
 

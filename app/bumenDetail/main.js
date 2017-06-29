@@ -1,7 +1,9 @@
+
 $('#bumenD1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update);
 });
 $('#bumenD1').find('.topn').children().val($this.redianSize);
+
 
 
 window.update = function () {

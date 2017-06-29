@@ -65,7 +65,6 @@ var update5 = function () {
 };
 
 var enterWord = function (word, id) {
-    console.log(word);
     zhexianData($('#bumentu'), word);
     wenZhangShowTag(word);
     var id = id.substring(0, id.length - 1);

@@ -117,6 +117,14 @@ function checkURL(url) {
         loadURL(hash + '/index.html', $('#ztcbox'));
         $('.navth-content a[href="#' + hash + '"]').addClass('navth-click')
         $('.navth-content a[href="#' + hash + '"]').siblings().removeClass('navth-click')
+        if(hash=='bumenDetail'){
+            $('.navth-content a[href="#bumen"]').addClass('navth-click')
+            $('.navth-content a[href="#bumen"]').siblings().removeClass('navth-click')
+        }
+        if(hash=='biandongDetail'){
+            $('.navth-content a[href="#biandong"]').addClass('navth-click')
+            $('.navth-content a[href="#biandong"]').siblings().removeClass('navth-click')
+        }
     } else {
         //update hash
         window.location.hash = 'home';
@@ -1315,7 +1323,6 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
  */
 //部门-词云
 var keyWordTu_BM=function(tag,dept,size) {
-    console.log(tag,dept)
     TopicApi.keyWord_BM(encodeURI(tag), encodeURI(dept),size,function (result) {
         keyWord_cloud(result.obj,$('#keywordClound'))
     }, function (error) {

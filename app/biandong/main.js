@@ -48,7 +48,6 @@ $('#yichang1').find('.topn').children().change(function () {
 $('#zuida1').find('.topn').children().val($this.zuidaSize);
 $('#yichang1').find('.topn').children().val($this.yichangSize);
 
-
 var tc = 0;
 
 var update = function () {

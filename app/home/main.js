@@ -1,3 +1,4 @@
+$this.size=10;
 $('#redian1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update1);
 });
