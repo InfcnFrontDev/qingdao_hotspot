@@ -6,8 +6,11 @@ $('#bumenD1').find('.topn').children().val($this.redianSize);
 
 
 
-window.update = function () {
 
+
+window.update = function () {
+    var s=window.location.hash.indexOf('=');
+    $this.bumenWord=window.location.hash.substring(s+1)
     bumenupdateWords('hotWord', 'bumenD1', $this.redianSize,$this.bumenWord ,function (words) {
         //bumenCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);
 

@@ -109,8 +109,16 @@ function GetQueryString(name)
 }
 
 function checkURL(url) {
-    var hash = location.hash.replace(/^#/, '');
-
+    var hash='';
+    if(window.location.hash.indexOf('?')>0){
+        var bumen_biandong='';
+        var beg=window.location.hash.indexOf('#');
+        var end=window.location.hash.indexOf('?');
+        bumen_biandong=window.location.hash.substring(beg+1,end);
+        hash=bumen_biandong;
+    }else{
+        hash = location.hash.replace(/^#/, '');
+    }
     $this.hash = hash;
 
     if (hash && hash != '') {
@@ -296,8 +304,17 @@ var updateWords = function (keywords, id, size, successCallback) {
                 var guanjianci = $(this).find('.guanjianci').text();
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
+                var type='';
+                if(keywords=="changeWord"){
+                     type='最大变动主题词';
+                    enterWord(type,guanjianci);
+                }else if(keywords=='abnormalWord'){
+                    type='异常变动主题词';
+                    enterWord(type,guanjianci);
+                }else{
+                    enterWord(guanjianci, id);
+                }
 
-                enterWord(guanjianci, id);
 
             });
             // $('#' + id + '').find('.words-list').children().eq(0).addClass("selected");

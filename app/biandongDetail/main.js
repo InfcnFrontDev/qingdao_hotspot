@@ -5,10 +5,13 @@ $('#biandongD1').find('.topn').children().change(function () {
 });
 $('#biandongD1').find('.topn').children().val($this.zuidaSize);
 
-if($this.biandongzhuti==''){
-    $this.biandongzhuti="最大变动主题词";
-}
+
 window.update = function () {
+    var type1=window.location.hash.indexOf('?');
+    var type2=window.location.hash.indexOf('&');
+    $this.biandongzhuti=window.location.hash.substring(type1+6,type2);
+    var them1=window.location.hash.indexOf('m');
+    $this.word=window.location.hash.substring(them1+2);
     if($this.biandongzhuti=="最大变动主题词"){
         updateWords('changeWord', 'biandongD1', $this.zuidaSize,function (words) {
             $('.text-left').html("最大变动主题词")
@@ -75,7 +78,7 @@ window.update = function () {
 };
 
 
-var enterWord = function (word) {
+var enterWord = function (type,word) {
     //热点主题-热点导力图
     relevantWordTu_RD(word,$this.startDate, $this.endDate,10);
     //热点主题-词云

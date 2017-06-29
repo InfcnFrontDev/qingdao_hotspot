@@ -68,9 +68,8 @@ var enterWord = function (word, id) {
     zhexianData($('#bumentu'), word);
     wenZhangShowTag(word);
     var id = id.substring(0, id.length - 1);
-    window.location.hash = 'bumenDetail';
+    window.location.href =window.location.pathname+'#bumenDetail'+'?depart='+word;
     $this.bumenWord=word
-
 };
 
 update();

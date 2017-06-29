@@ -95,10 +95,10 @@ var update3 = function () {
 };
 
 
-var enterWord = function (word, id) {
-    var id = id.substring(0, id.length - 1);
+var enterWord = function (type,word, id) {
     $this.word = word;
-    window.location.hash = 'biandongDetail';
+    window.location.href =window.location.pathname+'#biandongDetail'+'?type='+type+'&them='+word;
+    /*$this.bumenWord=word*/
 };
 
 update();
