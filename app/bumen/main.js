@@ -21,6 +21,7 @@ $('#yichang1').find('.topn').children().val($this.yichangSize);*/
 
 var tc = 0;
 window.update = function () {
+
     tc = 0;
     update4();
     update5();
@@ -29,7 +30,7 @@ window.update = function () {
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
-        //bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
+        $('.bumenliebiao').html('部门列表');
         bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
 
 
@@ -50,6 +51,7 @@ var update4 = function () {
 
 var update5 = function () {
     updateWords('changeDepart', 'zuidabumen1', $this.bumenBDSize, function (words) {
+        $('.zuidabiandong').html('最大变动部门');
         bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
 
         if (words.length > 0) {

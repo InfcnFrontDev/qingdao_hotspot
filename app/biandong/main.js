@@ -78,8 +78,12 @@ var update2 = function () {
 
 var update3 = function () {
     updateWords('abnormalWord', 'yichang1', $this.yichangSize, function (words) {
+        console.log(words)
         if(words.length !=0){
+            $('#yichang1').show()
             yichangCycle($('#yichangtu'), 3, words.join(','), $this.startDate, $this.endDate);
+        }else{
+            $('#yichang1').hide()
         }
 
         if (words.length > 0) {

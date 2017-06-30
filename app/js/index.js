@@ -3,6 +3,13 @@ $(window).load(function(){
     if(window.location.hash=="#mapDetail"){
         window.location.hash="home";
     }
+
+    if(window.location.hash.substring(0,12)=="#bumenDetail"){
+        window.location.hash="bumen";
+    }
+    if(window.location.hash.substring(0,15)=="#biandongDetail"){
+        window.location.hash="biandong";
+    }
 })
 
 $(window).on('hashchange', function () {
@@ -71,35 +78,77 @@ $(function () {
             $this.endDate = dateText;
         }
     });
-
-    updateDate(dateInterval(3));
     $('.layui-btn').on('click', function () {
         $('.btn-qiehuan').removeClass('selected');
         update();
-    })
+    });
+/*    var month=3;
 
-    $('.btn-qiehuan').eq(2).addClass('selected');
+
+    if(month==3){
+        month_num=2
+    }else if(month==7){
+        month_num=0
+    }else if(month==1){
+        month_num=1
+    }else if(month==6){
+        month_num=3
+    }else if(month==12){
+        month_num=4
+    }*/
+
+
     $('.btn-qiehuan').on('click', function () {
         $(this).addClass('selected');
         $(this).parent().siblings().children().removeClass('selected');
 
         if ($(this).text() == "一周内") {
             updateDate(7);
+            $this.time="一周内"
         }
         if ($(this).text() == "一个月内") {
             updateDate(dateInterval(1));
+            $this.time="一个月内"
         }
         if ($(this).text() == "三个月内") {
             updateDate(dateInterval(3));
+            $this.time="三个月内"
         }
         if ($(this).text() == "半年内") {
             updateDate(dateInterval(6));
+            $this.time="半年内"
         }
         if ($(this).text() == "一年内") {
             updateDate(dateInterval(12));
+            $this.time="一年内"
         }
        window.update && window.update();
     });
+    if($this.time==''){
+        updateDate(dateInterval(3));
+        $('.btn-qiehuan').eq(2).addClass('selected');
+    }else if($this.time=="一周内"){
+        updateDate(7);
+        $('.btn-qiehuan').eq(0).addClass('selected');
+        $('.btn-qiehuan').parent().siblings().children().removeClass('selected');
+    }else if($this.time=="一个月内"){
+        updateDate(dateInterval(1));
+        $('.btn-qiehuan').eq(1).addClass('selected');
+        $('.btn-qiehuan').parent().siblings().children().removeClass('selected');
+    }else if($this.time=="三个月内"){
+        updateDate(dateInterval(3));
+        $('.btn-qiehuan').eq(2).addClass('selected');
+        $('.btn-qiehuan').parent().siblings().children().removeClass('selected');
+    }else if($this.time=="半年内"){
+        updateDate(dateInterval(6));
+        $('.btn-qiehuan').eq(3).addClass('selected');
+        $('.btn-qiehuan').parent().siblings().children().removeClass('selected');
+    }else if($this.time=="一年内"){
+        updateDate(dateInterval(12));
+        $('.btn-qiehuan').eq(4).addClass('selected');
+        $('.btn-qiehuan').parent().siblings().children().removeClass('selected');
+    }
+
 });
 function GetQueryString(name)
 {
@@ -120,7 +169,6 @@ function checkURL(url) {
         hash = location.hash.replace(/^#/, '');
     }
     $this.hash = hash;
-
     if (hash && hash != '') {
         loadURL(hash + '/index.html', $('#ztcbox'));
         $('.navth-content a[href="#' + hash + '"]').addClass('navth-click')
@@ -164,6 +212,7 @@ var $this = {
     bumenWord:'',
     biandongzhuti:'',
     //
+    time:'',
     allPageSize: 0,
     lastDay: '30',
     startDate: '',

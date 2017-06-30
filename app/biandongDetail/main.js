@@ -1,7 +1,8 @@
 $this.size=10;
 
 $('#biandongD1').find('.topn').children().change(function () {
-    $this.SetSize(this.value, update);
+    $this.zuidaSetSize(this.value, update);
+    $this.yichangSetSize(this.value, update);
 });
 $('#biandongD1').find('.topn').children().val($this.zuidaSize);
 
@@ -12,6 +13,7 @@ window.update = function () {
     $this.biandongzhuti=window.location.hash.substring(type1+6,type2);
     var them1=window.location.hash.indexOf('m');
     $this.word=window.location.hash.substring(them1+2);
+
     if($this.biandongzhuti=="最大变动主题词"){
         updateWords('changeWord', 'biandongD1', $this.zuidaSize,function (words) {
             $('.text-left').html("最大变动主题词")
