@@ -5,7 +5,9 @@ $(window).load(function(){
     }
 
     if(window.location.hash.substring(0,12)=="#bumenDetail"){
-        window.location.hash="bumen";
+        $this.word = null;
+        $this.flag_bumen = true;
+        window.location.hash = 'bumen'
     }
     if(window.location.hash.substring(0,15)=="#biandongDetail"){
         window.location.hash="biandong";
@@ -212,6 +214,7 @@ var $this = {
     bumenWord:'',
     biandongzhuti:'',
     //
+    flag_bumen:false,
     time:'',
     allPageSize: 0,
     lastDay: '30',
@@ -354,12 +357,12 @@ var updateWords = function (keywords, id, size, successCallback) {
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
                 var type='';
-                if(keywords=="changeWord"){
+               if(keywords=="changeWord"){
                      type='最大变动主题词';
-                    enterWord(type,guanjianci);
+                    enterWord2(type,guanjianci,id);
                 }else if(keywords=='abnormalWord'){
                     type='异常变动主题词';
-                    enterWord(type,guanjianci);
+                    enterWord2(type,guanjianci,id);
                 }else{
                     enterWord(guanjianci, id);
                 }
@@ -1049,7 +1052,7 @@ var bumenCycle=function(element,num,tags,startDate,endDate){
                 }
             },
             grid: {
-                x: 40,
+                x: 50,
                 x2: 10,
                 y2: 30
 
@@ -1125,7 +1128,7 @@ var bumenDetailCycle=function(element,dept){
                 trigger: 'axis'
             },
             grid:{
-                x:40,
+                x:50,
                 x2:30,
                 y2:30
             },
@@ -1166,7 +1169,6 @@ var bumenDetailCycle=function(element,dept){
 }
 
 var bumenBDCycle=function(element,keywords,startDate,endDate){
-    var id=element;
     var startDate=startDate;
     var endDate=endDate;
 
@@ -1180,7 +1182,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
             now.push(word.upNum);
         }
 
-        var myChart = echarts.init(id[0], chart_theme), option = {
+        var myChart = echarts.init(element[0], chart_theme), option = {
             title : {
                 text: '本周期与上周期对比增量'
             },
@@ -1202,7 +1204,7 @@ var bumenBDCycle=function(element,keywords,startDate,endDate){
                 show : true
             },
             grid:{
-                x:40,
+                x:50,
                 x2:40,
                 y2:70
 

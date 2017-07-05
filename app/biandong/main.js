@@ -78,7 +78,6 @@ var update2 = function () {
 
 var update3 = function () {
     updateWords('abnormalWord', 'yichang1', $this.yichangSize, function (words) {
-        console.log(words)
         if(words.length !=0){
             $('#yichang1').show()
             yichangCycle($('#yichangtu'), 3, words.join(','), $this.startDate, $this.endDate);
@@ -99,7 +98,7 @@ var update3 = function () {
 };
 
 
-var enterWord = function (type,word, id) {
+var enterWord = function (type,word) {
     $this.word = word;
     window.location.href =window.location.pathname+'#biandongDetail'+'?type='+type+'&them='+word;
     /*$this.bumenWord=word*/

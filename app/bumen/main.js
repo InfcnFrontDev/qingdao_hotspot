@@ -52,7 +52,7 @@ var update4 = function () {
 var update5 = function () {
     updateWords('changeDepart', 'zuidabumen1', $this.bumenBDSize, function (words) {
         $('.zuidabiandong').html('最大变动部门');
-        bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
+       bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
 
         if (words.length > 0) {
             tc++;
@@ -70,8 +70,11 @@ var enterWord = function (word, id) {
     zhexianData($('#bumentu'), word);
     wenZhangShowTag(word);
     var id = id.substring(0, id.length - 1);
+    $this.flag_bumen=false;
     window.location.href =window.location.pathname+'#bumenDetail'+'?depart='+word;
-    $this.bumenWord=word
+    $this.bumenWord=word;
+
 };
 
-update();
+    update();
+

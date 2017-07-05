@@ -80,7 +80,7 @@ window.update = function () {
 };
 
 
-var enterWord = function (type,word) {
+var enterWord = function (word,id) {
     //热点主题-热点导力图
     relevantWordTu_RD(word,$this.startDate, $this.endDate,10);
     //热点主题-词云

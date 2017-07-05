@@ -18,20 +18,42 @@ $('.qu_img').on('click', function () {
 var tc = 0;
 
 function areaData(start,end){
+
     TopicApi.area(start,end ,function (result) {
+
+        var data_map =[
+            {doc_count: 0, key: "市北区"},
+            {doc_count: 0, key: "李沧区"},
+            {doc_count: 0, key: "即墨市"},
+            {doc_count: 0, key: "黄岛区"},
+            {doc_count: 0, key: "城阳区"},
+            {doc_count: 0, key: "胶州市"},
+            {doc_count: 0, key: "市南区"},
+            {doc_count: 0, key: "崂山区"},
+            {doc_count: 0, key: "平度市"},
+            {doc_count: 0, key: "莱西市"}
+        ];
+        $.each(data_map, function(val, item) {
+            $.each(result.obj, function(val, item2) {
+                if(item.key == item2.key) {
+                   $.extend(item, item2)
+                }
+            })
+        });
         var html='';
-        for(var i=0;i<result.obj.length;i++){
-            html+= "<li>"+ result.obj[i].key+"<span>"+result.obj[i].doc_count+"</span></li>"
+        for(var i=0;i<data_map.length;i++){
+            html+= "<li>"+ data_map[i].key+"<span>"+data_map[i].doc_count+"</span></li>"
         }
-        $.each(result.obj,function(){
+        $.each(data_map,function(){
             var self=this;
             $('.map .div').each(function(){
                if($(this).find("h1").text()==self.key){
                    $(this).find("span").html(self.doc_count)
                }
-            })
-
+            });
         })
+
+
         $('#shiqu_num').html(html)
 
     }, function (error) {
@@ -103,12 +125,18 @@ var update4 = function () {
     });
 };
 
-var enterWord = function (word, id) {
+var enterWord2 = function (type,word, id) {
+    console.log(id)
     var id = id.substring(0, id.length - 1);
     $this.word = word;
     window.location.hash = id;
 };
-
+var enterWord = function (word, id) {
+    console.log('home')
+    var id = id.substring(0, id.length - 1);
+    $this.word = word;
+    window.location.hash = id;
+};
 (window.update = function () {
     tc = 0;
     //首页热点，图
