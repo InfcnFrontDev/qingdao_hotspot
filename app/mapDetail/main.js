@@ -32,7 +32,9 @@ function keyWordTu_MAP(area,size) {
 
 function areaData(start,end){
     TopicApi.area(start,end ,function (result) {
+
         if (result.obj.length > 0) {
+            $('#ztcbox').removeClass('hidden');
             var mapData=result.obj
 
             var li = '';
@@ -60,6 +62,11 @@ function areaData(start,end){
             for (var i = 0; i < 3; i++) {
                 $('.words-list').children().eq(i).find('.s-left').addClass('s-hot');
             }
+        }else{
+            $('.words-list').html('');
+            $('.wenzhang-list').html('');
+            $('.nodata').removeClass('hidden');
+            $('#ztcbox').addClass('hidden');
         }
 
 
