@@ -325,7 +325,6 @@ var updateWords = function (keywords, id, size, successCallback) {
     // $('.nodata').addClass('hidden');
     // $('.error').addClass('hidden');
     var $ztcbox = $('#ztcbox');
-
     $('#' + id + '').find('.words-list').html('');
     TopicApi.topic(keywords, $this.startDate, $this.endDate, size, function (result) {
         $('.nodata').addClass('hidden');
@@ -341,8 +340,8 @@ var updateWords = function (keywords, id, size, successCallback) {
                 var num=keywords=="changeDepart"?$this.topicData[i].upNum:$this.topicData[i].doc_count
                 li += "<li class=\"cc"+ selected +"\">" +
                     "<div class=\"col-xs-2 height-word\"><span class=\"s-left\" >" + parseInt(i + 1) + "</span></div>" +
-                    "<div class=\"col-xs-8 height-word\"><span class=\"s-cente guanjianci\">" + $this.topicData[i].key + "</span></div>" +
-                    "<div class=\"col-xs-2 height-word\"><span class=\"s-right\">" +num + "</span></div>" +
+                    "<div class=\"col-xs-7 height-word\"><span class=\"s-cente guanjianci\">" + $this.topicData[i].key + "</span></div>" +
+                    "<div class=\"col-xs-3 height-word\"><span class=\"s-right\">" +num + "</span></div>" +
                     "</li>"
 
                 if (i < 5) {
@@ -357,15 +356,15 @@ var updateWords = function (keywords, id, size, successCallback) {
                 $(this).addClass('selected');
                 $(this).siblings().removeClass('selected');
                 var type='';
-               if(keywords=="changeWord"){
+               /*if(keywords=="changeWord"){
                      type='最大变动主题词';
                     enterWord2(type,guanjianci,id);
                 }else if(keywords=='abnormalWord'){
                     type='异常变动主题词';
                     enterWord2(type,guanjianci,id);
-                }else{
-                    enterWord(guanjianci, id);
-                }
+                }else{*/
+                    enterWord(keywords,guanjianci, id);
+                // }
 
 
             });
@@ -1442,7 +1441,7 @@ var relevantWordTu_BM=function(tag,dept,startDate,endDate,size) {
 var relevantWordTu_RD=function(tag,startDate,endDate,size) {
     TopicApi.relevantWord(encodeURI(tag),startDate,endDate,size,function (result){
         var html="<div class=\"row\" style='height:250px'>"
-            +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
+            +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:250px;\"></div>"
             +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
             +"</div>"
             +"</div> "

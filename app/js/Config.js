@@ -7,5 +7,5 @@ var Config = {
   // apiPath: '/api',
     pageSize: 10,
     allPageSize:500,
-/*apiPath: 'http://lysys.infcn.com.cn/api',*/
+    /*apiPath: 'http://lysys.infcn.com.cn/api',*/
 };

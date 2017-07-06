@@ -1,4 +1,10 @@
-$this.size=10;
+$this.redianSize=10,
+$this. zuidaSize=10,
+$this. yichangSize= 10,
+$this. bumenSize=10,
+$this. bumenBDSize=10,/*$this.size=10;*/
+
+
 $('#redian1').find('.topn').children().change(function () {
     $this.redianSetSize(this.value, update1);
 });
@@ -125,14 +131,13 @@ var update4 = function () {
     });
 };
 
-var enterWord2 = function (type,word, id) {
+/*var enterWord2 = function (type,word, id) {
     console.log(id)
     var id = id.substring(0, id.length - 1);
     $this.word = word;
     window.location.hash = id;
-};
-var enterWord = function (word, id) {
-    console.log('home')
+};*/
+var enterWord = function (type,word, id) {
     var id = id.substring(0, id.length - 1);
     $this.word = word;
     window.location.hash = id;

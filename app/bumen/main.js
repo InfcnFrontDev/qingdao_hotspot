@@ -66,14 +66,13 @@ var update5 = function () {
     });
 };
 
-var enterWord = function (word, id) {
+var enterWord = function (type,word, id) {
     zhexianData($('#bumentu'), word);
     wenZhangShowTag(word);
     var id = id.substring(0, id.length - 1);
     $this.flag_bumen=false;
-    window.location.href =window.location.pathname+'#bumenDetail'+'?depart='+word;
+    window.location =window.location.pathname+'#bumenDetail'+'?depart='+word;
     $this.bumenWord=word;
-
 };
 
     update();

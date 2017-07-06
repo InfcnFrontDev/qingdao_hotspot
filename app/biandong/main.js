@@ -98,9 +98,14 @@ var update3 = function () {
 };
 
 
-var enterWord = function (type,word) {
+var enterWord= function (type,word,id) {
+    if(type=="changeWord"){
+        type='最大变动主题词';
+     }else if(type=='abnormalWord'){
+        type='异常变动主题词';
+     }
     $this.word = word;
-    window.location.href =window.location.pathname+'#biandongDetail'+'?type='+type+'&them='+word;
+    window.location =window.location.pathname+'#biandongdetail?type='+type+'&them='+word;
     /*$this.bumenWord=word*/
 };
 
