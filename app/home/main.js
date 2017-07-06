@@ -87,7 +87,10 @@ var update1 = function () {
 var update2 = function () {
     updateWords('changeWord', 'biandong1', $this.zuidaSize, function (words) {
         if(words.length!=0){
+            $('#biandong1').show()
             zuidaCycle($('#biandongtu'), 2, words.join(','), $this.startDate, $this.endDate);
+        }else{
+            $('#biandong1').hide()
         }
         if (words.length > 0) {
             tc++;
@@ -118,6 +121,7 @@ var update2 = function () {
 
 var update4 = function () {
     updateWords('depart', 'bumen1', $this.bumenSize, function (words) {
+
         bumenCycle($('#bumentu'), 3, words.join(','), $this.startDate, $this.endDate);
         if (words.length > 0) {
             tc++;

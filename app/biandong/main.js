@@ -105,7 +105,8 @@ var enterWord= function (type,word,id) {
         type='异常变动主题词';
      }
     $this.word = word;
-    window.location =window.location.pathname+'#biandongdetail?type='+type+'&them='+word;
+    $this.biandongzhuti = type;
+    window.location =window.location.pathname+'#biandongDetail?type='+type+'&them='+word;
     /*$this.bumenWord=word*/
 };
 

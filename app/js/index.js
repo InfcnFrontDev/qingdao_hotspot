@@ -845,7 +845,7 @@ var zuidaCycle=function(element,num,tags,startDate,endDate){
                 show : true,
             },
             grid:{
-                x:40,
+                x:50,
                 x2:40,
                 y2:30
 
@@ -1424,8 +1424,8 @@ function keyWord_cloud(Data,element) {
 var relevantWordTu_BM=function(tag,dept,startDate,endDate,size) {
     TopicApi.relevantWord_BM(encodeURI(tag), encodeURI(dept), startDate, endDate,size, function (result) {
         var html="<div class=\"row\" style='height:250px'>"
-        +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:300px;\"></div>"
-            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
+        +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:250px;\"></div>"
+            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:250px;\" >"
             +"</div>"
             +"</div> "
 
@@ -1442,7 +1442,7 @@ var relevantWordTu_RD=function(tag,startDate,endDate,size) {
     TopicApi.relevantWord(encodeURI(tag),startDate,endDate,size,function (result){
         var html="<div class=\"row\" style='height:250px'>"
             +"<div  class=\"col-xs-3\" id=\"relevantWord\" style=\"height:250px;\"></div>"
-            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:300px;\" >"
+            +"<div  class=\"col-xs-9\" id=\"keywordClound\"  style=\"height:250px;\" >"
             +"</div>"
             +"</div> "
 

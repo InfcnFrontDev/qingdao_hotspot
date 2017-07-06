@@ -55,7 +55,10 @@ var update5 = function () {
        bumenBDCycle($('#zuidabumentu'),'changeDepart', $this.startDate, $this.endDate);
 
         if (words.length > 0) {
-            tc++;
+           tc++;
+           $('#zuidabumen1').show()
+        }else{
+            $('#zuidabumen1').hide()
         }
         if(tc == 0){
             $('.words-list').html('');
@@ -67,8 +70,9 @@ var update5 = function () {
 };
 
 var enterWord = function (type,word, id) {
+   /* console.log(type,word)
     zhexianData($('#bumentu'), word);
-    wenZhangShowTag(word);
+    wenZhangShowTag(word);*/
     var id = id.substring(0, id.length - 1);
     $this.flag_bumen=false;
     window.location =window.location.pathname+'#bumenDetail'+'?depart='+word;
