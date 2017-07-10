@@ -35,6 +35,7 @@ function areaData(start,end){
 
         if (result.obj.length > 0) {
             $('#ztcbox').removeClass('hidden');
+            $('.nodata').addClass('hidden');
             var mapData=result.obj
 
             var li = '';

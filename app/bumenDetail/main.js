@@ -1,15 +1,16 @@
-
+$this.bumenSize=10;
 $('#bumenD1').find('.topn').children().change(function () {
-    $this.redianSetSize(this.value, update);
+    $this.bumenSetSize(this.value, update);
+  /*  $this.bumenBDSetSize(this.value, update);*/
 });
-$('#bumenD1').find('.topn').children().val($this.redianSize);
+$('#bumenD1').find('.topn').children().val($this.bumenSize);
 
 
 
 
 
 window.update = function () {
-    bumenupdateWords('hotWord', 'bumenD1', $this.redianSize,$this.bumenWord ,function (words) {
+    bumenupdateWords('hotWord', 'bumenD1', $this.bumenSize,$this.bumenWord ,function (words) {
         /*bumenCycle($('#rediantu'), 3, words.join(','), $this.startDate, $this.endDate);*/
 
         $('.text-left').html($this.bumenWord)
