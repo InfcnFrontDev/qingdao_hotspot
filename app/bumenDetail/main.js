@@ -16,7 +16,7 @@ window.update = function () {
         $('.text-left').html($this.bumenWord)
         if (words.length > 0) {
                 bumenDetailCycle($('#rediantu'),$this.bumenWord);
-                wenZhangShowTag(words[0]);
+                wenZhangShowTag_Bm($this.bumenWord,words[0]);
         }
         else {
             $('.words-list').html('');
@@ -36,7 +36,7 @@ var enterWord = function (word) {
     keyWordTu_BM(word,$this.bumenWord,10)
 
     zhexianData($('#rediantu'), word);
-    wenZhangShowTag(word);
+    wenZhangShowTag_Bm($this.bumenWord,word);
 };
 if(!$this.flag_bumen){
     update();

@@ -583,7 +583,52 @@ var fenyeTag = function (qishi, size, tag) {
     })
 
 }
+//文章详情分页
+var fenyeTag_BM = function (qishi, size, bumen,tag) {
+    TopicApi.searchByQueryTag_BM(qishi, size,bumen, tag, $this.startDate, $this.endDate, function (result) {
+        var arr = result.obj.hits.hits;
+        var zongshu = result.obj.hits.total;
+        $this.wordDocs = arr;
+        var li = '';
+        for (var i = 0; i < arr.length; i++) {
+            li += "<div id=\"" + arr[i]._id + "\" class=\"w-item\">" +
+                "<a href=\"" + arr[i]._source.pageurl + "\" target='_blank'>" +
+                "<div class=\"col-xs-7 col-title cc\">" +
+                "<div class=\"w-title cc\">" +
+                arr[i]._source.title +
+                "</div>" +
+                "</div>" +
+                "<div class=\"col-xs-2 cc\">" +
+                "<div class=\"w-unit cc\" title=\"" + arr[i]._source.units + "\">" +
+                arr[i]._source.units
+                + "</div>" +
+                "</div>" +
+                "<div class=\"col-xs-3 cc\">" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "</div>" +
+                "<div class=\"clear\"></div>" +
+                "</a>" +
+                "</div>"
+        }
 
+
+        // console.log(arr[0]);
+        // console.log(arr[0]._source.question_time);
+        // console.log(new Date(arr[0]._source.question_time));
+
+
+
+
+        $('.wenzhang-list').html(li);
+        $('.wenzhang-list').children().on('mouseover', function () {
+            showSummary($(this).attr("id"))
+        })
+
+    }, function (error) {
+
+    })
+
+}
 //文章详情分页
 var fenyeTag_SQ = function (qishi, size, area) {
     TopicApi.searchByQueryTag_SQ(qishi, size, area, $this.startDate, $this.endDate, function (result) {
@@ -630,7 +675,33 @@ var fenyeTag_SQ = function (qishi, size, area) {
     })
 
 }
-//文章详情显示
+//文章详情显示-部门
+var wenZhangShowTag_Bm = function (bumen,tag) {
+
+    tag = encodeURI(tag);
+    bumen = encodeURI(bumen);
+    TopicApi.searchByQueryTag_BM(0, Config.pageSize,bumen,tag, $this.startDate, $this.endDate, function (result) {
+        if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
+            $('#page').removeClass('hidden');
+            $('#pagination1').jqPaginator({
+                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize) - 1,
+                visiblePages: Config.pageSize,
+                currentPage: 1,
+                prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+                next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+                page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+                onPageChange: function (num, type) {
+                    $('#text').html('当前第' + num + '页');
+                    var a = (num-1) * Config.pageSize;
+                   fenyeTag_BM(0, Config.pageSize,bumen,tag)
+                }
+            });
+        } else {
+            $('#page').addClass('hidden');
+        }
+    })
+}
+//
 var wenZhangShowTag = function (tag) {
 
     tag = encodeURI(tag);
@@ -657,7 +728,6 @@ var wenZhangShowTag = function (tag) {
         }
     })
 }
-
 //文章详情显示
 var wenZhangShowTag_SQ = function (area) {
 

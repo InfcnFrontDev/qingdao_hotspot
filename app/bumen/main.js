@@ -44,6 +44,7 @@ var update4 = function () {
             $('.wenzhang-list').html('');
             $('.nodata').removeClass('hidden');
             $('#ztcbox').addClass('hidden');
+
         }
     });
 
@@ -71,8 +72,8 @@ var update5 = function () {
 
 var enterWord = function (type,word, id) {
    /* console.log(type,word)
-    zhexianData($('#bumentu'), word);
-    wenZhangShowTag(word);*/
+    zhexianData($('#bumentu'), word);*/
+   /* wenZhangShowTag_Bm(word);*/
     var id = id.substring(0, id.length - 1);
     $this.flag_bumen=false;
     window.location =window.location.pathname+'#bumenDetail'+'?depart='+word;

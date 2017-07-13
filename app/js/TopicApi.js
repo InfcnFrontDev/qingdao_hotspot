@@ -77,6 +77,15 @@ var TopicApi = {
 
         return $ajax(url, success, error);
     },
+    /**
+     * 获取详细文章-市区
+     */
+    searchByQueryTag_BM:function(onset,size,bumen,tag,startTime,endTime, success, error){
+        var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=tags:"'+tag+'"&filter=question_time:['+startTime+'%20TO%20'+endTime+']%20AND%20departs:"'+bumen+'"';
+        // var url = apiPath() + '/MssSearchApi/searchByQuery?tableNames=network_asked&from='+ onset+'&size='+size+'&query=title:"'+ tag +'"^20 or tags:"'+tag+'"&filter=question_time:['+startTime+' TO '+endTime+']';
+
+        return $ajax(url, success, error);
+    },
     findById: function(id, success, error){
         var url = apiPath() + '/MssDataApi/findById?name=network_asked&id=' + id;
         return $ajax(url, success, error);
