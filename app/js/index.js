@@ -677,14 +677,13 @@ var fenyeTag_SQ = function (qishi, size, area) {
 }
 //文章详情显示-部门
 var wenZhangShowTag_Bm = function (bumen,tag) {
-
     tag = encodeURI(tag);
     bumen = encodeURI(bumen);
     TopicApi.searchByQueryTag_BM(0, Config.pageSize,bumen,tag, $this.startDate, $this.endDate, function (result) {
-        if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
+        if (Math.ceil(result.obj.hits.total / Config.pageSize) >1) {
             $('#page').removeClass('hidden');
             $('#pagination1').jqPaginator({
-                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize) - 1,
+                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize),
                 visiblePages: Config.pageSize,
                 currentPage: 1,
                 prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
@@ -693,11 +692,13 @@ var wenZhangShowTag_Bm = function (bumen,tag) {
                 onPageChange: function (num, type) {
                     $('#text').html('当前第' + num + '页');
                     var a = (num-1) * Config.pageSize;
-                   fenyeTag_BM(0, Config.pageSize,bumen,tag)
+                    fenyeTag_BM(a, Config.pageSize,bumen,tag)
+
                 }
             });
         } else {
             $('#page').addClass('hidden');
+            fenyeTag_BM(0, Config.pageSize,bumen,tag)
         }
     })
 }
@@ -711,7 +712,7 @@ var wenZhangShowTag = function (tag) {
         if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
             $('#page').removeClass('hidden');
             $('#pagination1').jqPaginator({
-                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize) - 1,
+                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize),
                 visiblePages: Config.pageSize,
                 currentPage: 1,
                 prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
@@ -719,7 +720,7 @@ var wenZhangShowTag = function (tag) {
                 page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
                 onPageChange: function (num, type) {
                     $('#text').html('当前第' + num + '页');
-                    var a = (num-1) * Config.pageSize
+                    var a = (num-1) * Config.pageSize;
                     fenyeTag(a, Config.pageSize, tag);
                 }
             });
@@ -738,7 +739,7 @@ var wenZhangShowTag_SQ = function (area) {
         if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
             $('#page').removeClass('hidden');
             $('#pagination1').jqPaginator({
-                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize) - 1,
+                totalPages: Math.ceil(result.obj.hits.total / Config.pageSize),
                 visiblePages: Config.pageSize,
                 currentPage: 1,
                 prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
@@ -752,6 +753,7 @@ var wenZhangShowTag_SQ = function (area) {
             });
         } else {
             $('#page').addClass('hidden')
+            fenyeTag_SQ(0, Config.pageSize, area);
         }
     })
 }
