@@ -547,7 +547,7 @@ var fenyeTag = function (qishi, size, tag) {
         for (var i = 0; i < arr.length; i++) {
             li += "<div id=\"" + arr[i]._id + "\" class=\"w-item\">" +
                 "<a href=\"" + arr[i]._source.pageurl + "\" target='_blank'>" +
-                "<div class=\"col-xs-7 col-title cc\">" +
+                "<div class=\"col-xs-6 col-title cc\">" +
                 "<div class=\"w-title cc\">" +
                 arr[i]._source.title +
                 "</div>" +
@@ -557,8 +557,11 @@ var fenyeTag = function (qishi, size, tag) {
                 arr[i]._source.units
                 + "</div>" +
                 "</div>" +
-                "<div class=\"col-xs-3 cc\">" +
+                "<div class=\"col-xs-2 cc\">" +
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "</div>" +
+                "<div class=\"col-xs-2 cc\">" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -593,7 +596,7 @@ var fenyeTag_BM = function (qishi, size, bumen,tag) {
         for (var i = 0; i < arr.length; i++) {
             li += "<div id=\"" + arr[i]._id + "\" class=\"w-item\">" +
                 "<a href=\"" + arr[i]._source.pageurl + "\" target='_blank'>" +
-                "<div class=\"col-xs-7 col-title cc\">" +
+                "<div class=\"col-xs-6 col-title cc\">" +
                 "<div class=\"w-title cc\">" +
                 arr[i]._source.title +
                 "</div>" +
@@ -603,8 +606,11 @@ var fenyeTag_BM = function (qishi, size, bumen,tag) {
                 arr[i]._source.units
                 + "</div>" +
                 "</div>" +
-                "<div class=\"col-xs-3 cc\">" +
+                "<div class=\"col-xs-2 cc\">" +
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "</div>" +
+                "<div class=\"col-xs-2 cc\">" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -639,7 +645,7 @@ var fenyeTag_SQ = function (qishi, size, area) {
         for (var i = 0; i < arr.length; i++) {
             li += "<div id=\"" + arr[i]._id + "\" class=\"w-item\">" +
                 "<a href=\"" + arr[i]._source.pageurl + "\" target='_blank'>" +
-                "<div class=\"col-xs-7 col-title cc\">" +
+                "<div class=\"col-xs-6 col-title cc\">" +
                 "<div class=\"w-title cc\">" +
                 arr[i]._source.title +
                 "</div>" +
@@ -649,8 +655,11 @@ var fenyeTag_SQ = function (qishi, size, area) {
                 arr[i]._source.units
                 + "</div>" +
                 "</div>" +
-                "<div class=\"col-xs-3 cc\">" +
+                "<div class=\"col-xs-2 cc\">" +
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "</div>" +
+                "<div class=\"col-xs-2 cc\">" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) +       "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -734,7 +743,7 @@ var wenZhangShowTag_SQ = function (area) {
 
     area = encodeURI(area);
 
-    fenyeTag(0, Config.pageSize, area)
+ /*   fenyeTag(0, Config.pageSize, area)*/
     TopicApi.searchByQueryTag_SQ(0, Config.pageSize, area, $this.startDate, $this.endDate, function (result) {
         if (Math.ceil(result.obj.hits.total / Config.pageSize) > 1) {
             $('#page').removeClass('hidden');
