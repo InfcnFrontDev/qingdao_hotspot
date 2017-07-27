@@ -561,7 +561,7 @@ var fenyeTag = function (qishi, size, tag) {
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-2 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMdd_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -610,7 +610,7 @@ var fenyeTag_BM = function (qishi, size, bumen,tag) {
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-2 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMddHHmm_) + "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMdd_) + "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
@@ -659,7 +659,7 @@ var fenyeTag_SQ = function (qishi, size, area) {
                 "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) + "</div>" +
                 "</div>" +
                 "<div class=\"col-xs-2 cc\">" +
-                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.question_time), Tools.yyyyMMddHHmm_) +       "</div>" +
+                "<div class=\"w-datetime cc\">" + Tools.dateFormat(isoDateStrToDate(arr[i]._source.answer_time), Tools.yyyyMMdd_) +       "</div>" +
                 "</div>" +
                 "<div class=\"clear\"></div>" +
                 "</a>" +
