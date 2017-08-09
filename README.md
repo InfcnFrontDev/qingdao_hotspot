@@ -3,10 +3,9 @@
 ---
 ##### Introduction
 
->工程名称：青岛热点（政民互动数据分析） <br>
->版本：v1.0.0 <br>
->创建人：yangkk <br>
->创建时间：2016-10-24 16:39:27 <br>
+>民情社情分析（第一版）<br>
+>实现技术：jquery版<br>
+>浏览器支持：ie7/8/9/10/11
 
 ---
 ##### Build Setup
@@ -18,7 +17,7 @@ git clone http://192.168.10.158/InfcnFrontDev/qingdao_hotspot.git
 # install dependencies
 npm install
 
-# install bower dependencies
+# bower install dependencies
 bower install
 
 # clean for production

@@ -1,11 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/layout.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>政民互动数据分析</title>
+    <link rel="stylesheet" href="vendor/jquery-ui/themes/redmond/jquery-ui.css" />
+    <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet"  href="css/map.css"/>
+    <link rel="stylesheet"  href="css/jqcloud.css"/>
 </head>
 <body>
-杨可可
+    <!-- header start-->
+    <div class="header">
+        <div class="header-content wid1200"><img src="images/logo.png" /><span>政民互动数据分析</span></div>
+    </div>
+    <!-- header end-->
+    <!-- header start-->
+    <div class="navth">
+        <div class="navth-content wid1200 row">
+            <a href="#home" id='sybtn' class="col-xs-3 navth-text navth-click">首页</a>
+            <a href="#redian" id='rdbtn' class="col-xs-3 navth-text">热点主题</a>
+            <a href="#bumen" id='bmbtn' class="col-xs-3 navth-text">部门分类</a>
+            <a href="#biandong" id='bdbtn' class="col-xs-3 navth-text">变动主题</a>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="nav-content  wid1200">
+            <div class="fleft">
+                <div class="nav-label">总数据 :</div>
+                <div class="nav-text conce-data">&nbsp;&nbsp;0&nbsp;条</div>
+                <div class="nav-label">本月 :</div>
+                <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
+                <div class="nav-label">7天内新增 :</div>
+                <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
+                <div class="nav-label">30天内新增 :</div>
+                <div class="nav-text add-data">&nbsp;&nbsp;0&nbsp;条</div>
+            </div>
+            <div class="fright">
+                <div class="nav-label">区间选择 :</div>
+                <div class="nav-select date-select"><input id="startDate"  type="text" class="laydate-icon datepicker" readonly="readonly"/></div>
+                <div class="nav-label lable-zhi">至</div>
+                <div class="nav-select date-select"><input id="endDate" type="text" class="datepicker inpText1"  readonly="readonly"/></div>
+                <div class="nav-button"><input type="button" class="layui-btn layui-btn-primary" @click="update()" value="确定"/></div>
+            </div>
+        </div>
+    </div>
+    <!-- header end-->
+    <!-- content start-->
+    <div class="content">
+        <div class="content-box wid1200 ">
+            <div class="row option-btn">
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一周内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一个月内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">三个月内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">半年内</div>
+                </div>
+                <div class="col-xs-1_5">
+                    <div class="btn-qiehuan">一年内</div>
+                </div>
+            </div>
+            <div id="ztcbox" class="row">
+
+
+            </div>
+            <div class="row loading hidden">
+            </div>
+            <div class="row nodata hidden">暂无相关数据！</div>
+            <div class="row error hidden"></div>
+        </div>
+    </div>
+    <!-- content end-->
+    <!-- footer start-->
+    <div class="footer">
+        <div class="footer-con wid1200">© 2011-2016 青岛市电子政务和信息资源管理办公室 版权声明</div>
+    </div>
+    <!-- footer end-->
+    <!-- public script-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="vendor/jquery-ui/ui/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+    <script src="vendor/jqPaginator/dist/jqPaginator.min.js"></script>
+    <script src="vendor/echarts/build/source/echarts-all.js"></script>
+    <script src="js/theme.js"></script>
+
+    <script src="js/Config.js"></script>
+    <script src="js/Tools.js"></script>
+    <script src="js/TopicApi.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/jqcloud-1.0.4.js"></script>
 </body>
 </html>

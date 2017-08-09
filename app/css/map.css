@@ -1,0 +1,346 @@
+body, div, p, h1, h2, h3, h4, h5, h6, form, input, textarea, select, button, fieldset, legend, img, ul, ol, li, dl, dt, dd, th, td, pre, blockquote, div {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*a, img, select {
+    vertical-align: middle;
+    display: inline-block;
+}*/
+
+address, caption, cite, code, dfn, em, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ul, li, ol {
+    list-style: none
+}
+
+q:before, q:after {
+    content: '';
+}
+
+input {
+    outline: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+
+select, option {
+    outline: none;
+}
+
+body {
+    font-family: "Microsoft Yahei", arial, simhei;
+    line-height: 1;
+}
+
+.wid1000 {
+    width: 734px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+
+.map {
+    /*background: url("../images/map.png") no-repeat;*/
+    width: 323px;
+    position: relative;
+    height: 427px;
+}
+
+.map div {
+    position: absolute;
+    cursor: pointer;
+    text-align: center;
+    line-height: 25px;
+}
+
+.map div .hov {
+    background-color: #97ABB9;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    width: 115px;
+    text-align: center;
+    padding: 0;
+}
+
+.map div div span {
+    color: coral;
+}
+
+.map div h1 {
+    width: 50px;
+}
+
+.map .hov h1 {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.map .hov span {
+    display: inline-block;
+}
+
+.map div:hover {
+    z-index: 9;
+}
+
+.pingdu {
+    background: url("../images/pingdu.png") no-repeat;
+    width: 165px;
+    height: 151px;
+    left: 21px;
+    top: 33px;
+}
+
+.laixi {
+    background: url("../images/laixi.png") no-repeat;
+    width: 89px;
+    height: 149px;
+    right: 73px;
+    top: 13px;
+}
+
+.jimo {
+    background: url("../images/jimo.png") no-repeat;
+    width: 172px;
+    height: 85px;
+    right: 9px;
+    top: 141px;
+}
+
+.jiaozhou {
+    background: url("../images/jiaozhou.png") no-repeat;
+    width: 121px;
+    height: 122px;
+    left: 37px;
+    top: 179px;
+}
+
+.chengyang {
+    background: url("../images/chengyang.png") no-repeat;
+    width: 111px;
+    height: 51px;
+    left: 136px;
+    top: 205px;
+
+}
+
+.laoshan {
+    background: url("../images/laoshan.png") no-repeat;
+    width: 60px;
+    height:69px;
+    left: 199px;
+    top: 221px;
+}
+
+.licang {
+    background: url("../images/licang.png") no-repeat;
+    width: 31px;
+    height: 27px;
+    left: 184px;
+    top: 245px;
+}
+
+.shibei {
+    background: url("../images/shibei.png") no-repeat;
+    width: 24px;
+    height: 21px;
+    left: 178px;
+    top: 269px;
+}
+
+.shinan {
+    background: url("../images/shinan.png") no-repeat;
+    width: 27px;
+    height: 10px;
+    left: 175px;
+    top: 285px;
+}
+
+.huangdao {
+    background: url("../images/huangdao.png") no-repeat;
+    width: 167px;
+    height: 145px;
+    left: 9px;
+    top: 270px;
+}
+
+.pingdu:hover {
+    background-image: url("../images/pingduh.png");
+}
+
+.laixi:hover {
+    background-image: url("../images/laixih.png");
+}
+
+.jimo:hover {
+    background-image: url("../images/jimoh.png");
+}
+
+.jiaozhou:hover {
+    background-image: url("../images/jiaozhouh.png");
+}
+
+.chengyang:hover {
+    background-image: url("../images/chengyangh.png");
+}
+
+.laoshan:hover {
+    background-image: url("../images/laoshanh.png");
+}
+
+.licang:hover {
+    background-image: url("../images/licangh.png");
+}
+
+.shibei:hover {
+    background-image: url("../images/shibeih.png");
+}
+
+.shinan:hover {
+    background-image: url("../images/shinanh.png");
+}
+
+.huangdao:hover {
+    background-image: url("../images/huangdaoh.png");
+}
+
+.pingdu div {
+    left: 67px;
+    top: 50px;
+}
+
+.laixi div {
+    left: 21px;
+    top: 48px;
+}
+
+.jimo div {
+    left: 50px;
+    top: 26px;
+}
+
+.jiaozhou div {
+    left: 48px;
+    top: 42px;
+}
+
+.chengyang div {
+    left: 15px;
+    top: 10px;
+    z-index:999
+}
+
+.laoshan div {
+    left: 16px;
+    top: 22px;
+}
+
+.licang div {
+    left: 81px;
+    top: 75px;
+}
+
+.shibei div {
+    left: 51px;
+    top: 82px;
+}
+
+.shinan div {
+    left: 20px;
+    top: 95px;
+}
+
+.huangdao div {
+    left: 52px;
+    top: 41px;
+}
+
+.shinan img {
+    position: absolute;
+    left: 12px;
+    top: 3px;
+    width: 11px;
+    height: 100px;
+}
+
+.licang img {
+    position: absolute;
+    left: 25px;
+    top: 14px;
+    height: 77px;
+    width: 56px;
+}
+
+.shibei img {
+    position: absolute;
+    left: 17px;
+    top: 12px;
+    height: 79px;
+    width: 35px;
+}
+.lieb {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+.lieb li {
+    line-height: 30px;
+    position: relative;
+    font-size: 14px;
+    width: 200px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+}
+.lieb li span {
+    line-height: 22px;
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    font-size: 14px;
+    top: 4px;
+    right: 10px;
+    background-color: #97ABB9;
+    color: #fff;
+    border-radius: 5px;
+
+}
+
+
+
+
+
+
+
+

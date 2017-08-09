@@ -1,0 +1,207 @@
+<div id="redian1" class="row zhuanti">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">热点主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <div id="area" style="width:100%;height:428px;">
+        <div class="wid1000 clearfloat">
+          <div class="map">
+              <div class="pingdu qu_img">
+                <div class="div"><h1>平度市</h1> <span class>0</span></div>
+              </div>
+            <div class="laixi qu_img">
+              <div class="div"><h1>莱西市</h1> <span>0</span></div>
+            </div>
+
+            <div class="jimo qu_img">
+              <div class="div"><h1>即墨市</h1> <span>0</span></div>
+            </div>
+
+            <div class="jiaozhou qu_img">
+              <div class="div"><h1>胶州市</h1> <span>0</span></div>
+            </div>
+
+            <div class="chengyang qu_img">
+              <div class="div"><h1>城阳区</h1> <span>0</span></div>
+            </div>
+            <div class="laoshan qu_img">
+              <div class="div"><h1>崂山区</h1> <span>0</span></div>
+            </div>
+            <div class="licang qu_img">
+              <div class="hov div">
+                <h1 >李沧区</h1> <span> 800</span></div>
+              <img src="./images/licangshu.png" alt=""/>
+            </div>
+
+            <div class="shibei qu_img">
+              <div class="hov div"><h1>市北区</h1> <span>0</span></div>
+              <img src="./images/changbeishu.png" alt=""/>
+            </div>
+
+            <div class="shinan qu_img">
+              <div class="hov div">
+                <h1>市南区</h1> <span>0</span>
+              </div>
+              <img src="./images/chengnanshu.png" alt=""/>
+            </div>
+
+            <div class="huangdao qu_img">
+              <div   class="div">
+                <h1>黄岛区</h1> <span>0</span>
+              </div>
+            </div>
+
+          </div>
+          <ul id="shiqu_num" class="lieb">
+            <li>平度市 <span>0</span></li>
+            <li>莱西市 <span>0</span></li>
+            <li>即墨市 <span>0</span></li>
+            <li>胶州市 <span>0</span></li>
+            <li>城阳区 <span>0</span></li>
+            <li>崂山区 <span>0</span></li>
+            <li>李沧区 <span>0</span></li>
+            <li>市北区 <span>0</span></li>
+            <li>市南区 <span>0</span></li>
+            <li>黄岛区 <span>0</span></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  <div class="clear"></div>
+</div>
+<div class="shuipingxian"></div>
+<div id="bumen1" class="row zhuanti">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">部门分类</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <div id="bumentu" style="width:100%;height:428px;"></div>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="shuipingxian"></div>
+<div id="biandong1" class="row zhuanti">
+  <div class="col-xs-3">
+    <div class="theme-word">
+      <div class="theme-title">
+        <div class="col-xs-8 text-left">最大变动主题词</div>
+        <div class="col-xs-4 layui-form">
+          <div class="topn"><select><option value="10">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></div>
+        </div>
+      </div>
+      <div class="theme-words">
+        <ul class="words-list">
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+          <li class="cc" v-for="item in topicData" @click="searchWord(item.name)" :class="{'selected': item.name == word}">
+            <div class="col-xs-2 "><span class="s-left" :class="{'s-hot': $index<3}">1</span></div>
+            <div class="col-xs-8"><span class="s-center">环保</span></div>
+            <div class="col-xs-2"><span class="s-right">1223</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div >
+  <div class="col-xs-9 tubiao">
+    <div class="tubiao-content">
+      <div id="biandongtu" style="width:100%;height:428px;"></div>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="row loading hidden"></div>
+<div class="row nodata hidden">暂无相关数据！</div>
+<div class="row error hidden"></div>
+<script>
+  $(".map div").mouseover(function(){
+    $(this).children("div").children("h1").css("color","#8d0885");
+  })
+  $(".map div").mouseout(function(){
+    $(this).children("div").children("h1").css("color","#000000");
+  })
+
+</script>
+<script src="../js/map.js"></script>
+<script src="home/main.js"></script>
